@@ -20,3 +20,6 @@ typedef struct 			s_lst
 	char				*str;
 	struct s_lst		*next;
 }						t_lst;
+
+char	*get_name(char *str);
+void	create_file(t_lst *list);
