@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft/libft.h"
+#include <sys/stat.h> 
+#include <fcntl.h>
 
 typedef struct 			s_lst
 {
