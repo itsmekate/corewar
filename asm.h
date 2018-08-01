@@ -10,10 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft/libft.h"
-#include <sys/stat.h> 
-#include <fcntl.h>
+#ifndef ASM_H
+# define ASM_H
+
+# include <stdlib.h>
+# include "libft/libft.h"
+# include <sys/stat.h> 
+# include <fcntl.h>
+# include <stdio.h>
 
 typedef struct 			s_lst
 {
@@ -21,5 +25,26 @@ typedef struct 			s_lst
 	struct s_lst		*next;
 }						t_lst;
 
-char	*get_name(char *str);
-void	create_file(t_lst *list);
+typedef struct 			s_asm
+{
+	char				*bot_name;
+	char				*bot_comment;
+	struct s_cmnd		*command;
+}						t_asm;
+
+typedef struct 			s_cmnd
+{
+	int					command_name;
+	int					t_dir;
+	int					t_reg;
+	int					t_ind;
+	int					n_byte;
+	char				*label;
+	struct s_cmnd		*next;
+}						t_cmnd;
+
+char					*get_name(t_lst **list);
+char					*get_comment(t_lst **list);
+void					create_file(t_lst *list);
+
+#endif
