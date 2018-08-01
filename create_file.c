@@ -8,7 +8,7 @@ char		*get_name(t_lst **list)
 
 	while (!ft_strlen((*list)->str) || (*list)->str[0] == '#')
 		(*list) = (*list)->next;
-	if (ft_strlen((*list)->str) <= 8 || ft_strncmp(".name", (*list)->str, 5))
+	if (ft_strlen((*list)->str) <= 8 || ft_strncmp(NAME_CMD_STRING, (*list)->str, 5))
 		return (NULL);
 	i = 5;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t' || (*list)->str[i] == '"'))
@@ -24,9 +24,9 @@ char		*get_comment(t_lst **list)
 	int		i;
 	char	*new;
 
-	while (!ft_strlen((*list)->str) || (*list)->str[0] == '#')
+	while (!ft_strlen((*list)->str) || (*list)->str[0] == COMMENT_CHAR)
 		(*list) = (*list)->next;
-	if (ft_strlen((*list)->str) <= 11 || ft_strncmp(".comment", (*list)->str, 8))
+	if (ft_strlen((*list)->str) <= 11 || ft_strncmp(COMMENT_CMD_STRING, (*list)->str, 8))
 		return (NULL);
 	i = 9;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t' || (*list)->str[i] == '"'))
@@ -43,12 +43,12 @@ t_cmnd		*new_command(char *str)
 
 	printf("%s\n", str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
+	new->label = find_label(str);
 	new->command_name = 0;
 	new->t_dir = 0;
 	new->t_reg = 0;
 	new->t_ind = 0;
 	new->n_byte = 0;
-	new->label = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -56,15 +56,15 @@ t_cmnd		*new_command(char *str)
 void		get_lst_commands(t_asm *a, t_lst **list)
 {
 	t_cmnd	*head;
-	
-	while (!ft_strlen((*list)->str) || (*list)->str[0] == '#')
+
+	while (!ft_strlen((*list)->str) || (*list)->str[0] == COMMENT_CHAR)
 		(*list) = (*list)->next;
 	a->command = new_command((*list)->str);
 	head = a->command;
 	(*list) = (*list)->next;
 	while ((*list))
 	{
-		if (!ft_strlen((*list)->str) || (*list)->str[0] == '#')
+		if (!ft_strlen((*list)->str) || (*list)->str[0] == COMMENT_CHAR)
 		{
 			(*list) = (*list)->next;
 			continue;

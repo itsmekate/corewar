@@ -47,4 +47,6 @@ char					*get_name(t_lst **list);
 char					*get_comment(t_lst **list);
 void					create_file(t_lst *list);
 
+char					*find_label(char *str);
+
 #endif
