@@ -18,6 +18,7 @@
 # include <sys/stat.h> 
 # include <fcntl.h>
 # include <stdio.h>
+# include "op.h"
 
 typedef struct 			s_lst
 {
@@ -25,11 +26,24 @@ typedef struct 			s_lst
 	struct s_lst		*next;
 }						t_lst;
 
+typedef struct			s_op
+{
+	char				*name;
+	int					nb_params;
+	char				params_type[3];
+	int					id;
+	int					cycles;
+	char				*description;
+	int					acb;
+	int					label_size;
+}						t_op;
+
 typedef struct 			s_asm
 {
 	char				*bot_name;
 	char				*bot_comment;
 	struct s_cmnd		*command;
+	t_op				op_tab[17];
 }						t_asm;
 
 typedef struct 			s_cmnd
@@ -47,6 +61,9 @@ char					*get_name(t_lst **list);
 char					*get_comment(t_lst **list);
 void					create_file(t_lst *list);
 
+void					get_t_op(t_asm *a);
+
 char					*find_label(char *str);
+int						find_command_name(char *str, char *label, t_asm *a);
 
 #endif

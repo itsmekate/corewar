@@ -15,6 +15,7 @@ NAME = asm
 SRCS = read.c \
 		create_file.c \
 		create_command.c \
+		op.c \
 
 LIB = -L libft/ -lft
 OBJ = $(SRCS:.c=.o)

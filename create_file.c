@@ -1,5 +1,4 @@
 #include "asm.h"
-#include "op.h"
 
 char		*get_name(t_lst **list)
 {
@@ -37,14 +36,14 @@ char		*get_comment(t_lst **list)
 	return (new);	
 }
 
-t_cmnd		*new_command(char *str)
+t_cmnd		*new_command(char *str, t_asm *a)
 {
 	t_cmnd	*new;
 
 	printf("%s\n", str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(str);
-	new->command_name = 0;
+	new->command_name = find_command_name(str, new->label, a);
 	new->t_dir = 0;
 	new->t_reg = 0;
 	new->t_ind = 0;
@@ -59,7 +58,7 @@ void		get_lst_commands(t_asm *a, t_lst **list)
 
 	while (!ft_strlen((*list)->str) || (*list)->str[0] == COMMENT_CHAR)
 		(*list) = (*list)->next;
-	a->command = new_command((*list)->str);
+	a->command = new_command((*list)->str, a);
 	head = a->command;
 	(*list) = (*list)->next;
 	while ((*list))
@@ -69,7 +68,7 @@ void		get_lst_commands(t_asm *a, t_lst **list)
 			(*list) = (*list)->next;
 			continue;
 		}
-		head->next = new_command((*list)->str);
+		head->next = new_command((*list)->str, a);
 		head = head->next;
 		(*list) = (*list)->next;
 	}
@@ -97,5 +96,6 @@ void		create_file(t_lst *list)
 	printf("bot name: %s\n", a.bot_name);
 	printf("bot comment: %s\n", a.bot_comment);
 
+	get_t_op(&a);
 	get_lst_commands(&a, &list);
 }
