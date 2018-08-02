@@ -44,9 +44,8 @@ t_cmnd		*new_command(char *str, t_asm *a)
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(str);
 	new->command_name = find_command_name(str, new->label, a);
-	new->t_dir = 0;
-	new->t_reg = 0;
-	new->t_ind = 0;
+	new->arg = find_args(str, new->label, new->command_name, a);
+	// printf("%d %d %d %d %d %d\n", new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[2].type, new->arg.arg_arr[2].value);
 	new->n_byte = 0;
 	new->next = NULL;
 	return (new);
