@@ -66,4 +66,7 @@ void					get_t_op(t_asm *a);
 char					*find_label(char *str);
 int						find_command_name(char *str, char *label, t_asm *a);
 
+
+int						validation(t_lst *list);
+int						validation_name(t_lst *list);
 #endif
