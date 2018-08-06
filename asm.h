@@ -57,7 +57,7 @@ typedef struct 			s_cmnd
 	struct s_cmnd		*next;
 }						t_cmnd;
 
-char					*get_name(t_lst **list);
+char					*get_name(t_lst *list);
 char					*get_comment(t_lst **list);
 void					create_file(t_lst *list);
 

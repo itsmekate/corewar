@@ -15,5 +15,6 @@
 int		validation(t_lst *list)
 {
 	validation_name(list);
+	// validation_comment()
 	return (0);
 }
