@@ -30,15 +30,18 @@ all: $(NAME)
 libft: 
 	make -C ./libft
 
+ft_printf: 
+	make -C ./ft_printf
+
 $(NAME): libft $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o  $(NAME)  $(LIB) -I ./
+	gcc $(CFLAGS) $(OBJ) -o  $(NAME) $(LIB) -I ./
 
 clean:
-	/bin/rm -f $(OBJ)
+	rm -f $(OBJ)
 	make -C ./libft clean
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	rm -f $(NAME)
 	make -C ./libft fclean
 
 re: fclean all

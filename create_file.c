@@ -1,18 +1,22 @@
 #include "asm.h"
 
-char		*get_name(t_lst *list)
+char		*get_name(t_lst *list, int start)
 {
 	int		i;
 	int		j;
 	char	*new = NULL;
 	int		tmp;
 
-	i = 5;
+	i = start;
 	j = 0;
 	while (list->str[i] && (list->str[i] == ' ' || list->str[i] == '\t'))
 		i++;
 	if (!list->str[i] || list->str[i] != '"')
-		return (NULL);
+	{
+		printf("Char %c\n", list->str[i]);
+		return ("ok1");
+
+	}
 	i++;
 	tmp = i;
 	while (list->str[i] && list->str[i] != '"')
