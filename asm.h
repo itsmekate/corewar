@@ -46,12 +46,23 @@ typedef struct 			s_asm
 	t_op				op_tab[17];
 }						t_asm;
 
+typedef struct 			s_arg_arr
+{
+	int					type;
+	int					value;
+	char				*text;
+}						t_arg_arr;
+
+typedef struct 			s_args
+{
+	int					n;
+	struct s_arg_arr	arg_arr[3];
+}						t_args;
+
 typedef struct 			s_cmnd
 {
 	int					command_name;
-	int					t_dir;
-	int					t_reg;
-	int					t_ind;
+	struct s_args		arg;
 	int					n_byte;
 	char				*label;
 	struct s_cmnd		*next;
@@ -65,6 +76,7 @@ void					get_t_op(t_asm *a);
 
 char					*find_label(char *str);
 int						find_command_name(char *str, char *label, t_asm *a);
+t_args					find_args(char *str, char *label, int n_command, t_asm *a);
 
 
 int						validation(t_lst *list);
