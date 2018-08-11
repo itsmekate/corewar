@@ -61,7 +61,7 @@ int	main(int argc, char **argv)
 		list = NULL;
 		list = ft_read(argv[1], list);
 		ft_putendl("READING DONE...");
-		validation(list, &a);
+		validation(&list, &a);
 		// create_file(list);
 	}
 	return (0);

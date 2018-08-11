@@ -18,11 +18,12 @@ SRCS = read.c \
 		op.c \
 		validation.c \
 		validation_name.c \
+		validation_commands.c \
 
 LIB = -L libft/ -lft
 OBJ = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 # -fsanitize=address -g
 
 all: $(NAME)

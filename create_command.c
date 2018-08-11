@@ -58,3 +58,42 @@ int			find_command_name(char *str, char *label, t_asm *a)
 	n = find_command_number(name, a);
 	return (n);
 }
+
+t_args		find_args(char *str, char *label, int n_command, t_asm *a)
+{
+	t_args	t;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = ft_strlen(label) + ft_strlen(a->op_tab[n_command - 1].name);
+	t.n = a->op_tab[n_command - 1].nb_params;
+	while (j < t.n)
+	{
+		while (str[i] && str[i] != '%' && str[i] != 'r' && str[i] != '#')
+			i++;
+		if (str[i] == '%')
+		{
+			t.arg_arr[j].type = T_DIR;
+			t.arg_arr[j].value = ft_atoi(str + i + 1);
+		}
+		else if (str[i] == 'r')
+		{
+			t.arg_arr[j].type = T_REG;
+			t.arg_arr[j].value = ft_atoi(str + i + 1);
+		}
+		else
+			break;
+		t.arg_arr[j].text = NULL;
+		j++;
+		i++;
+	}
+	while (j < 3)
+	{
+		t.arg_arr[j].type = 0;
+		t.arg_arr[j].value = 0;
+		t.arg_arr[j].text = NULL;
+		j++;
+	}
+	return (t);
+}

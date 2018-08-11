@@ -1,6 +1,7 @@
 .name      "Just a basic 
-Winner Program
-.comment         "
+Winner Program"
+.comment         "as
+
 
 42"
 
