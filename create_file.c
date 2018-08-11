@@ -1,49 +1,46 @@
 #include "asm.h"
 
-char		*get_name(t_lst *list)
+char		*get_name(t_lst **list, int i)
 {
-	int		i;
 	int		j;
 	char	*new = NULL;
 	int		tmp;
 
-	i = 5;
 	j = 0;
-	while (list->str[i] && (list->str[i] == ' ' || list->str[i] == '\t'))
+	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
-	if (!list->str[i] || list->str[i] != '"')
+	if (!(*list)->str[i] || (*list)->str[i] != '"')
 		return (NULL);
 	i++;
 	tmp = i;
-	while (list->str[i] && list->str[i] != '"')
+	while ((*list)->str[i] != '"')
 	{
 		i++;
 		j++;
-		if (!list->str[i])
+		if (!(*list)->str[i])
 		{
 			if (!new)
 				new = ft_strnew(j);
-			new = ft_strjoin(new, ft_strsub(list->str, tmp, i));
+			new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
 			new = ft_strjoin(new, "\n");
 			tmp = 0;
 			i = 0;
-			list = list->next;
+			(*list) = (*list)->next;
 		}
 	}
 	if (!new)
 	{
 		new = ft_strnew(j);
-		new = ft_strncpy(new, list->str + tmp, j);
+		new = ft_strncpy(new, (*list)->str + tmp, j);
 	}
 	else
-		new = ft_strjoin(new, ft_strsub(list->str, tmp, i));
+		new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
 	i++;
-	while (list->str[i] && (list->str[i] == ' ' || list->str[i] == '\t'))
+	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
-	if (list->str[i] && list->str[i] != '#')
+	if ((*list)->str[i] && (*list)->str[i] != '#')
 		return (NULL);
-	list = list->next;
-	printf("name = %s\n", new);
+	(*list) = (*list)->next;
 	return (new);
 }
 

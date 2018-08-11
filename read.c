@@ -52,6 +52,7 @@ t_lst	*ft_read(char *f, t_lst *list)
 int	main(int argc, char **argv)
 {
 	t_lst	*list;
+	t_asm	a;
 
 	if (argc != 2)
 		ft_putendl("ERROR");
@@ -60,7 +61,7 @@ int	main(int argc, char **argv)
 		list = NULL;
 		list = ft_read(argv[1], list);
 		ft_putendl("READING DONE...");
-		validation(list);
+		validation(list, &a);
 		// create_file(list);
 	}
 	return (0);
