@@ -16,11 +16,16 @@ t_cmnd		*new_command(char *str, t_asm *a)
 {
 	t_cmnd	*new;
 
+	printf("%s\n", str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(str);
-	new->command_name = find_command_name(str, new->label, a);
+	if (!(new->command_name = find_command_name(str, new->label, a)))
+	{
+		free(new);
+		return (NULL);
+	}
 	new->arg = find_args(str, new->label, new->command_name, a);
-	// printf("%d %d %d %d %d %d\n", new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[2].type, new->arg.arg_arr[2].value);
+	// printf("%s %d %d %d %d %d %d %d\n", new->label, new->command_name, new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[2].type, new->arg.arg_arr[2].value);
 	new->n_byte = 0;
 	new->next = NULL;
 	return (new);
@@ -39,12 +44,16 @@ int		validation_commands(t_lst **list, t_asm *a)
 	(*list) = (*list)->next;
 	while ((*list))
 	{
-		if (!ft_strlen((*list)->str) || (*list)->str[0] == COMMENT_CHAR)
+		if (!is_command((*list)->str))
 		{
 			(*list) = (*list)->next;
 			continue;
 		}
-		head->next = new_command((*list)->str, a);
+		if (!(head->next = new_command((*list)->str, a)))
+		{
+			ft_putendl("Wrong command");
+			exit(0);
+		}
 		head = head->next;
 		(*list) = (*list)->next;
 	}

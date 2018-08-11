@@ -74,6 +74,8 @@ void					create_file(t_lst *list);
 
 void					get_t_op(t_asm *a);
 
+int 					is_command(char *str);
+
 char					*find_label(char *str);
 int						find_command_name(char *str, char *label, t_asm *a);
 t_args					find_args(char *str, char *label, int n_command, t_asm *a);

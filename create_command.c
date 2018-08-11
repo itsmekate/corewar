@@ -10,7 +10,11 @@ char		*find_label(char *str)
 	if (!ft_strchr(LABEL_CHARS, str[i]) || !ft_strchr(str, ':'))
 		return (label);
 	while (str[i] && str[i] != ':' && str[i] != ' ' && str[i] != '\t')
+	{
+		if (!ft_strchr(LABEL_CHARS, str[i]))
+			return (label);
 		i++;
+	}
 	if (!str[i] || str[i] != ':')
 		return (label);
 	label = ft_strnew(i);
@@ -25,7 +29,7 @@ int			find_command_number(char *name, t_asm *a)
 
 	n = 0;
 	i = 0;
-	while (i < 17)
+	while (i < 16)
 	{
 		if (!ft_strcmp(name, a->op_tab[i].name))
 			return (i + 1);
