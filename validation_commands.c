@@ -12,13 +12,25 @@
 
 #include "asm.h"
 
-// int			count_bytes(t_cmnd *new)
-// {
-// 	int res;
+int			count_bytes(t_cmnd *new, t_asm *a)
+{
+	int		res;
+	int		i;
 
-// 	res = 1;
-// 	return (res);
-// }
+	res = 1;
+	i = 0;
+	while (new->arg.arg_arr[i].type)
+	{
+		if (new->arg.arg_arr[i].type == 1)
+			res += 1;
+		else if (new->arg.arg_arr[i].type == 2)
+			res += a->op_tab[new->command_name - 1].label_size;
+		else if (new->arg.arg_arr[i].type == 3)
+			res += 2;
+		i++;
+	}
+	return (res);
+}
 
 t_cmnd		*new_command(t_lst **list, t_asm *a)
 {
@@ -36,8 +48,9 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	printf("label:%s command:%d \n args:%d %d %s \n\t%d %d %s \n\t%d %d %s \n", new->label, new->command_name, new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[0].text, 
 		new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[1].text,
 		new->arg.arg_arr[2].type, new->arg.arg_arr[2].value, new->arg.arg_arr[2].text);
-	// new->n_byte = count_bytes(new);
+	new->n_byte = count_bytes(new, a);
 	new->next = NULL;
+	printf("bytes: %d\n", new->n_byte);
 	return (new);
 }
 
