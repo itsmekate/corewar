@@ -76,11 +76,12 @@ void					get_t_op(t_asm *a);
 
 int 					is_command(char *str);
 
-char					*find_label(char *str);
-int						find_command_name(char *str, char *label, t_asm *a);
-t_args					find_args(char *str, char *label, int n_command, t_asm *a);
+char					*find_label(t_lst **list);
+int						find_command_name(t_lst **list, char *label, t_asm *a);
+t_args					find_args(t_lst **list, char *label, int n_command, t_asm *a);
 
 int						validation(t_lst **list, t_asm *a);
 int						validation_name(t_lst **list, t_asm *a);
 int						validation_commands(t_lst **list, t_asm *a);
+
 #endif
