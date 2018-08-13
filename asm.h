@@ -70,7 +70,7 @@ typedef struct 			s_cmnd
 
 char					*get_name(t_lst **list, int k);
 char					*get_comment(t_lst **list);
-void					create_file(t_lst *list);
+void					create_file(t_asm a);
 
 void					get_t_op(t_asm *a);
 
