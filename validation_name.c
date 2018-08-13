@@ -12,53 +12,96 @@
 
 #include "asm.h"
 
-int		str_name(char *str)
-{
-	char	*tmp;
-
-	tmp = ft_strsub(str, 0, 5);
-	if (!ft_strcmp(tmp, ".name"))
-		return (1);
-	return (0);
-}
-
 int		str_comment(char *str)
 {
 	char	*tmp;
 
 	tmp = ft_strsub(str, 0, 8);
 	if (!ft_strcmp(tmp, ".comment"))
+	{
+		free(tmp);
 		return (1);
+	}
+	free(tmp);
 	return (0);
 }
 
-
-int		validation_name(t_lst *list)
+int		str_name(char *str)
 {
-	t_lst	*tmp;
+	char	*tmp;
+
+	tmp = ft_strsub(str, 0, 5);
+	if (!ft_strcmp(tmp, ".name"))
+	{
+		free(tmp);
+		return (1);
+	}
+	free(tmp);
+	return (0);
+}
+
+int 	is_command(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+		{
+			i++;
+			continue;
+		}
+		if (str[i] == '#')
+			return (0);
+		else
+			return (1);
+	}
+	return (0);
+}
+
+int		validation_name(t_lst **list, t_asm *a)
+{
 	int		name_exists;
 	int		comment_exists;
-	int		not_exists;
 
-	tmp = list;
 	name_exists = 0;
 	comment_exists = 0;
-	while (tmp)
+	while (*list)
 	{
-		if (ft_strstr(tmp->str, ".name") && tmp->str[0] != '#'
-			&& str_name(tmp->str) && get_name(tmp, 5))
+		if ((*list)->str[0] != '#' && str_name((*list)->str) && (a->bot_name = get_name(list, 5)))
 			name_exists++;
-		if (ft_strstr(tmp->str, ".comment") && tmp->str[0] != '#'
-			&& str_comment(tmp->str) && get_name(tmp, 8))
-				comment_exists++;
-		tmp = tmp->next;
+		if ((*list)->str[0] != '#' && str_comment((*list)->str) && (a->bot_comment = get_name(list, 8)))
+			comment_exists++;
+		if (is_command((*list)->str))
+			break;
+		(*list) = (*list)->next;
 	}
-
-	(!comment_exists) ? (not_exists = ft_printf("Syntax error: no comment\n")) : 0; 
-	(comment_exists > 1) ? (not_exists = ft_printf("Lexical error: incorrect number of comment statements\n")) : 0;
-	(!name_exists) ? (not_exists = ft_printf("Syntax error: no name\n")) : 0; 
-	(!name_exists) ? (not_exists = ft_printf("Lexical error: incorrect number of name statements\n")) : 0; 
-	if (not_exists)
-		return (1);
-	return (0);
+	if (!name_exists)
+	{
+		ft_putendl("Syntax error: no name "); 
+		// at token[TOKEN][001:014]ENDLINE
+		return (0);
+	}
+	if (name_exists > 1)
+	{
+		ft_putendl("Lexical error: incorrect number of name statements"); 
+		// at [3:11]
+		return (0);
+	}
+	if (!comment_exists)
+	{
+		ft_putendl("Syntax error: no comment "); 
+		// at token[TOKEN][001:014]ENDLINE
+		return (0);
+	}
+	if (comment_exists > 1)
+	{
+		ft_putendl("Lexical error: incorrect number of comment statements"); 
+		// at [3:11]
+		return (0);
+	}
+	printf("name: %s\n", a->bot_name);
+	printf("comment: %s\n", a->bot_comment);
+	return (1);
 }

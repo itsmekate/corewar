@@ -12,9 +12,11 @@
 
 #include "asm.h"
 
-int		validation(t_lst *list)
+int		validation(t_lst **list, t_asm *a)
 {
-	validation_name(list);
-	// validation_comment()
+	if (!validation_name(list, a))
+		exit(0);
+	get_t_op(a);
+	validation_commands(list, a);
 	return (0);
 }

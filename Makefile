@@ -18,6 +18,7 @@ SRCS = read.c \
 		op.c \
 		validation.c \
 		validation_name.c \
+		validation_commands.c \
 
 LIB = -L libft/ -lft
 OBJ = $(SRCS:.c=.o)
@@ -30,18 +31,15 @@ all: $(NAME)
 libft: 
 	make -C ./libft
 
-ft_printf: 
-	make -C ./ft_printf
-
 $(NAME): libft $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o  $(NAME) $(LIB) -I ./
+	gcc $(CFLAGS) $(OBJ) -o  $(NAME)  $(LIB) -I ./
 
 clean:
-	rm -f $(OBJ)
+	/bin/rm -f $(OBJ)
 	make -C ./libft clean
 
 fclean: clean
-	rm -f $(NAME)
+	/bin/rm -f $(NAME)
 	make -C ./libft fclean
 
 re: fclean all

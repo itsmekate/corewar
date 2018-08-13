@@ -41,4 +41,4 @@ fclean: clean
 re: fclean all
 
 %.o: %.c
-	gcc $(FLAGS) -c -o $@ $< 
+	gcc $(FLAGS) -c -o $@ $<

@@ -46,27 +46,42 @@ typedef struct 			s_asm
 	t_op				op_tab[17];
 }						t_asm;
 
+typedef struct 			s_arg_arr
+{
+	int					type;
+	int					value;
+	char				*text;
+}						t_arg_arr;
+
+typedef struct 			s_args
+{
+	int					n;
+	struct s_arg_arr	arg_arr[3];
+}						t_args;
+
 typedef struct 			s_cmnd
 {
 	int					command_name;
-	int					t_dir;
-	int					t_reg;
-	int					t_ind;
+	struct s_args		arg;
 	int					n_byte;
 	char				*label;
 	struct s_cmnd		*next;
 }						t_cmnd;
 
-char					*get_name(t_lst *list, int i);
+char					*get_name(t_lst **list, int k);
 char					*get_comment(t_lst **list);
 void					create_file(t_lst *list);
 
 void					get_t_op(t_asm *a);
 
-char					*find_label(char *str);
-int						find_command_name(char *str, char *label, t_asm *a);
+int 					is_command(char *str);
 
+char					*find_label(t_lst **list);
+int						find_command_name(t_lst **list, char *label, t_asm *a);
+t_args					find_args(t_lst **list, char *label, int n_command, t_asm *a);
 
-int						validation(t_lst *list);
-int						validation_name(t_lst *list);
+int						validation(t_lst **list, t_asm *a);
+int						validation_name(t_lst **list, t_asm *a);
+int						validation_commands(t_lst **list, t_asm *a);
+
 #endif
