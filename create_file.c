@@ -44,6 +44,14 @@ char		*get_name(t_lst **list, int i)
 	return (new);
 }
 
+void		write_data(int fd)
+{
+	int		magic;
+
+	magic = COREWAR_EXEC_MAGIC;
+	write(fd, &magic, 4);
+}
+
 void		create_file(t_asm a)
 {
 	int		fd;
@@ -51,5 +59,6 @@ void		create_file(t_asm a)
 
 	file_name = ft_strjoin(a.bot_name, ".cor");
 	fd = open(file_name, O_WRONLY | O_APPEND | O_CREAT, 0777);
+	write_data(fd);
 	close(fd);
 }
