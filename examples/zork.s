@@ -1,7 +1,7 @@
 .name "zork"
 .comment "I'M ALIIIIVE"
 
-l2:		sti r1, 211, %1 #6
+l2:		sti r1, 211, %:live #6
 		and r1, %0, r1		#7
 
 live:	live %1		#5
