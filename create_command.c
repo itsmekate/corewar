@@ -48,7 +48,7 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 
 	n = 0;
 	size = 0;
-	i = ft_strlen(label);
+	i = ft_strlen(label) + 1;
 	while (!ft_strchr(LABEL_CHARS, (*list)->str[i]))
 	{
 		if ((*list)->str[i] == ':')
@@ -98,6 +98,18 @@ int				digits(int n)
 	return (size);
 }
 
+char		*get_arg_label(char *str)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != ',' && str[i] != ' ' && str[i] != '\t')
+		i++;
+	new = ft_strsub(str, 0, i);
+	return (new);
+}
+
 t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 {
 	t_args	t;
@@ -109,32 +121,50 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 	t.n = a->op_tab[n_command - 1].nb_params;
 	while (j < t.n)
 	{
-		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' && (*list)->str[i] != '#')
+		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' && (*list)->str[i] != '#' && !ft_isdigit((*list)->str[i]))
 			i++;
-		printf("%d smth %c\n", i, (*list)->str[i]);
 		if ((*list)->str[i] == '%')
 		{
 			t.arg_arr[j].type = 2; //t_dir
-			t.arg_arr[j].value = ft_atoi((*list)->str + i + 1);
-			i++;
+			if ((*list)->str[i + 1] != ':')
+			{
+				t.arg_arr[j].text = NULL;
+				t.arg_arr[j].value = ft_atoi((*list)->str + i + 1);
+				i++;
+			}
+			else
+			{
+				i += 2;
+				t.arg_arr[j].text = get_arg_label((*list)->str + i);
+				t.arg_arr[j].value = 0;
+			}
 		}
 		else if ((*list)->str[i] == 'r')
 		{
-			t.arg_arr[j].type = 1; //t_reg
-			t.arg_arr[j].value = ft_atoi((*list)->str + i + 1);
-			i++;
+			t.arg_arr[j].type = 1; //t_dir
+			if ((*list)->str[i + 1] != ':')
+			{
+				t.arg_arr[j].text = NULL;
+				t.arg_arr[j].value = ft_atoi((*list)->str + i + 1);
+				i++;
+			}
+			else
+			{
+				i += 2;
+				t.arg_arr[j].text = get_arg_label((*list)->str + i);
+				t.arg_arr[j].value = 0;
+			}
 		}
-		// else if (ft_isdigit((*list)->str[i]))
-		// {
-		// 	t.arg_arr[j].type = 3; //t_ind
-		// 	t.arg_arr[j].value = ft_atoi((*list)->str + i);
-		// 	continue ;
-		// }
+		else if (ft_isdigit((*list)->str[i]))
+		{
+			t.arg_arr[j].type = 3; //t_ind
+			t.arg_arr[j].value = ft_atoi((*list)->str + i);
+			t.arg_arr[j].text = NULL;
+		}
 		else
 			break;
-		t.arg_arr[j].text = NULL;
+		i += digits(t.arg_arr[j].value);
 		j++;
-		// i += digits(t.arg_arr[j].value);
 	}
 	while (j < 3)
 	{
