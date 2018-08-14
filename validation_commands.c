@@ -47,7 +47,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 		return (NULL);
 	}
 	new->arg = find_args(list, new->label, new->command_name, a);
-	printf("label:%s command:%d \n args:%d %d %s \n\t%d %d %s \n\t%d %d %s \n", new->label, new->command_name, new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[0].text, 
+	// printf("label:%s command:%d \n args:%d %d %s \n\t%d %d %s \n\t%d %d %s \n", new->label, new->command_name, new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[0].text, 
 		new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[1].text,
 		new->arg.arg_arr[2].type, new->arg.arg_arr[2].value, new->arg.arg_arr[2].text);
 	new->n_byte = count_bytes(new, a);
@@ -114,7 +114,7 @@ int			validation_commands(t_lst **list, t_asm *a)
 
 	if (!(a->command = new_command(list, a)))
 	{
-		ft_putendl("Wrong command2");
+		ft_putendl("Wrong command");
 		exit(0);
 	}
 	head = a->command;
