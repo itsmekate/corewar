@@ -48,7 +48,11 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 
 	n = 0;
 	size = 0;
-	i = ft_strlen(label) + 1;
+	if (label)
+		i = ft_strlen(label) + 1;
+	else
+		i = 0;
+	printf("%s\n", label);
 	while (!ft_strchr(LABEL_CHARS, (*list)->str[i]))
 	{
 		if ((*list)->str[i] == ':')
@@ -72,6 +76,7 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	name = ft_strnew(size);
 	name = strncpy(name, (*list)->str + j, size);
 	n = find_command_number(name, a);
+	printf("%d\n", size);
 	return (n);
 }
 

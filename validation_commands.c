@@ -114,7 +114,7 @@ int			validation_commands(t_lst **list, t_asm *a)
 
 	if (!(a->command = new_command(list, a)))
 	{
-		ft_putendl("Wrong command");
+		ft_putendl("Wrong command2");
 		exit(0);
 	}
 	head = a->command;
