@@ -51,6 +51,7 @@ typedef struct 			s_arg_arr
 	int					type;
 	int					value;
 	char				*text;
+	int					size;
 }						t_arg_arr;
 
 typedef struct 			s_args

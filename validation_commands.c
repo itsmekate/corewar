@@ -29,6 +29,8 @@ int			count_bytes(t_cmnd *new, t_asm *a)
 			res += 2;
 		i++;
 	}
+	if (a->op_tab[new->command_name - 1].acb)
+		res++;
 	return (res);
 }
 

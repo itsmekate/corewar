@@ -126,6 +126,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		if ((*list)->str[i] == '%')
 		{
 			t.arg_arr[j].type = 2; //t_dir
+			t.arg_arr[j].size = a->op_tab[n_command - 1].label_size;
 			if ((*list)->str[i + 1] != ':')
 			{
 				t.arg_arr[j].text = NULL;
@@ -142,6 +143,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		else if ((*list)->str[i] == 'r')
 		{
 			t.arg_arr[j].type = 1; //t_dir
+			t.arg_arr[j].size = 1;
 			if ((*list)->str[i + 1] != ':')
 			{
 				t.arg_arr[j].text = NULL;
@@ -158,6 +160,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		else if (ft_isdigit((*list)->str[i]))
 		{
 			t.arg_arr[j].type = 3; //t_ind
+			t.arg_arr[j].size = 2;
 			t.arg_arr[j].value = ft_atoi((*list)->str + i);
 			t.arg_arr[j].text = NULL;
 		}
@@ -168,6 +171,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 	}
 	while (j < 3)
 	{
+		t.arg_arr[j].size = 0;
 		t.arg_arr[j].type = 0;
 		t.arg_arr[j].value = 0;
 		t.arg_arr[j].text = NULL;
