@@ -75,29 +75,6 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	return (n);
 }
 
-int				digits(int n)
-{
-	int			size;
-	int			i;
-
-	size = 1;
-	i = 1;
-	if (n < 0)
-	{
-		size++;
-		n = -n;
-	}
-	if (n == 0)
-		return (1);
-	while (n / i > 0)
-	{
-		size++;
-		i *= 10;
-	}
-	size--;
-	return (size);
-}
-
 char		*get_arg_label(char *str)
 {
 	char	*new;

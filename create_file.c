@@ -1,57 +1,5 @@
 #include "asm.h"
 
-char		*get_name(t_lst **list, int i)
-{
-	int		j;
-	char	*new = NULL;
-	int		tmp;
-
-	j = 0;
-	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
-		i++;
-	if (!(*list)->str[i] || (*list)->str[i] != '"')
-		return (NULL);
-	i++;
-	tmp = i;
-	while ((*list)->str[i] != '"')
-	{
-		i++;
-		j++;
-		if (!(*list)->str[i])
-		{
-			if (!new)
-			{
-				if (i == 5)
-					new = ft_memalloc(PROG_NAME_LENGTH);
-				else
-					new = ft_memalloc(COMMENT_LENGTH);
-			}
-			new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
-			new = ft_strjoin(new, "\n");
-			tmp = 0;
-			i = 0;
-			(*list) = (*list)->next;
-		}
-	}
-	if (!new)
-	{
-		if (i == 5)
-			new = ft_memalloc(PROG_NAME_LENGTH);
-		else
-			new = ft_memalloc(COMMENT_LENGTH);
-		new = ft_strncpy(new, (*list)->str + tmp, j);
-	}
-	else
-		new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
-	i++;
-	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
-		i++;
-	if ((*list)->str[i] && (*list)->str[i] != '#')
-		return (NULL);
-	(*list) = (*list)->next;
-	return (new);
-}
-
 void		rotate(char *str, int size)
 {
 	int		i;
@@ -81,22 +29,6 @@ int			sum_exec(t_cmnd *c)
 		c = c->next;
 	}
 	return (res);
-}
-
-int			ft_pow(int n, int pow)
-{
-	int			result;
-	int				i;
-
-	result = 1;
-	i = 0;
-	if (pow < 0)
-		return (0);
-	while (i++ < pow)
-	{
-		result *= n;
-	}
-	return (result);
 }
 
 int			count_codage(t_args t)
