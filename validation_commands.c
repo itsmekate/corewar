@@ -107,18 +107,6 @@ int			label_to_numbers(t_cmnd	*cmnds)
 	return (1);
 }
 
-void		print_cmnds(t_cmnd	*new)
-{
-	printf("____________________________\n\n %s \n____________________________\n\n", "NEW COMMANDS LIST");
-	while (new)
-	{
-		printf("label:%s command:%d \n args:%d %d %s \n\t%d %d %s \n\t%d %d %s \n", new->label, new->command_name, new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[0].text, 
-		new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[1].text,
-		new->arg.arg_arr[2].type, new->arg.arg_arr[2].value, new->arg.arg_arr[2].text);
-		new = new->next;
-	}
-}
-
 int			validation_commands(t_lst **list, t_asm *a)
 {
 	t_cmnd	*head;

@@ -60,6 +60,58 @@ int 	is_command(char *str)
 	return (0);
 }
 
+char		*get_name(t_lst **list, int i)
+{
+	int		j;
+	char	*new = NULL;
+	int		tmp;
+
+	j = 0;
+	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
+		i++;
+	if (!(*list)->str[i] || (*list)->str[i] != '"')
+		return (NULL);
+	i++;
+	tmp = i;
+	while ((*list)->str[i] != '"')
+	{
+		i++;
+		j++;
+		if (!(*list)->str[i])
+		{
+			if (!new)
+			{
+				if (i == 5)
+					new = ft_memalloc(PROG_NAME_LENGTH);
+				else
+					new = ft_memalloc(COMMENT_LENGTH);
+			}
+			new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
+			new = ft_strjoin(new, "\n");
+			tmp = 0;
+			i = 0;
+			(*list) = (*list)->next;
+		}
+	}
+	if (!new)
+	{
+		if (i == 5)
+			new = ft_memalloc(PROG_NAME_LENGTH);
+		else
+			new = ft_memalloc(COMMENT_LENGTH);
+		new = ft_strncpy(new, (*list)->str + tmp, j);
+	}
+	else
+		new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
+	i++;
+	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
+		i++;
+	if ((*list)->str[i] && (*list)->str[i] != '#')
+		return (NULL);
+	(*list) = (*list)->next;
+	return (new);
+}
+
 int		validation_name(t_lst **list, t_asm *a)
 {
 	int		name_exists;

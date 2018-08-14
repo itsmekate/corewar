@@ -85,4 +85,8 @@ int						validation(t_lst **list, t_asm *a);
 int						validation_name(t_lst **list, t_asm *a);
 int						validation_commands(t_lst **list, t_asm *a);
 
+void					print_cmnds(t_cmnd	*new);
+int						digits(int n);
+int						ft_pow(int n, int pow);
+
 #endif
