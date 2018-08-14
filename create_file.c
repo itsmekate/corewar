@@ -106,7 +106,7 @@ int			count_codage(t_args t)
 
 	i = 0;
 	codage = 0;
-	while (t.arg_arr[i].type)
+	while (t.arg_arr[i].type && i < 3)
 	{
 		if (t.arg_arr[i].type == 1)
 			codage += ft_pow(2, 6 - i * 2);
@@ -133,11 +133,13 @@ void		write_commands(int fd, t_cmnd *c, t_asm a)
 		if (a.op_tab[c->command_name - 1].acb)
 		{
 			codage = count_codage(c->arg);
+			printf("CODAGE %d\n", codage);
 			rotate((char *)&codage, 1);
 			write(fd, &codage, 1);
 		}
-		while ((c->arg.arg_arr[i]).type)
+		while ((c->arg.arg_arr[i]).type && i < 3)
 		{
+			rotate((char *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
 			write(fd, (void *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
 			i++;
 		}
@@ -156,7 +158,6 @@ void		write_data(int fd, t_asm a)
 	sum = sum_exec(a.command);
 	rotate((char *)&magic, 4);
 	write(fd, &magic, 4);
-	printf("%s\n", a.bot_name);
 	write(fd, a.bot_name, PROG_NAME_LENGTH);
 	write(fd, zeros, 4);
 	rotate((char *)&sum, 4);
