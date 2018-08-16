@@ -18,6 +18,7 @@ SRCS = main.c \
 		op.c \
 		validation_name.c \
 		validation_commands.c \
+		validation_args.c \
 		additional.c \
 
 LIB = -L libft/ -lft

@@ -30,7 +30,7 @@ typedef struct			s_op
 {
 	char				*name;
 	int					nb_params;
-	char				params_type[3];
+	int					params[3][3];
 	int					id;
 	int					cycles;
 	char				*description;
@@ -63,7 +63,7 @@ typedef struct 			s_args
 typedef struct 			s_cmnd
 {
 	int					command_name;
-	struct s_args		arg;
+	struct s_args	arg;
 	int					n_byte;
 	char				*label;
 	struct s_cmnd		*next;
@@ -84,6 +84,7 @@ t_args					find_args(t_lst **list, char *label, int n_command, t_asm *a);
 int						validation(t_lst **list, t_asm *a);
 int						validation_name(t_lst **list, t_asm *a);
 int						validation_commands(t_lst **list, t_asm *a);
+int     				validation_args(t_cmnd *c, t_asm *a);
 
 void					print_cmnds(t_cmnd	*new);
 int						digits(int n);

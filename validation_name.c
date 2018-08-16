@@ -125,9 +125,19 @@ int		validation_name(t_lst **list, t_asm *a)
 			name_exists++;
 		if ((*list)->str[0] != '#' && str_comment((*list)->str) && (a->bot_comment = get_name(list, 8)))
 			comment_exists++;
+		if (!*list)
+		{
+			ft_putendl("Syntax error: no commands");
+			return (0);
+		}
 		if (is_command((*list)->str))
 			break;
 		(*list) = (*list)->next;
+	}
+	if (!*list)
+	{
+		ft_putendl("Syntax error: no commands");
+		return (0);
 	}
 	if (!name_exists)
 	{

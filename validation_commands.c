@@ -44,15 +44,26 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	if (!(new->command_name = find_command_name(list, new->label, a)))
 	{
 		free(new);
+		ft_putendl("bad name");
 		return (NULL);
 	}
 	new->arg = find_args(list, new->label, new->command_name, a);
+	if (!new->arg.arg_arr[0].type)
+	{
+		ft_putendl("bad args");
+		return (NULL);
+	}
 	// printf("label:%s command:%d \n args:%d %d %s \n\t%d %d %s \n\t%d %d %s \n", new->label, new->command_name, new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[0].text, 
-		new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[1].text,
-		new->arg.arg_arr[2].type, new->arg.arg_arr[2].value, new->arg.arg_arr[2].text);
+	// 	new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[1].text,
+	// 	new->arg.arg_arr[2].type, new->arg.arg_arr[2].value, new->arg.arg_arr[2].text);
 	new->n_byte = count_bytes(new, a);
 	new->next = NULL;
 	printf("bytes: %d\n", new->n_byte);
+	if (!validation_args(new, a))
+	{
+		ft_putendl("Wrong arguments");
+		return (NULL);
+	}
 	return (new);
 }
 

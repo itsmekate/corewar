@@ -92,6 +92,32 @@ char		*get_arg_label(char *str)
 	return (new);
 }
 
+int			find_comma(char *str)
+{
+	while (*str)
+	{
+		if ((*str == ' ') || (*str == '\t'))
+			str++;
+		else if (*str == '#')
+			return (1);
+		else if (*str == ',')
+		{
+			while (*str && *str != '%' && *str != 'r' && *str != '#' && !ft_isdigit(*str))
+				str++;
+			if (!*str || *str == '#')
+				return (0);
+			else
+				return (1);
+		}
+		else
+		{
+			ft_putendl("no comma");
+			return (0);
+		}
+	}
+	return (1);
+}
+
 t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 {
 	t_args	t;
@@ -100,8 +126,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 
 	j = 0;
 	i = ft_strlen(label) + ft_strlen(a->op_tab[n_command - 1].name);
-	t.n = a->op_tab[n_command - 1].nb_params;
-	while (j < t.n)
+	while ((*list)->str[i])
 	{
 		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' && (*list)->str[i] != '#' && !ft_isdigit((*list)->str[i]))
 			i++;
@@ -124,7 +149,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		}
 		else if ((*list)->str[i] == 'r')
 		{
-			t.arg_arr[j].type = 1; //t_dir
+			t.arg_arr[j].type = 1; //t_reg
 			t.arg_arr[j].size = 1;
 			if ((*list)->str[i + 1] != ':')
 			{
@@ -149,7 +174,17 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		else
 			break;
 		i += digits(t.arg_arr[j].value);
+		if (!find_comma((*list)->str + i))
+		{
+			t.arg_arr[0].type = 0;
+			return t;
+		}
 		j++;
+	}
+	if (j > 3)
+	{
+		t.arg_arr[0].type = 0;
+		return t;
 	}
 	while (j < 3)
 	{

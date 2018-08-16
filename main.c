@@ -63,6 +63,7 @@ int	main(int argc, char **argv)
 	t_lst	*list;
 	t_asm	a;
 
+	printf("counting %d\n", T_REG | T_IND | T_DIR);
 	if (argc != 2)
 		ft_putendl("ERROR");
 	else
