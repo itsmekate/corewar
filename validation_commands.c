@@ -38,7 +38,6 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 {
 	t_cmnd	*new;
 
-	printf("%s\n", (*list)->str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(list);
 	if (!(new->command_name = find_command_name(list, new->label, a)))
@@ -47,6 +46,8 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 		ft_putendl("bad name");
 		return (NULL);
 	}
+	if (new->command_name == -1 && new->label)
+		return (new);
 	new->arg = find_args(list, new->label, new->command_name, a);
 	if (!new->arg.arg_arr[0].type)
 	{
@@ -58,7 +59,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	// 	new->arg.arg_arr[2].type, new->arg.arg_arr[2].value, new->arg.arg_arr[2].text);
 	new->n_byte = count_bytes(new, a);
 	new->next = NULL;
-	printf("bytes: %d\n", new->n_byte);
+	// printf("bytes: %d\n", new->n_byte);
 	if (!validation_args(new, a))
 	{
 		ft_putendl("Wrong arguments");

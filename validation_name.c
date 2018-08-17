@@ -52,7 +52,7 @@ int 	is_command(char *str)
 			i++;
 			continue;
 		}
-		if (str[i] == '#')
+		if (str[i] == '#' || str[i] == ';')
 			return (0);
 		else
 			return (1);
@@ -106,7 +106,7 @@ char		*get_name(t_lst **list, int i)
 	i++;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
-	if ((*list)->str[i] && (*list)->str[i] != '#')
+	if ((*list)->str[i] && (*list)->str[i] != '#' && (*list)->str[i] != ';')
 		return (NULL);
 	(*list) = (*list)->next;
 	return (new);
@@ -121,9 +121,9 @@ int		validation_name(t_lst **list, t_asm *a)
 	comment_exists = 0;
 	while (*list)
 	{
-		if ((*list)->str[0] != '#' && str_name((*list)->str) && (a->bot_name = get_name(list, 5)))
+		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (a->bot_name = get_name(list, 5)))
 			name_exists++;
-		if ((*list)->str[0] != '#' && str_comment((*list)->str) && (a->bot_comment = get_name(list, 8)))
+		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (a->bot_comment = get_name(list, 8)))
 			comment_exists++;
 		if (!*list)
 		{

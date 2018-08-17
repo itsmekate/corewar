@@ -52,7 +52,7 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 		i = ft_strlen(label) + 1;
 	else
 		i = 0;
-	printf("%s\n", label);
+	// printf("%s\n", label);
 	while (!ft_strchr(LABEL_CHARS, (*list)->str[i]))
 	{
 		if ((*list)->str[i] == ':')
@@ -60,7 +60,8 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 		if (!(*list)->str[i])
 		{
 			(*list) = (*list)->next;
-			i = 0;
+			return (-1);
+			// i = 0;
 		}
 		else
 			i++;
@@ -76,7 +77,7 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	name = ft_strnew(size);
 	name = strncpy(name, (*list)->str + j, size);
 	n = find_command_number(name, a);
-	printf("%d\n", size);
+	// printf("%d\n", size);
 	return (n);
 }
 
@@ -98,13 +99,13 @@ int			find_comma(char *str)
 	{
 		if ((*str == ' ') || (*str == '\t'))
 			str++;
-		else if (*str == '#')
+		else if (*str == '#' || *str == ';')
 			return (1);
 		else if (*str == ',')
 		{
-			while (*str && *str != '%' && *str != 'r' && *str != '#' && !ft_isdigit(*str))
+			while (*str && *str != '%' && *str != 'r' && *str != '#' && *str != ';' && !ft_isdigit(*str))
 				str++;
-			if (!*str || *str == '#')
+			if (!*str || *str == '#' || *str == ';')
 				return (0);
 			else
 				return (1);
@@ -128,7 +129,8 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 	i = ft_strlen(label) + ft_strlen(a->op_tab[n_command - 1].name);
 	while ((*list)->str[i])
 	{
-		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' && (*list)->str[i] != '#' && !ft_isdigit((*list)->str[i]))
+		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' &&
+			(*list)->str[i] != '#' && (*list)->str[i] != ';' && !ft_isdigit((*list)->str[i]))
 			i++;
 		if ((*list)->str[i] == '%')
 		{
@@ -145,6 +147,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 				i += 2;
 				t.arg_arr[j].text = get_arg_label((*list)->str + i);
 				t.arg_arr[j].value = 0;
+				i += ft_strlen(t.arg_arr[j].text) - 1;
 			}
 		}
 		else if ((*list)->str[i] == 'r')
@@ -162,6 +165,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 				i += 2;
 				t.arg_arr[j].text = get_arg_label((*list)->str + i);
 				t.arg_arr[j].value = 0;
+				i += ft_strlen(t.arg_arr[j].text) - 1;
 			}
 		}
 		else if (ft_isdigit((*list)->str[i]))

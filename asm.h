@@ -63,11 +63,7 @@ typedef struct 			s_args
 typedef struct 			s_cmnd
 {
 	int					command_name;
-<<<<<<< HEAD
 	struct s_args		arg;
-=======
-	struct s_args	arg;
->>>>>>> kprasol
 	int					n_byte;
 	char				*label;
 	struct s_cmnd		*next;
@@ -75,7 +71,7 @@ typedef struct 			s_cmnd
 
 char					*get_name(t_lst **list, int k);
 char					*get_comment(t_lst **list);
-void					create_file(t_asm a);
+void					create_file(t_asm a, char *name);
 
 void					get_t_op(t_asm *a);
 
