@@ -63,13 +63,13 @@ int	main(int argc, char **argv)
 	t_lst	*list;
 	t_asm	a;
 
-	printf("counting %d\n", T_REG | T_IND | T_DIR);
-	if (argc != 2)
+	printf("argc %d\n", argc);
+	if (argc < 2)
 		ft_putendl("ERROR");
 	else
 	{
 		list = NULL;
-		list = ft_read(argv[1], list);
+		list = ft_read(argv[argc - 1], list);
 		ft_putendl("READING DONE...");
 		validation(&list, &a);
 		create_file(a, argv[1]);

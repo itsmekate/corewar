@@ -58,9 +58,19 @@ void		write_commands(int fd, t_cmnd *c, t_asm a)
 
 	i = 0;
 	codage = 0;
+	a.bot_name = NULL;
 	while (c)
 	{
-		write(fd, (void *)&c->command_name, 1);
+		printf("command %d\n", c->command_name);
+		if (c->command_name > 0)
+		{
+			write(fd, (void *)&c->command_name, 1);
+		}
+		else
+		{
+			c = c->next;
+			continue;
+		}
 		i = 0;
 		if (a.op_tab[c->command_name - 1].acb)
 		{

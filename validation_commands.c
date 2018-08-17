@@ -38,6 +38,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 {
 	t_cmnd	*new;
 
+	printf("%s\n", (*list)->str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(list);
 	if (!(new->command_name = find_command_name(list, new->label, a)))
@@ -48,7 +49,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	}
 	if (new->command_name == -1 && new->label)
 		return (new);
-	new->arg = find_args(list, new->label, new->command_name, a);
+	new->arg = find_args(list, new->command_name, a);
 	if (!new->arg.arg_arr[0].type)
 	{
 		ft_putendl("bad args");

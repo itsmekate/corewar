@@ -35,6 +35,16 @@ int				digits(int n)
 	return (size);
 }
 
+int				digits_char(char *str)
+{
+	int			i;
+
+	i = 0;
+	while (ft_strchr(LABEL_CHARS, str[i]) || str[i] == '-')
+		i++;
+	return (i);
+}
+
 int			ft_pow(int n, int pow)
 {
 	int			result;

@@ -59,7 +59,7 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 			return (-1);
 		if (!(*list)->str[i])
 		{
-			(*list) = (*list)->next;
+			// (*list) = (*list)->next;
 			return (-1);
 			// i = 0;
 		}
@@ -78,6 +78,7 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	name = strncpy(name, (*list)->str + j, size);
 	n = find_command_number(name, a);
 	// printf("%d\n", size);
+	(*list)->str = (*list)->str + i;
 	return (n);
 }
 
@@ -95,6 +96,7 @@ char		*get_arg_label(char *str)
 
 int			find_comma(char *str)
 {
+	printf("comma %s\n", str);
 	while (*str)
 	{
 		if ((*str == ' ') || (*str == '\t'))
@@ -119,18 +121,18 @@ int			find_comma(char *str)
 	return (1);
 }
 
-t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
+t_args		find_args(t_lst **list, int n_command, t_asm *a)
 {
 	t_args	t;
 	int		i;
 	int		j;
 
 	j = 0;
-	i = ft_strlen(label) + ft_strlen(a->op_tab[n_command - 1].name);
+	i = 0;
 	while ((*list)->str[i])
 	{
 		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' &&
-			(*list)->str[i] != '#' && (*list)->str[i] != ';' && !ft_isdigit((*list)->str[i]))
+			(*list)->str[i] != '#' && (*list)->str[i] != ';' && !ft_isdigit((*list)->str[i]) && (*list)->str[i] != '-')
 			i++;
 		if ((*list)->str[i] == '%')
 		{
@@ -147,7 +149,7 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 				i += 2;
 				t.arg_arr[j].text = get_arg_label((*list)->str + i);
 				t.arg_arr[j].value = 0;
-				i += ft_strlen(t.arg_arr[j].text) - 1;
+				// i += ft_strlen(t.arg_arr[j].text) - 1;
 			}
 		}
 		else if ((*list)->str[i] == 'r')
@@ -165,10 +167,10 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 				i += 2;
 				t.arg_arr[j].text = get_arg_label((*list)->str + i);
 				t.arg_arr[j].value = 0;
-				i += ft_strlen(t.arg_arr[j].text) - 1;
+				// i += ft_strlen(t.arg_arr[j].text) - 1;
 			}
 		}
-		else if (ft_isdigit((*list)->str[i]))
+		else if (ft_isdigit((*list)->str[i]) || (*list)->str[i] == '-')
 		{
 			t.arg_arr[j].type = 3; //t_ind
 			t.arg_arr[j].size = 2;
@@ -177,7 +179,8 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		}
 		else
 			break;
-		i += digits(t.arg_arr[j].value);
+		// i += digits(t.arg_arr[j].value);
+		i += digits_char((*list)->str + i);
 		if (!find_comma((*list)->str + i))
 		{
 			t.arg_arr[0].type = 0;
