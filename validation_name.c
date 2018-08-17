@@ -60,8 +60,6 @@ int 	is_command(char *str)
 	return (0);
 }
 
-<<<<<<< HEAD
-=======
 char		*get_name(t_lst **list, int i)
 {
 	int		j;
@@ -114,7 +112,6 @@ char		*get_name(t_lst **list, int i)
 	return (new);
 }
 
->>>>>>> kprasol
 int		validation_name(t_lst **list, t_asm *a)
 {
 	int		name_exists;
@@ -128,11 +125,6 @@ int		validation_name(t_lst **list, t_asm *a)
 			name_exists++;
 		if ((*list)->str[0] != '#' && str_comment((*list)->str) && (a->bot_comment = get_name(list, 8)))
 			comment_exists++;
-<<<<<<< HEAD
-		if (is_command((*list)->str))
-			break;
-		(*list) = (*list)->next;
-=======
 		if (!*list)
 		{
 			ft_putendl("Syntax error: no commands");
@@ -146,7 +138,6 @@ int		validation_name(t_lst **list, t_asm *a)
 	{
 		ft_putendl("Syntax error: no commands");
 		return (0);
->>>>>>> kprasol
 	}
 	if (!name_exists)
 	{

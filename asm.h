@@ -84,12 +84,6 @@ int 					is_command(char *str);
 char					*find_label(t_lst **list);
 int						find_command_name(t_lst **list, char *label, t_asm *a);
 t_args					find_args(t_lst **list, char *label, int n_command, t_asm *a);
-<<<<<<< HEAD
-
-int						validation(t_lst **list, t_asm *a);
-int						validation_name(t_lst **list, t_asm *a);
-int						validation_commands(t_lst **list, t_asm *a);
-=======
 
 int						validation(t_lst **list, t_asm *a);
 int						validation_name(t_lst **list, t_asm *a);
@@ -99,6 +93,5 @@ int     				validation_args(t_cmnd *c, t_asm *a);
 void					print_cmnds(t_cmnd	*new);
 int						digits(int n);
 int						ft_pow(int n, int pow);
->>>>>>> kprasol
 
 #endif

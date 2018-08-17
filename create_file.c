@@ -1,82 +1,5 @@
 #include "asm.h"
 
-<<<<<<< HEAD
-char		*get_name(t_lst **list, int i)
-{
-	int		j;
-	char	*new = NULL;
-	int		tmp;
-
-	j = 0;
-	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
-		i++;
-	if (!(*list)->str[i] || (*list)->str[i] != '"')
-		return (NULL);
-	i++;
-	tmp = i;
-	while ((*list)->str[i] != '"')
-	{
-		i++;
-		j++;
-		if (!(*list)->str[i])
-		{
-			if (!new)
-			{
-				if (i == 5)
-					new = ft_memalloc(PROG_NAME_LENGTH);
-				else
-					new = ft_memalloc(COMMENT_LENGTH);
-			}
-			new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
-			new = ft_strjoin(new, "\n");
-			tmp = 0;
-			i = 0;
-			(*list) = (*list)->next;
-=======
-void		rotate(char *str, int size)
-{
-	int		i;
-	char	tmp;
-	int		s = size / 2;
-
-	i = 0;
-	if (size != 1)
-		while (size != s)
-		{
-			tmp = str[i];
-			str[i] = str[size - 1];
-			str[size - 1] = tmp;
-			i++;
-			size--;
->>>>>>> kprasol
-		}
-}
-
-int			sum_exec(t_cmnd *c)
-{
-	int		res;
-
-	res = 0;
-	while (c)
-	{
-<<<<<<< HEAD
-		if (i == 5)
-			new = ft_memalloc(PROG_NAME_LENGTH);
-		else
-			new = ft_memalloc(COMMENT_LENGTH);
-		new = ft_strncpy(new, (*list)->str + tmp, j);
-	}
-	else
-		new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
-	i++;
-	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
-		i++;
-	if ((*list)->str[i] && (*list)->str[i] != '#')
-		return (NULL);
-	(*list) = (*list)->next;
-	return (new);
-}
-
 void		rotate(char *str, int size)
 {
 	int		i;
@@ -108,30 +31,6 @@ int			sum_exec(t_cmnd *c)
 	return (res);
 }
 
-int			ft_pow(int n, int pow)
-{
-	int			result;
-	int				i;
-
-	result = 1;
-	i = 0;
-	if (pow < 0)
-		return (0);
-	while (i++ < pow)
-	{
-		result *= n;
-	}
-	return (result);
-}
-
-=======
-		res += c->n_byte;
-		c = c->next;
-	}
-	return (res);
-}
-
->>>>>>> kprasol
 int			count_codage(t_args t)
 {
 	int		i;
@@ -139,11 +38,7 @@ int			count_codage(t_args t)
 
 	i = 0;
 	codage = 0;
-<<<<<<< HEAD
-	while (t.arg_arr[i].type)
-=======
 	while (t.arg_arr[i].type && i < 3)
->>>>>>> kprasol
 	{
 		if (t.arg_arr[i].type == 1)
 			codage += ft_pow(2, 6 - i * 2);
@@ -170,13 +65,6 @@ void		write_commands(int fd, t_cmnd *c, t_asm a)
 		if (a.op_tab[c->command_name - 1].acb)
 		{
 			codage = count_codage(c->arg);
-<<<<<<< HEAD
-			rotate((char *)&codage, 1);
-			write(fd, &codage, 1);
-		}
-		while ((c->arg.arg_arr[i]).type)
-		{
-=======
 			printf("CODAGE %d\n", codage);
 			rotate((char *)&codage, 1);
 			write(fd, &codage, 1);
@@ -184,7 +72,6 @@ void		write_commands(int fd, t_cmnd *c, t_asm a)
 		while ((c->arg.arg_arr[i]).type && i < 3)
 		{
 			rotate((char *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
->>>>>>> kprasol
 			write(fd, (void *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
 			i++;
 		}
@@ -203,10 +90,6 @@ void		write_data(int fd, t_asm a)
 	sum = sum_exec(a.command);
 	rotate((char *)&magic, 4);
 	write(fd, &magic, 4);
-<<<<<<< HEAD
-	printf("%s\n", a.bot_name);
-=======
->>>>>>> kprasol
 	write(fd, a.bot_name, PROG_NAME_LENGTH);
 	write(fd, zeros, 4);
 	rotate((char *)&sum, 4);
