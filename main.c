@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprasol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: etugoluk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/31 15:15:31 by kprasol           #+#    #+#             */
-/*   Updated: 2018/07/31 15:15:35 by kprasol          ###   ########.fr       */
+/*   Created: 2018/08/14 16:25:52 by etugoluk          #+#    #+#             */
+/*   Updated: 2018/08/14 16:25:53 by etugoluk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,21 @@ t_lst	*ft_read(char *f, t_lst *list)
 	return (head);
 }
 
+int		validation(t_lst **list, t_asm *a)
+{
+	if (!validation_name(list, a))
+		exit(0);
+	get_t_op(a);
+	validation_commands(list, a);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_lst	*list;
 	t_asm	a;
 
+	printf("counting %d\n", T_REG | T_IND | T_DIR);
 	if (argc != 2)
 		ft_putendl("ERROR");
 	else

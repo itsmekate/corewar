@@ -48,7 +48,15 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 
 	n = 0;
 	size = 0;
+<<<<<<< HEAD
 	i = ft_strlen(label) + 1;
+=======
+	if (label)
+		i = ft_strlen(label) + 1;
+	else
+		i = 0;
+	printf("%s\n", label);
+>>>>>>> kprasol
 	while (!ft_strchr(LABEL_CHARS, (*list)->str[i]))
 	{
 		if ((*list)->str[i] == ':')
@@ -72,9 +80,11 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	name = ft_strnew(size);
 	name = strncpy(name, (*list)->str + j, size);
 	n = find_command_number(name, a);
+	printf("%d\n", size);
 	return (n);
 }
 
+<<<<<<< HEAD
 int				digits(int n)
 {
 	int			size;
@@ -98,6 +108,8 @@ int				digits(int n)
 	return (size);
 }
 
+=======
+>>>>>>> kprasol
 char		*get_arg_label(char *str)
 {
 	char	*new;
@@ -110,6 +122,35 @@ char		*get_arg_label(char *str)
 	return (new);
 }
 
+<<<<<<< HEAD
+=======
+int			find_comma(char *str)
+{
+	while (*str)
+	{
+		if ((*str == ' ') || (*str == '\t'))
+			str++;
+		else if (*str == '#')
+			return (1);
+		else if (*str == ',')
+		{
+			while (*str && *str != '%' && *str != 'r' && *str != '#' && !ft_isdigit(*str))
+				str++;
+			if (!*str || *str == '#')
+				return (0);
+			else
+				return (1);
+		}
+		else
+		{
+			ft_putendl("no comma");
+			return (0);
+		}
+	}
+	return (1);
+}
+
+>>>>>>> kprasol
 t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 {
 	t_args	t;
@@ -118,8 +159,12 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 
 	j = 0;
 	i = ft_strlen(label) + ft_strlen(a->op_tab[n_command - 1].name);
+<<<<<<< HEAD
 	t.n = a->op_tab[n_command - 1].nb_params;
 	while (j < t.n)
+=======
+	while ((*list)->str[i])
+>>>>>>> kprasol
 	{
 		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' && (*list)->str[i] != '#' && !ft_isdigit((*list)->str[i]))
 			i++;
@@ -142,7 +187,11 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		}
 		else if ((*list)->str[i] == 'r')
 		{
+<<<<<<< HEAD
 			t.arg_arr[j].type = 1; //t_dir
+=======
+			t.arg_arr[j].type = 1; //t_reg
+>>>>>>> kprasol
 			t.arg_arr[j].size = 1;
 			if ((*list)->str[i + 1] != ':')
 			{
@@ -167,8 +216,23 @@ t_args		find_args(t_lst **list, char *label, int n_command, t_asm *a)
 		else
 			break;
 		i += digits(t.arg_arr[j].value);
+<<<<<<< HEAD
 		j++;
 	}
+=======
+		if (!find_comma((*list)->str + i))
+		{
+			t.arg_arr[0].type = 0;
+			return t;
+		}
+		j++;
+	}
+	if (j > 3)
+	{
+		t.arg_arr[0].type = 0;
+		return t;
+	}
+>>>>>>> kprasol
 	while (j < 3)
 	{
 		t.arg_arr[j].size = 0;

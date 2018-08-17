@@ -12,13 +12,17 @@
 
 NAME = asm
 
-SRCS = read.c \
+SRCS = main.c \
 		create_file.c \
 		create_command.c \
 		op.c \
-		validation.c \
 		validation_name.c \
 		validation_commands.c \
+<<<<<<< HEAD
+=======
+		validation_args.c \
+		additional.c \
+>>>>>>> kprasol
 
 LIB = -L libft/ -lft
 OBJ = $(SRCS:.c=.o)
