@@ -30,7 +30,7 @@ t_lst	*ft_read(char *f, t_lst *list)
 	fd = open(f, O_RDONLY);
 	if (fd == 0 || fd == -1)
 	{
-		ft_putendl("ERROR");
+		ft_putendl("Wrong file");
 		exit(0);
 	}
 	if (get_next_line(fd, &tmp) > 0)
@@ -52,7 +52,10 @@ t_lst	*ft_read(char *f, t_lst *list)
 int		validation(t_lst **list, t_asm *a)
 {
 	if (!validation_name(list, a))
+	{
+		system("leaks asm");
 		exit(0);
+	}
 	get_t_op(a);
 	validation_commands(list, a);
 	return (0);
@@ -61,18 +64,20 @@ int		validation(t_lst **list, t_asm *a)
 int	main(int argc, char **argv)
 {
 	t_lst	*list;
+	t_lst	*head;
 	t_asm	a;
 
-	printf("argc %d\n", argc);
 	if (argc < 2)
-		ft_putendl("ERROR");
+		ft_putendl("Usage:./asm [file_name.s]");
 	else
 	{
 		list = NULL;
 		list = ft_read(argv[argc - 1], list);
+		head = list;
 		ft_putendl("READING DONE...");
 		validation(&list, &a);
-		create_file(a, argv[1]);
+		create_file(a, argv[argc - 1]);
+		system("leaks asm");
 	}
 	return (0);
 }

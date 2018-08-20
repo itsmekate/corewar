@@ -44,7 +44,8 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	int		i;
 	int		j;
 	int		size;
-	char	*name;
+	char	*name = NULL;
+	char 	*tmp;
 
 	n = 0;
 	size = 0;
@@ -75,10 +76,12 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	if ((*list)->str[i] == ':')
 		return (-1);
 	name = ft_strnew(size);
-	name = strncpy(name, (*list)->str + j, size);
+	name = ft_strncpy(name, (*list)->str + j, size);
 	n = find_command_number(name, a);
-	// printf("%d\n", size);
-	(*list)->str = (*list)->str + i;
+	tmp = (*list)->str;
+	(*list)->str = ft_strdup((*list)->str + i);
+	free(tmp);
+	free(name);
 	return (n);
 }
 
@@ -96,7 +99,6 @@ char		*get_arg_label(char *str)
 
 int			find_comma(char *str)
 {
-	printf("comma %s\n", str);
 	while (*str)
 	{
 		if ((*str == ' ') || (*str == '\t'))
@@ -113,10 +115,7 @@ int			find_comma(char *str)
 				return (1);
 		}
 		else
-		{
-			ft_putendl("no comma");
 			return (0);
-		}
 	}
 	return (1);
 }

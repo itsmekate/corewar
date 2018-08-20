@@ -100,6 +100,11 @@ int			label_to_numbers(t_cmnd	*cmnds)
 	while (cmnds)
 	{
 		i = 0;
+		if (cmnds->command_name == -1)
+		{
+			cmnds = cmnds->next;
+			continue;
+		}
 		while (cmnds->arg.arg_arr[i].type && i < 3)
 		{
 			if (cmnds->arg.arg_arr[i].text)
@@ -124,29 +129,41 @@ int			validation_commands(t_lst **list, t_asm *a)
 {
 	t_cmnd	*head;
 	t_cmnd	*head_tmp;
+	t_lst	*tmp;
 
 	if (!(a->command = new_command(list, a)))
 	{
 		ft_putendl("Wrong command");
+		system("leaks asm");
 		exit(0);
 	}
 	head = a->command;
 	head_tmp = head;
+	tmp = *list;
 	(*list) = (*list)->next;
+	free(tmp->str);
+	free(tmp);
 	while ((*list))
 	{
 		if (!is_command((*list)->str))
 		{
+			tmp = *list;
 			(*list) = (*list)->next;
+			free(tmp->str);
+			free(tmp);
 			continue;
 		}
 		if (!(head->next = new_command(list, a)))
 		{
 			ft_putendl("Wrong command");
+			system("leaks asm");
 			exit(0);
 		}
 		head = head->next;
+		tmp = *list;
 		(*list) = (*list)->next;
+		free(tmp->str);
+		free(tmp);
 	}
 	if (!label_to_numbers(head_tmp))
 	{

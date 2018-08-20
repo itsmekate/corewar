@@ -63,9 +63,13 @@ int 	is_command(char *str)
 char		*get_name(t_lst **list, int i)
 {
 	int		j;
-	char	*new = NULL;
+	char	*new;
+	char	*tmp_str;
+	char	*tmp_sub;
 	int		tmp;
+	t_lst	*tmp_lst;
 
+	new = NULL;
 	j = 0;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
@@ -80,51 +84,87 @@ char		*get_name(t_lst **list, int i)
 		if (!(*list)->str[i])
 		{
 			if (!new)
-			{
-				if (i == 5)
-					new = ft_memalloc(PROG_NAME_LENGTH);
-				else
-					new = ft_memalloc(COMMENT_LENGTH);
-			}
-			new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
+				new = (i == 5) ? ft_memalloc(PROG_NAME_LENGTH) : ft_memalloc(COMMENT_LENGTH);
+			tmp_str = new;
+			tmp_sub = ft_strsub((*list)->str, tmp, i);
+			new = ft_strjoin(new, tmp_sub);
+			free(tmp_str);
+			free(tmp_sub);
+			tmp_str = new;
 			new = ft_strjoin(new, "\n");
+			free(tmp_str);
 			tmp = 0;
 			i = 0;
+			tmp_lst = *list;
 			(*list) = (*list)->next;
+			free(tmp_lst->str);
+			free(tmp_lst);
 		}
 	}
 	if (!new)
 	{
-		if (i == 5)
-			new = ft_memalloc(PROG_NAME_LENGTH);
-		else
-			new = ft_memalloc(COMMENT_LENGTH);
+		new = (i == 5) ? ft_memalloc(PROG_NAME_LENGTH) : ft_memalloc(COMMENT_LENGTH);
 		new = ft_strncpy(new, (*list)->str + tmp, j);
 	}
 	else
-		new = ft_strjoin(new, ft_strsub((*list)->str, tmp, i));
+	{
+		tmp_str = new;
+		tmp_sub = ft_strsub((*list)->str, tmp, i);
+		new = ft_strjoin(new, tmp_sub);
+		free(tmp_str);
+		free(tmp_sub);
+	}
 	i++;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
 	if ((*list)->str[i] && (*list)->str[i] != '#' && (*list)->str[i] != ';')
 		return (NULL);
+	tmp_lst = *list;
 	(*list) = (*list)->next;
+	free(tmp_lst->str);
+	// // if (tmp_lst)
+		// free(tmp_lst);
 	return (new);
+}
+
+void	free_lst(t_lst *list)
+{
+	t_lst *tmp;
+
+	while (list)
+	{
+		tmp = list;
+		list = list->next;
+		free(tmp->str);
+		free(tmp);
+	}
 }
 
 int		validation_name(t_lst **list, t_asm *a)
 {
 	int		name_exists;
 	int		comment_exists;
+	t_lst	*tmp;
+	char	*tmp_buf;
 
 	name_exists = 0;
 	comment_exists = 0;
 	while (*list)
 	{
-		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (a->bot_name = get_name(list, 5)))
+		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (tmp_buf = get_name(list, 5)))
+		{
+			if (!a->bot_name)
+				a->bot_name = tmp_buf;
+			free(tmp_buf);
 			name_exists++;
-		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (a->bot_comment = get_name(list, 8)))
+		}
+		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (tmp_buf = get_name(list, 8)))
+		{
+			if (!a->bot_name)
+				a->bot_comment = tmp_buf;
+			free(tmp_buf);
 			comment_exists++;
+		}
 		if (!*list)
 		{
 			ft_putendl("Syntax error: no commands");
@@ -132,7 +172,10 @@ int		validation_name(t_lst **list, t_asm *a)
 		}
 		if (is_command((*list)->str))
 			break;
+		tmp = *list;
 		(*list) = (*list)->next;
+		free(tmp->str);
+		free(tmp);
 	}
 	if (!*list)
 	{
@@ -147,7 +190,7 @@ int		validation_name(t_lst **list, t_asm *a)
 	}
 	if (name_exists > 1)
 	{
-		ft_putendl("Lexical error: incorrect number of name statements"); 
+		ft_putendl("Lexical error: incorrect number of name statements");
 		// at [3:11]
 		return (0);
 	}

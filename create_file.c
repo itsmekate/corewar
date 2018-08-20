@@ -61,7 +61,6 @@ void		write_commands(int fd, t_cmnd *c, t_asm a)
 	a.bot_name = NULL;
 	while (c)
 	{
-		printf("command %d\n", c->command_name);
 		if (c->command_name > 0)
 		{
 			write(fd, (void *)&c->command_name, 1);
@@ -107,16 +106,21 @@ void		write_data(int fd, t_asm a)
 	write(fd, a.bot_comment, COMMENT_LENGTH);
 	write(fd, zeros, 4);
 	write_commands(fd, a.command, a);
+	free(zeros);
 }
 
 void		create_file(t_asm a, char *name)
 {
 	int		fd;
-	char	*file_name;
+	char	*file_name = NULL;
+	char	*tmp_sub;
 
-	file_name = ft_strjoin(ft_strsub(name, 0, ft_strlen(name) - 2), ".cor");
+	tmp_sub = ft_strsub(name, 0, ft_strlen(name) - 2);
+	file_name = ft_strjoin(tmp_sub, ".cor");
+	free(tmp_sub);
 	printf("NAME FILE %s\n", file_name);
 	fd = open(file_name, O_WRONLY | O_CREAT, 0777);
 	write_data(fd, a);
 	close(fd);
+	free(file_name);
 }
