@@ -134,7 +134,7 @@ int			validation_commands(t_lst **list, t_asm *a)
 	if (!(a->command = new_command(list, a)))
 	{
 		ft_putendl("Wrong command");
-		system("leaks asm");
+		// system("leaks asm");
 		exit(0);
 	}
 	head = a->command;
@@ -156,7 +156,7 @@ int			validation_commands(t_lst **list, t_asm *a)
 		if (!(head->next = new_command(list, a)))
 		{
 			ft_putendl("Wrong command");
-			system("leaks asm");
+			// system("leaks asm");
 			exit(0);
 		}
 		head = head->next;

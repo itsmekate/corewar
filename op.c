@@ -41,7 +41,7 @@ t_op    op_tab[17] =
 
 void		get_t_op(t_asm *a)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < 17)
@@ -50,4 +50,3 @@ void		get_t_op(t_asm *a)
 		i++;
 	}
 }
-

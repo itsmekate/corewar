@@ -99,25 +99,30 @@ char		*get_arg_label(char *str)
 
 int			find_comma(char *str)
 {
-	while (*str)
+	int		i;
+	int		j;
+
+	i = 0;
+	while (str[i])
 	{
-		if ((*str == ' ') || (*str == '\t'))
-			str++;
-		else if (*str == '#' || *str == ';')
-			return (1);
-		else if (*str == ',')
+		if ((str[i] == ' ') || (str[i] == '\t'))
+			i++;
+		else if (str[i] == '#' ||str[i] == ';')
+			return (0);
+		else if (str[i] == ',')
 		{
-			while (*str && *str != '%' && *str != 'r' && *str != '#' && *str != ';' && !ft_isdigit(*str))
-				str++;
-			if (!*str || *str == '#' || *str == ';')
-				return (0);
+			j = i + 1;
+			while (str[j] && str[j] != '%' && str[j] != 'r' && str[j] != '#' && str[j] != ';' && !ft_isdigit(str[j]))
+				j++;
+			if (!str[j] || str[j] == '#' || str[j] == ';')
+				return (-1);
 			else
-				return (1);
+				return (i + 1);
 		}
 		else
-			return (0);
+			return (-1);
 	}
-	return (1);
+	return (i);
 }
 
 t_args		find_args(t_lst **list, int n_command, t_asm *a)
@@ -130,9 +135,18 @@ t_args		find_args(t_lst **list, int n_command, t_asm *a)
 	i = 0;
 	while ((*list)->str[i])
 	{
+		// printf("%s\n", (*list)->str + i);
 		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' &&
 			(*list)->str[i] != '#' && (*list)->str[i] != ';' && !ft_isdigit((*list)->str[i]) && (*list)->str[i] != '-')
-			i++;
+		{
+			if ((*list)->str[i] == ' ' || (*list)->str[i] == '\t')
+				i++;
+			else
+			{
+				t.arg_arr[0].type = 0;
+				return t;
+			}
+		}
 		if ((*list)->str[i] == '%')
 		{
 			t.arg_arr[j].type = 2; //t_dir
@@ -180,11 +194,13 @@ t_args		find_args(t_lst **list, int n_command, t_asm *a)
 			break;
 		// i += digits(t.arg_arr[j].value);
 		i += digits_char((*list)->str + i);
-		if (!find_comma((*list)->str + i))
+		if (find_comma((*list)->str + i) == -1)
 		{
 			t.arg_arr[0].type = 0;
 			return t;
 		}
+		else
+			i += find_comma((*list)->str + i);
 		j++;
 	}
 	if (j > 3)

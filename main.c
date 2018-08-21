@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void	add_to_list(char *str, t_lst *list)
+void		add_to_list(char *str, t_lst *list)
 {
 	while (list->next)
 		list = list->next;
@@ -21,7 +21,7 @@ void	add_to_list(char *str, t_lst *list)
 	list->next->next = NULL;
 }
 
-t_lst	*ft_read(char *f, t_lst *list)
+t_lst		*ft_read(char *f, t_lst *list)
 {
 	t_lst	*head;
 	int		fd;
@@ -49,7 +49,7 @@ t_lst	*ft_read(char *f, t_lst *list)
 	return (head);
 }
 
-int		validation(t_lst **list, t_asm *a)
+int			validation(t_lst **list, t_asm *a)
 {
 	if (!validation_name(list, a))
 	{
@@ -61,23 +61,23 @@ int		validation(t_lst **list, t_asm *a)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_lst	*list;
 	t_lst	*head;
 	t_asm	a;
 
 	if (argc < 2)
-		ft_putendl("Usage:./asm [file_name.s]");
-	else
 	{
-		list = NULL;
-		list = ft_read(argv[argc - 1], list);
-		head = list;
-		ft_putendl("READING DONE...");
-		validation(&list, &a);
-		create_file(a, argv[argc - 1]);
-		system("leaks asm");
+		ft_putendl("Usage:./asm [file_name.s]");
+		return (0);
 	}
+	list = NULL;
+	list = ft_read(argv[argc - 1], list);
+	head = list;
+	ft_putendl("READING DONE...");
+	validation(&list, &a);
+	create_file(a, argv[argc - 1]);
+	system("leaks asm");
 	return (0);
 }

@@ -33,7 +33,7 @@ libft:
 	make -C ./libft
 
 $(NAME): libft $(OBJ)
-	gcc $(CFLAGS) -g $(OBJ) -o  $(NAME)  $(LIB) -I ./
+	gcc $(CFLAGS) $(OBJ) -o  $(NAME)  $(LIB) -I ./
 
 clean:
 	/bin/rm -f $(OBJ)

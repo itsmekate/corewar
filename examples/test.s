@@ -1,13 +1,6 @@
-.name		"helltrain"
-.comment	"choo-choo, motherf*****s !"
-
-
-
-
-
-.name		"helltrain"
-.comment	"choo-choo, motherf*****s !"
+.name		"sadf"
+.comment	"ert"
 
 entry:
-	dti		r1, %:beeees_gen, %1
-	sti		r1, %:beegees, %1
+	st		r1, 6#r 
+	

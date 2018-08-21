@@ -69,7 +69,7 @@ typedef struct 			s_cmnd
 	struct s_cmnd		*next;
 }						t_cmnd;
 
-char					*get_name(t_lst **list, int k);
+char					*get_name(t_lst **list, int k, int j);
 char					*get_comment(t_lst **list);
 void					create_file(t_asm a, char *name);
 
@@ -86,6 +86,7 @@ int						validation_name(t_lst **list, t_asm *a);
 int						validation_commands(t_lst **list, t_asm *a);
 int     				validation_args(t_cmnd *c, t_asm *a);
 
+void					lst_next(t_lst **list);
 void					print_cmnds(t_cmnd	*new);
 int						digits(int n);
 int						digits_char(char *str);

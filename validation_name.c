@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-int		str_comment(char *str)
+int			str_comment(char *str)
 {
 	char	*tmp;
 
@@ -26,7 +26,7 @@ int		str_comment(char *str)
 	return (0);
 }
 
-int		str_name(char *str)
+int			str_name(char *str)
 {
 	char	*tmp;
 
@@ -40,9 +40,9 @@ int		str_name(char *str)
 	return (0);
 }
 
-int 	is_command(char *str)
+int 		is_command(char *str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (str[i])
@@ -60,23 +60,30 @@ int 	is_command(char *str)
 	return (0);
 }
 
-char		*get_name(t_lst **list, int i)
+void		set_new(char **new, char *str, int tmp, int i)
 {
-	int		j;
-	char	*new;
 	char	*tmp_str;
 	char	*tmp_sub;
+
+	tmp_str = *new;
+	tmp_sub = ft_strsub(str, tmp, i);
+	*new = ft_strjoin(*new, tmp_sub);
+	free(tmp_str);
+	free(tmp_sub);
+}
+
+char		*get_name(t_lst **list, int i, int j)
+{
+	char	*new;
+	char	*tmp_str;
 	int		tmp;
-	t_lst	*tmp_lst;
 
 	new = NULL;
-	j = 0;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
 	if (!(*list)->str[i] || (*list)->str[i] != '"')
 		return (NULL);
-	i++;
-	tmp = i;
+	tmp = ++i;
 	while ((*list)->str[i] != '"')
 	{
 		i++;
@@ -85,20 +92,13 @@ char		*get_name(t_lst **list, int i)
 		{
 			if (!new)
 				new = (i == 5) ? ft_memalloc(PROG_NAME_LENGTH) : ft_memalloc(COMMENT_LENGTH);
-			tmp_str = new;
-			tmp_sub = ft_strsub((*list)->str, tmp, i);
-			new = ft_strjoin(new, tmp_sub);
-			free(tmp_str);
-			free(tmp_sub);
+			set_new(&new, (*list)->str, tmp, i);
 			tmp_str = new;
 			new = ft_strjoin(new, "\n");
 			free(tmp_str);
 			tmp = 0;
 			i = 0;
-			tmp_lst = *list;
-			(*list) = (*list)->next;
-			free(tmp_lst->str);
-			free(tmp_lst);
+			lst_next(list);
 		}
 	}
 	if (!new)
@@ -107,76 +107,45 @@ char		*get_name(t_lst **list, int i)
 		new = ft_strncpy(new, (*list)->str + tmp, j);
 	}
 	else
-	{
-		tmp_str = new;
-		tmp_sub = ft_strsub((*list)->str, tmp, i);
-		new = ft_strjoin(new, tmp_sub);
-		free(tmp_str);
-		free(tmp_sub);
-	}
+		set_new(&new, (*list)->str, tmp, i);
 	i++;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
 	if ((*list)->str[i] && (*list)->str[i] != '#' && (*list)->str[i] != ';')
 		return (NULL);
-	tmp_lst = *list;
-	(*list) = (*list)->next;
-	free(tmp_lst->str);
-	// // if (tmp_lst)
-		// free(tmp_lst);
 	return (new);
 }
 
-void	free_lst(t_lst *list)
+int		set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists)
 {
-	t_lst *tmp;
-
-	while (list)
+	if (*name_exists > 1)
 	{
-		tmp = list;
-		list = list->next;
-		free(tmp->str);
-		free(tmp);
+		ft_putendl("Lexical error: incorrect number of name statements");
+		return (0);
 	}
+	if (!a->bot_name)
+		a->bot_name = ft_strdup(tmp_buf_name);
+	ft_strdel(&tmp_buf_name);
+	(*name_exists)++;
+	return (1);
 }
 
-int		validation_name(t_lst **list, t_asm *a)
+int		set_bot_comment(t_asm *a, char *tmp_buf_comment, int *comment_exists)
 {
-	int		name_exists;
-	int		comment_exists;
-	t_lst	*tmp;
-	char	*tmp_buf;
-
-	name_exists = 0;
-	comment_exists = 0;
-	while (*list)
+	if (*comment_exists > 1)
 	{
-		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (tmp_buf = get_name(list, 5)))
-		{
-			if (!a->bot_name)
-				a->bot_name = tmp_buf;
-			free(tmp_buf);
-			name_exists++;
-		}
-		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (tmp_buf = get_name(list, 8)))
-		{
-			if (!a->bot_name)
-				a->bot_comment = tmp_buf;
-			free(tmp_buf);
-			comment_exists++;
-		}
-		if (!*list)
-		{
-			ft_putendl("Syntax error: no commands");
-			return (0);
-		}
-		if (is_command((*list)->str))
-			break;
-		tmp = *list;
-		(*list) = (*list)->next;
-		free(tmp->str);
-		free(tmp);
+		ft_putendl("Lexical error: incorrect number of comment statements");
+		return (0);
 	}
+	if (!a->bot_comment)
+		a->bot_comment = ft_strdup(tmp_buf_comment);
+	ft_strdel(&tmp_buf_comment);
+	(*comment_exists)++;
+	return (1);
+}
+
+int 	errors(t_lst **list, int name_exists, int comment_exists)
+{
 	if (!*list)
 	{
 		ft_putendl("Syntax error: no commands");
@@ -185,28 +154,46 @@ int		validation_name(t_lst **list, t_asm *a)
 	if (!name_exists)
 	{
 		ft_putendl("Syntax error: no name "); 
-		// at token[TOKEN][001:014]ENDLINE
-		return (0);
-	}
-	if (name_exists > 1)
-	{
-		ft_putendl("Lexical error: incorrect number of name statements");
-		// at [3:11]
 		return (0);
 	}
 	if (!comment_exists)
 	{
 		ft_putendl("Syntax error: no comment "); 
-		// at token[TOKEN][001:014]ENDLINE
 		return (0);
 	}
-	if (comment_exists > 1)
+	return (1);
+}
+
+int		validation_name(t_lst **list, t_asm *a)
+{
+	int		name_exists;
+	int		comment_exists;
+	char	*tmp_buf_name;
+	char	*tmp_buf_comment;
+
+	name_exists = 0;
+	comment_exists = 0;
+	while (*list)
 	{
-		ft_putendl("Lexical error: incorrect number of comment statements"); 
-		// at [3:11]
-		return (0);
+		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (tmp_buf_name = get_name(list, 5, 0)))
+		{
+			if (!set_bot_name(a, tmp_buf_name, &name_exists))
+				return (0);
+		}
+		else if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (tmp_buf_comment = get_name(list, 8, 0)))
+		{
+			if (!set_bot_comment(a, tmp_buf_comment, &comment_exists))
+				return (0);
+		}
+		else if (is_command((*list)->str))
+		{
+			break;
+		}
+		lst_next(list);
 	}
-	printf("name: %s\n", a->bot_name);
-	printf("comment: %s\n", a->bot_comment);
+	printf("name %s\n", a->bot_name);
+	printf("comment %s\n", a->bot_comment);
+	if (!errors(list, name_exists, comment_exists))
+		return (0);
 	return (1);
 }

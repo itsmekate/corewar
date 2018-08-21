@@ -1,5 +1,18 @@
 #include "asm.h"
 
+void	lst_next(t_lst **list)
+{
+	t_lst	*tmp;
+
+	if (*list)
+	{
+		tmp = *list;
+		(*list) = (*list)->next; 
+		free(tmp->str);
+		free(tmp);
+	}
+}
+
 void		print_cmnds(t_cmnd	*new)
 {
 	printf("____________________________\n\n %s \n____________________________\n\n", "NEW COMMANDS LIST");
