@@ -45,7 +45,7 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	int		j;
 	int		size;
 	char	*name = NULL;
-	char 	*tmp;
+	char 	 *tmp;
 
 	n = 0;
 	size = 0;
@@ -123,98 +123,4 @@ int			find_comma(char *str)
 			return (-1);
 	}
 	return (i);
-}
-
-t_args		find_args(t_lst **list, int n_command, t_asm *a)
-{
-	t_args	t;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = 0;
-	while ((*list)->str[i])
-	{
-		// printf("%s\n", (*list)->str + i);
-		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' &&
-			(*list)->str[i] != '#' && (*list)->str[i] != ';' && !ft_isdigit((*list)->str[i]) && (*list)->str[i] != '-')
-		{
-			if ((*list)->str[i] == ' ' || (*list)->str[i] == '\t')
-				i++;
-			else
-			{
-				t.arg_arr[0].type = 0;
-				return t;
-			}
-		}
-		if ((*list)->str[i] == '%')
-		{
-			t.arg_arr[j].type = 2; //t_dir
-			t.arg_arr[j].size = a->op_tab[n_command - 1].label_size;
-			if ((*list)->str[i + 1] != ':')
-			{
-				t.arg_arr[j].text = NULL;
-				t.arg_arr[j].value = ft_atoi((*list)->str + i + 1);
-				i++;
-			}
-			else
-			{
-				i += 2;
-				t.arg_arr[j].text = get_arg_label((*list)->str + i);
-				t.arg_arr[j].value = 0;
-				// i += ft_strlen(t.arg_arr[j].text) - 1;
-			}
-		}
-		else if ((*list)->str[i] == 'r')
-		{
-			t.arg_arr[j].type = 1; //t_reg
-			t.arg_arr[j].size = 1;
-			if ((*list)->str[i + 1] != ':')
-			{
-				t.arg_arr[j].text = NULL;
-				t.arg_arr[j].value = ft_atoi((*list)->str + i + 1);
-				i++;
-			}
-			else
-			{
-				i += 2;
-				t.arg_arr[j].text = get_arg_label((*list)->str + i);
-				t.arg_arr[j].value = 0;
-				// i += ft_strlen(t.arg_arr[j].text) - 1;
-			}
-		}
-		else if (ft_isdigit((*list)->str[i]) || (*list)->str[i] == '-')
-		{
-			t.arg_arr[j].type = 3; //t_ind
-			t.arg_arr[j].size = 2;
-			t.arg_arr[j].value = ft_atoi((*list)->str + i);
-			t.arg_arr[j].text = NULL;
-		}
-		else
-			break;
-		// i += digits(t.arg_arr[j].value);
-		i += digits_char((*list)->str + i);
-		if (find_comma((*list)->str + i) == -1)
-		{
-			t.arg_arr[0].type = 0;
-			return t;
-		}
-		else
-			i += find_comma((*list)->str + i);
-		j++;
-	}
-	if (j > 3)
-	{
-		t.arg_arr[0].type = 0;
-		return t;
-	}
-	while (j < 3)
-	{
-		t.arg_arr[j].size = 0;
-		t.arg_arr[j].type = 0;
-		t.arg_arr[j].value = 0;
-		t.arg_arr[j].text = NULL;
-		j++;
-	}
-	return (t);
 }

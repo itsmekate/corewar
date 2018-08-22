@@ -49,16 +49,16 @@ t_lst		*ft_read(char *f, t_lst *list)
 	return (head);
 }
 
-int			validation(t_lst **list, t_asm *a)
+void		validation(t_lst **list, t_asm *a)
 {
 	if (!validation_name(list, a))
+		exit(0);
+	get_t_op(a);
+	if (!validation_commands(list, a))
 	{
 		system("leaks asm");
 		exit(0);
 	}
-	get_t_op(a);
-	validation_commands(list, a);
-	return (0);
 }
 
 int			main(int argc, char **argv)

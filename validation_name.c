@@ -60,25 +60,37 @@ int 		is_command(char *str)
 	return (0);
 }
 
-void		set_new(char **new, char *str, int tmp, int i)
+char	*copy_n(char *dst, const char *src, int i, int len, int arg)
 {
-	char	*tmp_str;
-	char	*tmp_sub;
+	int j;
 
-	tmp_str = *new;
-	tmp_sub = ft_strsub(str, tmp, i);
-	*new = ft_strjoin(*new, tmp_sub);
-	free(tmp_str);
-	free(tmp_sub);
+	j = 0;
+	if (!dst)
+	{
+		dst = (arg == 5) ? ft_memalloc(PROG_NAME_LENGTH) : ft_memalloc(COMMENT_LENGTH);
+		dst = copy_n(dst, src, i, len, arg);
+		return (dst);
+	}
+	while (j < len && src[j])
+	{
+		dst[i] = src[j];
+		i++;
+		j++;
+	}
+	if (!src[j])
+		dst[i] = '\n';
+	return (dst);
 }
 
-char		*get_name(t_lst **list, int i, int j)
+
+char		*get_name(t_lst **list, int arg)
 {
 	char	*new;
-	char	*tmp_str;
 	int		tmp;
+	int		i;
 
 	new = NULL;
+	i = arg;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
 	if (!(*list)->str[i] || (*list)->str[i] != '"')
@@ -87,27 +99,15 @@ char		*get_name(t_lst **list, int i, int j)
 	while ((*list)->str[i] != '"')
 	{
 		i++;
-		j++;
 		if (!(*list)->str[i])
 		{
-			if (!new)
-				new = (i == 5) ? ft_memalloc(PROG_NAME_LENGTH) : ft_memalloc(COMMENT_LENGTH);
-			set_new(&new, (*list)->str, tmp, i);
-			tmp_str = new;
-			new = ft_strjoin(new, "\n");
-			free(tmp_str);
+			new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg);
 			tmp = 0;
 			i = 0;
 			lst_next(list);
 		}
 	}
-	if (!new)
-	{
-		new = (i == 5) ? ft_memalloc(PROG_NAME_LENGTH) : ft_memalloc(COMMENT_LENGTH);
-		new = ft_strncpy(new, (*list)->str + tmp, j);
-	}
-	else
-		set_new(&new, (*list)->str, tmp, i);
+	new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg);
 	i++;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
@@ -118,28 +118,28 @@ char		*get_name(t_lst **list, int i, int j)
 
 int		set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists)
 {
-	if (*name_exists > 1)
+	if (*name_exists > 0)
 	{
+		ft_strdel(&tmp_buf_name);
 		ft_putendl("Lexical error: incorrect number of name statements");
 		return (0);
 	}
 	if (!a->bot_name)
-		a->bot_name = ft_strdup(tmp_buf_name);
-	ft_strdel(&tmp_buf_name);
+		a->bot_name = tmp_buf_name;
 	(*name_exists)++;
 	return (1);
 }
 
 int		set_bot_comment(t_asm *a, char *tmp_buf_comment, int *comment_exists)
 {
-	if (*comment_exists > 1)
+	if (*comment_exists > 0)
 	{
+		ft_strdel(&tmp_buf_comment);
 		ft_putendl("Lexical error: incorrect number of comment statements");
 		return (0);
 	}
 	if (!a->bot_comment)
-		a->bot_comment = ft_strdup(tmp_buf_comment);
-	ft_strdel(&tmp_buf_comment);
+		a->bot_comment = tmp_buf_comment;
 	(*comment_exists)++;
 	return (1);
 }
@@ -175,12 +175,12 @@ int		validation_name(t_lst **list, t_asm *a)
 	comment_exists = 0;
 	while (*list)
 	{
-		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (tmp_buf_name = get_name(list, 5, 0)))
+		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (tmp_buf_name = get_name(list, 5)))
 		{
 			if (!set_bot_name(a, tmp_buf_name, &name_exists))
 				return (0);
 		}
-		else if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (tmp_buf_comment = get_name(list, 8, 0)))
+		else if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (tmp_buf_comment = get_name(list, 8)))
 		{
 			if (!set_bot_comment(a, tmp_buf_comment, &comment_exists))
 				return (0);
