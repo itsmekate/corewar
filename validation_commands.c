@@ -49,6 +49,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	}
 	if (new->command_name == -1 && new->label)
 	{
+		new->n_byte = 0;
 		new->next = NULL;
 		return (new);
 	}
