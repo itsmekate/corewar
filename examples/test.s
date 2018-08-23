@@ -1,7 +1,43 @@
 #by zaz, still not as good as rainbowdash though
 #2013
 
-.name		"helltrain"
+.name		"helltrain
+helltrain
+helltrain
+v
+helltrain
+helltrain
+v
+vhelltrain
+v
+v
+v
+helltrain
+v
+helltrain
+helltrain
+helltrain
+helltrain
+v
+vhelltrain
+helltrain
+helltrain
+v
+helltrain
+helltrain
+v
+vhelltrain
+v
+v
+v
+helltrain
+v
+helltrain
+helltrain
+helltrain
+helltrain
+v
+v"
 .comment	"choo-choo, motherf*****s !"
 
 entry:

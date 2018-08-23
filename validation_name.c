@@ -71,6 +71,16 @@ char	*copy_n(char *dst, const char *src, int i, int len, int arg)
 		dst = copy_n(dst, src, i, len, arg);
 		return (dst);
 	}
+	if (arg == 5 && i >= PROG_NAME_LENGTH)
+	{
+		ft_putendl("Champion name too long (Max length 128)");
+		return (NULL);
+	}
+	if (arg == 8 && i >= COMMENT_LENGTH)
+	{
+		ft_putendl("Champion comment too long (Max length 2048)");
+		return (NULL);
+	}
 	while (j < len && src[j])
 	{
 		dst[i] = src[j];
@@ -101,13 +111,21 @@ char		*get_name(t_lst **list, int arg)
 		i++;
 		if (!(*list)->str[i])
 		{
-			new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg);
+			if (!(new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg)))
+			{
+				free(new);
+				return (NULL);
+			}
 			tmp = 0;
 			i = 0;
 			lst_next(list);
 		}
 	}
-	new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg);
+	if (!(new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg)))
+	{
+		free(new);
+		return (NULL);
+	}
 	i++;
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
@@ -118,6 +136,8 @@ char		*get_name(t_lst **list, int arg)
 
 int		set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists)
 {
+	if (!tmp_buf_name)
+		return (0);
 	if (*name_exists > 0)
 	{
 		ft_strdel(&tmp_buf_name);
@@ -132,6 +152,8 @@ int		set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists)
 
 int		set_bot_comment(t_asm *a, char *tmp_buf_comment, int *comment_exists)
 {
+	if (!tmp_buf_comment)
+		return (0);
 	if (*comment_exists > 0)
 	{
 		ft_strdel(&tmp_buf_comment);
@@ -175,20 +197,20 @@ int		validation_name(t_lst **list, t_asm *a)
 	comment_exists = 0;
 	while (*list)
 	{
-		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str) && (tmp_buf_name = get_name(list, 5)))
+		if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_name((*list)->str))
 		{
+			tmp_buf_name = get_name(list, 5);
 			if (!set_bot_name(a, tmp_buf_name, &name_exists))
 				return (0);
 		}
-		else if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str) && (tmp_buf_comment = get_name(list, 8)))
+		else if ((*list)->str[0] != '#' && (*list)->str[0] != ';' && str_comment((*list)->str))
 		{
+			tmp_buf_comment = get_name(list, 8);
 			if (!set_bot_comment(a, tmp_buf_comment, &comment_exists))
 				return (0);
 		}
 		else if (is_command((*list)->str))
-		{
 			break;
-		}
 		lst_next(list);
 	}
 	printf("name %s\n", a->bot_name);
