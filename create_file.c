@@ -119,6 +119,7 @@ void		create_file(t_asm a, char *name)
 	printf("NAME FILE %s\n", file_name);
 	fd = open(file_name, O_WRONLY | O_CREAT, 0777);
 	write_data(fd, a);
+	printf("Writing output program to %s\n", file_name);
 	close(fd);
 	free(file_name);
 }
