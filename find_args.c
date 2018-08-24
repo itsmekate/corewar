@@ -88,7 +88,9 @@ t_args		find_args(t_lst **list, int n_command, t_asm *a)
 			arg_dir(&t, j, &i, (*list)->str);
 		}
 		else if ((*list)->str[i] == 'r')
+		{
 			arg_reg(&t, j, &i, (*list)->str);
+		}
 		else if (ft_isdigit((*list)->str[i]) || (*list)->str[i] == '-' || (*list)->str[i] == ':')
 			arg_ind(&t, j, &i, (*list)->str + i);
 		else

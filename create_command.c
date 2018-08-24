@@ -115,7 +115,7 @@ int			find_comma(char *str)
 		else if (str[i] == ',')
 		{
 			j = i + 1;
-			while (str[j] && str[j] != '%' && str[j] != 'r' && str[j] != '#' && str[j] != ';' && !ft_isdigit(str[j]))
+			while (str[j] && str[j] != '%' && str[j] != 'r' && str[j] != ':' && str[j] != '#' && str[j] != ';' && !ft_isdigit(str[j]))
 				j++;
 			if (!str[j] || str[j] == '#' || str[j] == ';')
 				return (-1);
