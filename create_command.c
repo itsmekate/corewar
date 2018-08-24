@@ -4,9 +4,14 @@ char		*find_label(t_lst **list)
 {
 	char	*label;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	label = NULL;
+	while ((*list)->str[i] == ' ' || (*list)->str[i] == '\t')
+		i++;
+	j = i;
 	if (!ft_strchr(LABEL_CHARS, (*list)->str[i]) || !ft_strchr((*list)->str, ':'))
 		return (label);
 	while ((*list)->str[i] && (*list)->str[i] != ':' && (*list)->str[i] != ' ' && (*list)->str[i] != '\t')
@@ -17,8 +22,8 @@ char		*find_label(t_lst **list)
 	}
 	if (!(*list)->str[i] || (*list)->str[i] != ':')
 		return (label);
-	label = ft_strnew(i);
-	label = strncpy(label, (*list)->str, i);
+	label = ft_strnew(i - j);
+	label = ft_strncpy(label, (*list)->str + j, i - j);
 	return (label);
 }
 
@@ -49,20 +54,18 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 
 	n = 0;
 	size = 0;
+	i = 0;
+	while ((*list)->str[i] == ' ' || (*list)->str[i] == '\t')
+		i++;
 	if (label)
-		i = ft_strlen(label) + 1;
-	else
-		i = 0;
-	// printf("%s\n", label);
+		i += ft_strlen(label) + 1;
 	while (!ft_strchr(LABEL_CHARS, (*list)->str[i]))
 	{
 		if ((*list)->str[i] == ':')
 			return (-1);
 		if (!(*list)->str[i])
 		{
-			// (*list) = (*list)->next;
 			return (-1);
-			// i = 0;
 		}
 		else
 			i++;
