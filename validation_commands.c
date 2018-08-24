@@ -99,6 +99,6 @@ int			validation_commands(t_lst **list, t_asm *a)
 		ft_putendl("Wrong label args");
 		return (0);
 	}
-	// print_cmnds(head_tmp);
+	print_cmnds(head_tmp);
 	return (1);
 }

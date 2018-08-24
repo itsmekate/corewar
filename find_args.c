@@ -1,6 +1,5 @@
 #include "asm.h"
 
-
 void		arg_reg(t_args	*t, int j, int *i, char *str)
 {
 	t->arg_arr[j].type = 1; //t_reg
@@ -36,12 +35,21 @@ void		arg_dir(t_args	*t, int j, int *i, char *str)
 	}
 }
 
-void		arg_ind(t_args	*t, int j, char *str)
+void		arg_ind(t_args	*t, int j, int *i, char *str)
 {
 	t->arg_arr[j].type = 3; //t_ind
 	t->arg_arr[j].size = 2;
-	t->arg_arr[j].value = ft_atoi(str);
-	t->arg_arr[j].text = NULL;
+	if (*str == ':')
+	{
+		(*i)++;
+		t->arg_arr[j].text = get_arg_label(str + 1);
+		t->arg_arr[j].value = 0;
+	}
+	else
+	{
+		t->arg_arr[j].value = ft_atoi(str);
+		t->arg_arr[j].text = NULL;
+	}
 }
 
 void		arg_zero(t_args	*t, int j)
@@ -63,7 +71,8 @@ t_args		find_args(t_lst **list, int n_command, t_asm *a)
 	while ((*list)->str[i])
 	{
 		while ((*list)->str[i] && (*list)->str[i] != '%' && (*list)->str[i] != 'r' &&
-			(*list)->str[i] != '#' && (*list)->str[i] != ';' && !ft_isdigit((*list)->str[i]) && (*list)->str[i] != '-')
+			(*list)->str[i] != '#' && (*list)->str[i] != ';' && !ft_isdigit((*list)->str[i]) &&
+			(*list)->str[i] != '-' && (*list)->str[i] != ':')
 		{
 			if ((*list)->str[i] == ' ' || (*list)->str[i] == '\t')
 				i++;
@@ -80,8 +89,8 @@ t_args		find_args(t_lst **list, int n_command, t_asm *a)
 		}
 		else if ((*list)->str[i] == 'r')
 			arg_reg(&t, j, &i, (*list)->str);
-		else if (ft_isdigit((*list)->str[i]) || (*list)->str[i] == '-')
-			arg_ind(&t, j, (*list)->str + i);
+		else if (ft_isdigit((*list)->str[i]) || (*list)->str[i] == '-' || (*list)->str[i] == ':')
+			arg_ind(&t, j, &i, (*list)->str + i);
 		else
 			break;
 		i += digits_char((*list)->str + i);

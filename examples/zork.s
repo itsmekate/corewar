@@ -3,7 +3,7 @@
 
 l2:
 		live %1
-		sti r1, 211, %5	#6
+		sti r1, :live, %5	#6
 		and r1, %0, r1		#7
 
 live:	live %-5	#5
