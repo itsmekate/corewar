@@ -74,11 +74,13 @@ char	*copy_n(char *dst, const char *src, int i, int len, int arg)
 	if (arg == 5 && i >= PROG_NAME_LENGTH)
 	{
 		ft_putendl("Champion name too long (Max length 128)");
+		free(dst);
 		return (NULL);
 	}
 	if (arg == 8 && i >= COMMENT_LENGTH)
 	{
 		ft_putendl("Champion comment too long (Max length 2048)");
+		free(dst);
 		return (NULL);
 	}
 	while (j < len && src[j])
@@ -119,6 +121,11 @@ char		*get_name(t_lst **list, int arg)
 			tmp = 0;
 			i = 0;
 			lst_next(list);
+			if (!(*list))
+			{
+				free(new);
+				return (NULL);
+			}
 		}
 	}
 	if (!(new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg)))
@@ -130,14 +137,20 @@ char		*get_name(t_lst **list, int arg)
 	while ((*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t'))
 		i++;
 	if ((*list)->str[i] && (*list)->str[i] != '#' && (*list)->str[i] != ';')
+	{
+		free(new);
 		return (NULL);
+	}
 	return (new);
 }
 
 int		set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists)
 {
 	if (!tmp_buf_name)
+	{
+		ft_putendl("Syntax error: incorrect name");
 		return (0);
+	}
 	if (*name_exists > 0)
 	{
 		ft_strdel(&tmp_buf_name);
@@ -153,7 +166,10 @@ int		set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists)
 int		set_bot_comment(t_asm *a, char *tmp_buf_comment, int *comment_exists)
 {
 	if (!tmp_buf_comment)
+	{
+		ft_putendl("Syntax error: incorrect comment");
 		return (0);
+	}
 	if (*comment_exists > 0)
 	{
 		ft_strdel(&tmp_buf_comment);
