@@ -77,7 +77,7 @@ int			main(int argc, char **argv)
 	}
 	list = NULL;
 	list = ft_read(argv[argc - 1], list);
-	ft_putendl("READING DONE...");
+	// ft_putendl("READING DONE...");
 	validation(&list, &a);
 	create_file(a, argv[argc - 1]);
 	system("leaks asm");

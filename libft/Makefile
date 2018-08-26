@@ -22,6 +22,18 @@ ft_strtrim.c ft_strsplit.c ft_itoa.c ft_putchar.c ft_putstr.c ft_putendl.c \
 ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 ft_list_size.c ft_list_reverse.c ft_list_last.c ft_list_clear.c ft_swap.c get_next_line.c \
+		main.c \
+		struct.c \
+		ft_put.c \
+		itoa_base.c \
+		unicode.c \
+		print.c \
+		count_digits.c \
+		print_cs.c \
+		print_ou.c \
+		print_di.c \
+		print_px.c \
+
 
 FLAGS = -Wall -Wextra -Werror
 OBJ = $(SRC:.c=.o)
