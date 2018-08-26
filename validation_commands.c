@@ -38,7 +38,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 {
 	t_cmnd	*new;
 
-	printf("%s\n", (*list)->str);
+	// printf("%s\n", (*list)->str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(list);
 	new->n_str = (*list)->n_str;

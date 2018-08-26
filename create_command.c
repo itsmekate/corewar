@@ -96,6 +96,8 @@ char		*get_arg_label(char *str)
 	i = 0;
 	while (str[i] && str[i] != ',' && str[i] != ' ' && str[i] != '\t')
 		i++;
+	if (!i)
+		return (NULL);
 	new = ft_strsub(str, 0, i);
 	return (new);
 }
