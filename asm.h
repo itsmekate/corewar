@@ -23,6 +23,7 @@
 typedef struct 			s_lst
 {
 	char				*str;
+	int					n_str;
 	struct s_lst		*next;
 }						t_lst;
 
@@ -64,6 +65,7 @@ typedef struct 			s_cmnd
 {
 	int					command_name;
 	struct s_args		arg;
+	int					n_str;
 	int					n_byte;
 	char				*label;
 	struct s_cmnd		*next;

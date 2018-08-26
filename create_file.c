@@ -72,7 +72,6 @@ void		write_commands(int fd, t_cmnd *c, t_asm a)
 		if (a.op_tab[c->command_name - 1].acb)
 		{
 			codage = count_codage(c->arg);
-			printf("CODAGE %d\n", codage);
 			rotate((char *)&codage, 1);
 			write(fd, &codage, 1);
 		}

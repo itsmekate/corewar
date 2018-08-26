@@ -41,10 +41,11 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	printf("%s\n", (*list)->str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(list);
+	new->n_str = (*list)->n_str;
 	if (!(new->command_name = find_command_name(list, new->label, a)))
 	{
 		free(new);
-		ft_putendl("bad name");
+		printf("Syntax error: wrong command name on line %d\n", (*list)->n_str);
 		return (NULL);
 	}
 	if (new->command_name == -1 && new->label)
@@ -56,7 +57,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	new->arg = find_args(list, new->command_name, a);
 	if (!new->arg.arg_arr[0].type && !validation_args(new, a))
 	{
-		ft_putendl("bad args");
+		printf("Syntax error: wrong arguments on line %d\n", (*list)->n_str);
 		free(new);
 		return (NULL);
 	}
@@ -72,10 +73,7 @@ int			validation_commands(t_lst **list, t_asm *a)
 	t_cmnd	*head_tmp;
 
 	if (!(a->command = new_command(list, a)))
-	{
-		ft_putendl("Wrong command");
 		return (0);
-	}
 	head = a->command;
 	head_tmp = head;
 	lst_next(list);
@@ -87,18 +85,12 @@ int			validation_commands(t_lst **list, t_asm *a)
 			continue;
 		}
 		if (!(head->next = new_command(list, a)))
-		{
-			ft_putendl("Wrong command");
 			return (0);
-		}
 		head = head->next;
 		lst_next(list);
 	}
 	if (!label_to_numbers(head_tmp))
-	{
-		ft_putendl("Wrong label args");
 		return (0);
-	}
-	print_cmnds(head_tmp);
+	// print_cmnds(head_tmp);
 	return (1);
 }

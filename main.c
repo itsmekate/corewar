@@ -12,12 +12,13 @@
 
 #include "asm.h"
 
-void		add_to_list(char *str, t_lst *list)
+void		add_to_list(char *str, t_lst *list, int i)
 {
 	while (list->next)
 		list = list->next;
 	list->next = (t_lst*)malloc(sizeof(t_lst));
 	list->next->str = ft_strdup(str);
+	list->next->n_str = i;
 	list->next->next = NULL;
 }
 
@@ -25,8 +26,10 @@ t_lst		*ft_read(char *f, t_lst *list)
 {
 	t_lst	*head;
 	int		fd;
+	int		i;
 	char	*tmp;
 
+	i = 1;
 	fd = open(f, O_RDONLY);
 	if (fd == 0 || fd == -1)
 	{
@@ -37,13 +40,14 @@ t_lst		*ft_read(char *f, t_lst *list)
 	{
 		list = (t_lst*)malloc(sizeof(t_lst));
 		list->str = ft_strdup(tmp);
+		list->n_str = i;
 		list->next = NULL;
 		free(tmp);
 	}
 	head = list;
 	while (get_next_line(fd, &tmp) > 0)
 	{
-		add_to_list(tmp, list);
+		add_to_list(tmp, list, ++i);
 		free(tmp);
 	}
 	return (head);
@@ -64,7 +68,6 @@ void		validation(t_lst **list, t_asm *a)
 int			main(int argc, char **argv)
 {
 	t_lst	*list;
-	t_lst	*head;
 	t_asm	a;
 
 	if (argc < 2)
@@ -74,7 +77,6 @@ int			main(int argc, char **argv)
 	}
 	list = NULL;
 	list = ft_read(argv[argc - 1], list);
-	head = list;
 	ft_putendl("READING DONE...");
 	validation(&list, &a);
 	create_file(a, argv[argc - 1]);

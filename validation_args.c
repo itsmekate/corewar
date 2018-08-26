@@ -43,6 +43,7 @@ int			label_to_numbers(t_cmnd	*cmnds)
 				if ((tmp_res = find_label_num(cmnds->arg.arg_arr[i].text, tmp)) == -1)
 				{
 					ft_strdel(&cmnds->arg.arg_arr[i].text);
+					printf("Syntax error: wrong label argument on line %d\n", cmnds->n_str);
 					return (0);
 				}
 				cmnds->arg.arg_arr[i].value = tmp_res - res;
