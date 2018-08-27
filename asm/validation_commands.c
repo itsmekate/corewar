@@ -38,7 +38,6 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 {
 	t_cmnd	*new;
 
-	// printf("%s\n", (*list)->str);
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(list);
 	new->n_str = (*list)->n_str;
@@ -54,8 +53,8 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 		new->next = NULL;
 		return (new);
 	}
-	new->arg = find_args(list, new->command_name, a);
-	if (!new->arg.arg_arr[0].type && !validation_args(new, a))
+	new->arg = find_args(list, new->command_name, a, 0);
+	if (!new->arg.arg_arr[0].type && !validation_args(new, a, 0))
 	{
 		ft_printf("Syntax error: wrong arguments on line %d\n", (*list)->n_str);
 		free(new);
@@ -91,6 +90,5 @@ int			validation_commands(t_lst **list, t_asm *a)
 	}
 	if (!label_to_numbers(head_tmp))
 		return (0);
-	// print_cmnds(head_tmp);
 	return (1);
 }

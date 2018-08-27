@@ -22,14 +22,12 @@ void		add_to_list(char *str, t_lst *list, int i)
 	list->next->next = NULL;
 }
 
-t_lst		*ft_read(char *f, t_lst *list)
+t_lst		*ft_read(char *f, t_lst *list, int i)
 {
 	t_lst	*head;
 	int		fd;
-	int		i;
 	char	*tmp;
 
-	i = 1;
 	fd = open(f, O_RDONLY);
 	if (fd == 0 || fd == -1)
 	{
@@ -79,8 +77,7 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 	list = NULL;
-	list = ft_read(argv[argc - 1], list);
-	// ft_putendl("READING DONE...");
+	list = ft_read(argv[argc - 1], list, 1);
 	validation(&list, &a);
 	create_file(a, argv[argc - 1]);
 	system("leaks asm");
