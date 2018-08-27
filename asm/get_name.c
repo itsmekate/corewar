@@ -102,21 +102,19 @@ int			find_lapki(t_lst **list, int *i, char *new, int arg)
 	return (tmp);
 }
 
-char		*get_name(t_lst **list, int arg)
+char		*get_name(t_lst **l, int arg, char *new)
 {
-	char	*new;
 	int		tmp;
 	int		i;
 
-	new = NULL;
 	i = arg;
 	while (SPACES)
 		i++;
-	if (!(*list)->str[i] || (*list)->str[i] != '"')
+	if (!(*l)->str[i] || (*l)->str[i] != '"')
 		return (NULL);
-	if ((tmp = find_lapki(list, &i, new, arg)) == -1)
+	if ((tmp = find_lapki(l, &i, new, arg)) == -1)
 		return (NULL);
-	if (!(new = copy_n(new, (*list)->str + tmp, ft_strlen(new), i - tmp, arg)))
+	if (!(new = copy_n(new, (*l)->str + tmp, ft_strlen(new), i - tmp, arg)))
 	{
 		free(new);
 		return (NULL);
@@ -124,7 +122,7 @@ char		*get_name(t_lst **list, int arg)
 	i++;
 	while (SPACES)
 		i++;
-	if ((*list)->str[i] && (*list)->str[i] != '#' && (*list)->str[i] != ';')
+	if ((*l)->str[i] && (*l)->str[i] != '#' && (*l)->str[i] != ';')
 	{
 		free(new);
 		return (NULL);

@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include "op.h"
 
-# define SPACES (*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t')
+# define SPACES (*l)->str[i] && ((*l)->str[i] == ' ' || (*l)->str[i] == '\t')
 
 typedef struct			s_lst
 {
@@ -77,7 +77,7 @@ int						str_comment(char *str);
 int						str_name(char *str);
 char					*copy_n(char *dst, const char *src, int i,
 						int len, int arg);
-char					*get_name(t_lst **list, int arg);
+char					*get_name(t_lst **l, int arg, char *new);
 char					*get_comment(t_lst **list);
 void					create_file(t_asm a, char *name);
 
