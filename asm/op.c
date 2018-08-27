@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-t_op	op_tab[17] =
+t_op	g_op_tab[17] =
 {
 	{"live", 1, {{2, 0, 0}, {0, 0, 0}, {0, 0, 0}}, 1, 10, "alive", 0, 4},
 	{"ld", 2, {{2, 3, 0}, {1, 0, 0}, {0, 0, 0}}, 2, 5, "load", 1, 4},
@@ -47,7 +47,7 @@ void	get_t_op(t_asm *a)
 	i = 0;
 	while (i < 17)
 	{
-		a->op_tab[i] = op_tab[i];
+		a->op_tab[i] = g_op_tab[i];
 		i++;
 	}
 }

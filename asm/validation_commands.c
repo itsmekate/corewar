@@ -34,10 +34,8 @@ int			count_bytes(t_cmnd *new, t_asm *a)
 	return (res);
 }
 
-t_cmnd		*new_command(t_lst **list, t_asm *a)
+t_cmnd		*new_command(t_lst **list, t_asm *a, t_cmnd *new)
 {
-	t_cmnd	*new;
-
 	new = (t_cmnd *)malloc(sizeof(t_cmnd));
 	new->label = find_label(list);
 	new->n_str = (*list)->n_str;
@@ -65,13 +63,12 @@ t_cmnd		*new_command(t_lst **list, t_asm *a)
 	return (new);
 }
 
-
 int			validation_commands(t_lst **list, t_asm *a)
 {
 	t_cmnd	*head;
 	t_cmnd	*head_tmp;
 
-	if (!(a->command = new_command(list, a)))
+	if (!(a->command = new_command(list, a, NULL)))
 		return (0);
 	head = a->command;
 	head_tmp = head;
@@ -83,7 +80,7 @@ int			validation_commands(t_lst **list, t_asm *a)
 			lst_next(list);
 			continue;
 		}
-		if (!(head->next = new_command(list, a)))
+		if (!(head->next = new_command(list, a, NULL)))
 			return (0);
 		head = head->next;
 		lst_next(list);

@@ -1,6 +1,17 @@
-.comment "adfdsf"
+.name""
+.comment""
 
-.name "sdf
 
-sti	r1, %:live, %1			;change live by the right value
-sti	r1, %:
+# .name"sdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsdssdf;sdfsduu"
+# .comment"ad#sdfsdffdsf"
+
+s 
+
+# .comment "adfdsf"
+
+# .name "sdf"
+
+# sti r1, %1, %1,%:live
+
+# 	  sti			r1   ,   	%:live
+# live:
