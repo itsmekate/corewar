@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_file.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kprasol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/27 14:03:49 by kprasol           #+#    #+#             */
+/*   Updated: 2018/08/27 14:03:51 by kprasol          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 void		rotate(char *str, int size)
 {
 	int		i;
 	char	tmp;
-	int		s = size / 2;
+	int		s;
 
 	i = 0;
+	s = size / 2;
 	if (size != 1)
 		while (size != s)
 		{
@@ -16,19 +29,6 @@ void		rotate(char *str, int size)
 			i++;
 			size--;
 		}
-}
-
-int			sum_exec(t_cmnd *c)
-{
-	int		res;
-
-	res = 0;
-	while (c)
-	{
-		res += c->n_byte;
-		c = c->next;
-	}
-	return (res);
 }
 
 int			count_codage(t_args t)
@@ -51,13 +51,29 @@ int			count_codage(t_args t)
 	return (codage);
 }
 
-void		write_commands(int fd, t_cmnd *c, t_asm a)
+void		write_more_commands(int fd, t_cmnd *c, t_asm a)
 {
 	int		i;
 	int		codage;
 
-	i = 0;
 	codage = 0;
+	i = 0;
+	if (a.op_tab[c->command_name - 1].acb)
+	{
+		codage = count_codage(c->arg);
+		rotate((char *)&codage, 1);
+		write(fd, &codage, 1);
+	}
+	while ((c->arg.arg_arr[i]).type && i < 3)
+	{
+		rotate((char *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
+		write(fd, (void *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
+		i++;
+	}
+}
+
+void		write_commands(int fd, t_cmnd *c, t_asm a)
+{
 	a.bot_name = NULL;
 	while (c)
 	{
@@ -68,19 +84,7 @@ void		write_commands(int fd, t_cmnd *c, t_asm a)
 			c = c->next;
 			continue;
 		}
-		i = 0;
-		if (a.op_tab[c->command_name - 1].acb)
-		{
-			codage = count_codage(c->arg);
-			rotate((char *)&codage, 1);
-			write(fd, &codage, 1);
-		}
-		while ((c->arg.arg_arr[i]).type && i < 3)
-		{
-			rotate((char *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
-			write(fd, (void *)&c->arg.arg_arr[i].value, c->arg.arg_arr[i].size);
-			i++;
-		}
+		write_more_commands(fd, c, a);
 		c = c->next;
 	}
 }
@@ -109,9 +113,10 @@ void		write_data(int fd, t_asm a)
 void		create_file(t_asm a, char *name)
 {
 	int		fd;
-	char	*file_name = NULL;
+	char	*file_name;
 	char	*tmp_sub;
 
+	file_name = NULL;
 	tmp_sub = ft_strsub(name, 0, ft_strlen(name) - 2);
 	file_name = ft_strjoin(tmp_sub, ".cor");
 	free(tmp_sub);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   additional.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kprasol <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/27 14:00:05 by kprasol           #+#    #+#             */
+/*   Updated: 2018/08/27 14:00:07 by kprasol          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 void	lst_next(t_lst **list)
@@ -7,26 +19,13 @@ void	lst_next(t_lst **list)
 	if (*list)
 	{
 		tmp = *list;
-		(*list) = (*list)->next; 
+		(*list) = (*list)->next;
 		free(tmp->str);
 		free(tmp);
 	}
 }
 
-void		print_cmnds(t_cmnd	*new)
-{
-	printf("____________________________\n\n %s \n____________________________\n\n", "NEW COMMANDS LIST");
-	while (new)
-	{
-		if (new->command_name != -1)
-		printf("label:%s command:%d \n args:%d %d %s \n\t%d %d %s \n\t%d %d %s \n", new->label, new->command_name, new->arg.arg_arr[0].type, new->arg.arg_arr[0].value, new->arg.arg_arr[0].text, 
-		new->arg.arg_arr[1].type, new->arg.arg_arr[1].value, new->arg.arg_arr[1].text,
-		new->arg.arg_arr[2].type, new->arg.arg_arr[2].value, new->arg.arg_arr[2].text);
-		new = new->next;
-	}
-}
-
-int				digits(int n)
+int		digits(int n)
 {
 	int			size;
 	int			i;
@@ -49,9 +48,9 @@ int				digits(int n)
 	return (size);
 }
 
-int				digits_char(char *str)
+int		digits_char(char *str)
 {
-	int			i;
+	int		i;
 
 	i = 0;
 	while (ft_strchr(LABEL_CHARS, str[i]) || str[i] == '-')
@@ -59,10 +58,10 @@ int				digits_char(char *str)
 	return (i);
 }
 
-int			ft_pow(int n, int pow)
+int		ft_pow(int n, int pow)
 {
-	int			result;
-	int				i;
+	int		result;
+	int		i;
 
 	result = 1;
 	i = 0;
@@ -73,4 +72,17 @@ int			ft_pow(int n, int pow)
 		result *= n;
 	}
 	return (result);
+}
+
+int		sum_exec(t_cmnd *c)
+{
+	int		res;
+
+	res = 0;
+	while (c)
+	{
+		res += c->n_byte;
+		c = c->next;
+	}
+	return (res);
 }

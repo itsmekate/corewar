@@ -102,6 +102,7 @@ void					print_cmnds(t_cmnd	*new);
 int						digits(int n);
 int						digits_char(char *str);
 int						ft_pow(int n, int pow);
+int						sum_exec(t_cmnd *c);
 
 char					*get_arg_label(char *str);
 int						find_comma(char *str);
