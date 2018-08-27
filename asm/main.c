@@ -55,7 +55,7 @@ t_lst		*ft_read(char *f, t_lst *list)
 
 void		validation(t_lst **list, t_asm *a)
 {
-	if (!validation_name(list, a))
+	if (!validation_name(list, a, 0, 0))
 	{
 		system("leaks asm");
 		exit(0);

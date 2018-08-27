@@ -16,6 +16,7 @@ SRCS = main.c \
 		create_file.c \
 		create_command.c \
 		op.c \
+		get_name.c \
 		validation_name.c \
 		validation_commands.c \
 		validation_args.c \

@@ -15,12 +15,14 @@
 
 # include <stdlib.h>
 # include "libft/libft.h"
-# include <sys/stat.h> 
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include "op.h"
 
-typedef struct 			s_lst
+# define SPACES (*list)->str[i] && ((*list)->str[i] == ' ' || (*list)->str[i] == '\t')
+
+typedef struct			s_lst
 {
 	char				*str;
 	int					n_str;
@@ -39,7 +41,7 @@ typedef struct			s_op
 	int					label_size;
 }						t_op;
 
-typedef struct 			s_asm
+typedef struct			s_asm
 {
 	char				*bot_name;
 	char				*bot_comment;
@@ -47,7 +49,7 @@ typedef struct 			s_asm
 	t_op				op_tab[17];
 }						t_asm;
 
-typedef struct 			s_arg_arr
+typedef struct			s_arg_arr
 {
 	int					type;
 	int					value;
@@ -55,13 +57,13 @@ typedef struct 			s_arg_arr
 	int					size;
 }						t_arg_arr;
 
-typedef struct 			s_args
+typedef struct			s_args
 {
 	int					n;
 	struct s_arg_arr	arg_arr[3];
 }						t_args;
 
-typedef struct 			s_cmnd
+typedef struct			s_cmnd
 {
 	int					command_name;
 	struct s_args		arg;
@@ -71,13 +73,17 @@ typedef struct 			s_cmnd
 	struct s_cmnd		*next;
 }						t_cmnd;
 
+int						str_comment(char *str);
+int						str_name(char *str);
+char					*copy_n(char *dst, const char *src, int i,
+						int len, int arg);
 char					*get_name(t_lst **list, int arg);
 char					*get_comment(t_lst **list);
 void					create_file(t_asm a, char *name);
 
 void					get_t_op(t_asm *a);
 
-int 					is_command(char *str);
+int						is_command(char *str);
 
 char					*find_label(t_lst **list);
 int						find_command_name(t_lst **list, char *label, t_asm *a);
@@ -86,9 +92,10 @@ int						find_label_num(char *str, t_cmnd *cmnds);
 int						label_to_numbers(t_cmnd	*cmnds);
 
 void					validation(t_lst **list, t_asm *a);
-int						validation_name(t_lst **list, t_asm *a);
+int						validation_name(t_lst **list, t_asm *a,
+						int n_name, int n_comment);
 int						validation_commands(t_lst **list, t_asm *a);
-int     				validation_args(t_cmnd *c, t_asm *a);
+int						validation_args(t_cmnd *c, t_asm *a);
 
 void					lst_next(t_lst **list);
 void					print_cmnds(t_cmnd	*new);
