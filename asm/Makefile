@@ -21,9 +21,11 @@ SRCS = main.c \
 		validation_commands.c \
 		validation_args.c \
 		find_args.c \
+		args_type.c \
 		additional.c \
+		additional1.c \
 
-LIB = -L libft/ -lft
+LIB = -L ../libft/ -lft
 OBJ = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g
@@ -32,23 +34,23 @@ CFLAGS = -Wall -Wextra -Werror -g
 all: $(NAME)
 
 libft: 
-	make -C ./libft
+	make -C ../libft
 
 $(NAME): libft $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o  $(NAME)  $(LIB) -I ./
+	gcc $(CFLAGS) $(OBJ) -o  $(NAME) $(LIB) -I ../
 
 clean:
 	/bin/rm -f $(OBJ)
-	make -C ./libft clean
+	make -C ../libft clean
 
 fclean: clean
 	/bin/rm -f $(NAME)
-	make -C ./libft fclean
+	make -C ../libft fclean
 
 re: fclean all
 
 %.o: %.c
-	 gcc $(CFLAGS) -c -o  $@ $< -I ./libft
+	 gcc $(CFLAGS) -c -o  $@ $< -I ../libft
 
 .PHONY: all clean fclean re libft
 

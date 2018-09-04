@@ -31,26 +31,6 @@ void		rotate(char *str, int size)
 		}
 }
 
-int			count_codage(t_args t)
-{
-	int		i;
-	int		codage;
-
-	i = 0;
-	codage = 0;
-	while (t.arg_arr[i].type && i < 3)
-	{
-		if (t.arg_arr[i].type == 1)
-			codage += ft_pow(2, 6 - i * 2);
-		else if (t.arg_arr[i].type == 2)
-			codage += ft_pow(2, 7 - i * 2);
-		else if (t.arg_arr[i].type == 3)
-			codage += ft_pow(2, 7 - i * 2) + ft_pow(2, 6 - i * 2);
-		i++;
-	}
-	return (codage);
-}
-
 void		write_more_commands(int fd, t_cmnd *c, t_asm a)
 {
 	int		i;
