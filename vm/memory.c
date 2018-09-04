@@ -5,7 +5,7 @@ static t_corewar	*new_corewar(void)
 	t_corewar	*res;
 	int			i;
 
-	if ((res = (t_corewar *)malloc(siziof(t_corewar))))
+	if ((res = (t_corewar *)malloc(sizeof(t_corewar))))
 	{
 		res->visual_mode = 1;
 		res->dump = 0;
@@ -17,22 +17,7 @@ static t_corewar	*new_corewar(void)
 	return (res);
 }
 
-t_corewar			*create_corewar(char **agrv)
-{
-	t_corewar *res;
-
-	res = new_corewar();
-	(void)agrv;
-	return (res);
-}
-
-void				clear_corewar(t_corewar **corewar)
-{
-	free(*corewar);
-	*corewar = NULL;
-}
-
-t_player			*new_player(char *file);
+t_player			*new_player(char *file)
 {
 	t_player *res;
 
@@ -48,4 +33,27 @@ void				clear_player(t_player **player)
 	free((*player)->file);
 	free(*player);
 	*player = NULL;
+}
+
+t_corewar			*create_corewar(char **agrv)
+{
+	t_corewar *res;
+
+	res = new_corewar();
+	(void)agrv;
+	return (res);
+}
+
+void				clear_corewar(t_corewar **corewar)
+{
+	int		i;
+
+	i = 0;
+	while ((*corewar)->players[i])
+	{
+		clear_player(&(*corewar)->players[i]);
+		i++;
+	}
+	free(*corewar);
+	*corewar = NULL;
 }

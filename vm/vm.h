@@ -1,7 +1,8 @@
 #ifndef COREWAR_H
-# define CPREWAR_H
+# define COREWAR_H
 
 # include "../libft/libft.h"
+# include "op.h"
 
 typedef struct		s_player
 {

@@ -3,8 +3,8 @@ CFLAG = -Wall -Wextra -Werror
 NAME = ../corewar
 INCL = vm.h op.h
 SRC = 	main.c \
-		memory.c \
-		op.c
+		memory.c 
+		##op.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a
 
@@ -17,14 +17,14 @@ $(NAME): $(LIB) $(OBJ)
 	$(CC) -c $(CFLAG) $< -o $@
 
 clean:
-	make -C libft/ clean
+	make -C ../libft/ clean
 	rm -rf $(OBJ)
 
 fclean: clean
-	make -C libft/ fclean
+	make -C ../libft/ fclean
 	rm -rf $(NAME)
 
 $(LIB):
-	make -C libft
+	make -C ../libft
 
 re: fclean all
