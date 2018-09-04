@@ -15,12 +15,16 @@
 int			str_comment(char *str)
 {
 	char	*tmp;
+	int		i;
 
-	tmp = ft_strsub(str, 0, 8);
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	tmp = ft_strsub(str, i, 8);
 	if (!ft_strcmp(tmp, ".comment"))
 	{
 		free(tmp);
-		return (1);
+		return (i + 8);
 	}
 	free(tmp);
 	return (0);
@@ -29,18 +33,22 @@ int			str_comment(char *str)
 int			str_name(char *str)
 {
 	char	*tmp;
+	int		i;
 
-	tmp = ft_strsub(str, 0, 5);
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	tmp = ft_strsub(str, i, 5);
 	if (!ft_strcmp(tmp, ".name"))
 	{
 		free(tmp);
-		return (1);
+		return (i + 5);
 	}
 	free(tmp);
 	return (0);
 }
 
-int			find_lapki(t_lst **list, int *i, char *new, int arg)
+int			find_lapki(t_lst **list, int *i, char **new, int arg)
 {
 	int tmp;
 
@@ -50,13 +58,13 @@ int			find_lapki(t_lst **list, int *i, char *new, int arg)
 		(*i)++;
 		if (!(*list)->str[*i])
 		{
-			if (!(new = copy_n(new, (*list)->str + tmp, *i - tmp, arg)))
+			if (!(*new = copy_n(*new, (*list)->str + tmp, *i - tmp, arg)))
 			{
 				free(new);
 				return (-1);
 			}
 			tmp = 0;
-			i = 0;
+			*i = 0;
 			lst_next(list);
 			if (!(*list))
 			{
@@ -78,7 +86,7 @@ char		*get_name(t_lst **l, int arg, char *new)
 		i++;
 	if (!(*l)->str[i] || (*l)->str[i] != '"')
 		return (NULL);
-	if ((tmp = find_lapki(l, &i, new, arg)) == -1)
+	if ((tmp = find_lapki(l, &i, &new, arg)) == -1)
 		return (NULL);
 	if (!(new = copy_n(new, (*l)->str + tmp, i - tmp, arg)))
 	{

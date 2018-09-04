@@ -94,20 +94,21 @@ int			validation_name(t_lst **list, t_asm *a, int n_name, int n_comment)
 {
 	char	*tmp_buf_name;
 	char	*tmp_buf_comment;
+	int		arg;
 
 	while (*list)
 	{
 		if ((*list)->str[0] != '#' && (*list)->str[0] != ';'
-			&& str_name((*list)->str))
+			&& (arg = str_name((*list)->str)))
 		{
-			tmp_buf_name = get_name(list, 5, NULL);
+			tmp_buf_name = get_name(list, arg, NULL);
 			if (!set_bot_name(a, tmp_buf_name, &n_name))
 				return (0);
 		}
 		else if ((*list)->str[0] != '#' && (*list)->str[0] != ';'
-			&& str_comment((*list)->str))
+			&& (arg = str_comment((*list)->str)))
 		{
-			tmp_buf_comment = get_name(list, 8, NULL);
+			tmp_buf_comment = get_name(list, arg, NULL);
 			if (!set_bot_comment(a, tmp_buf_comment, &n_comment))
 				return (0);
 		}
