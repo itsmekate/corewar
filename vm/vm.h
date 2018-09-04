@@ -3,12 +3,17 @@
 
 # include "../libft/libft.h"
 # include "op.h"
+# include <fcntl.h>
+
 # include <stdio.h>
 
 typedef struct		s_player
 {
 	char			*file;
 	int				start;
+	//char			map[MEM_SIZE];
+	char			name[PROG_NAME_LENGTH + 1];
+	char			comment[COMMENT_LENGTH + 1];
 }					t_player;
 
 typedef struct 		s_corewar
@@ -16,7 +21,7 @@ typedef struct 		s_corewar
 	int				visual_mode;
 	int				dump;
 	int				cycles_to_die;
-	t_player		*players[MAX_PLAYERS + 1];
+	t_player		*players[MAX_PLAYERS];
 	int				players_num;
 	char			map[MEM_SIZE];
 
@@ -37,5 +42,10 @@ void				print_corewar(t_corewar *corewar);
 */
 
 t_corewar			*create_corewar(char **agrv);
+
+/*
+** player.c
+*/
+int					parse_player(t_player *player);
 
 #endif

@@ -4,7 +4,8 @@ NAME = ../corewar
 INCL = vm.h op.h
 SRC = 	main.c \
 		memory.c \
-		init.c
+		init.c \
+		player.c
 		##op.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a

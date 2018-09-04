@@ -27,6 +27,8 @@ t_player		*new_player(char *file)
 	{
 		res->file = ft_strdup(file);
 		res->start = 0;
+		//ft_memset(res->map, '\0', MEM_SIZE);
+		ft_memset(res->name, '\0', PROG_NAME_LENGTH + 1);
 	}
 	return (res);
 }
@@ -62,6 +64,6 @@ void				print_corewar(t_corewar *corewar)
 	int i = -1;
 	printf("players num %i\n", corewar->players_num);
 	while (++i < corewar->players_num)
-		printf("%s\n", corewar->players[i]->file);
+		printf("%s, %i\n", corewar->players[i]->file, corewar->players[i]->start);
 	//printf("%s\n", );
 }

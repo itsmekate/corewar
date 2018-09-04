@@ -9,9 +9,29 @@ static int			is_flag(char *arg)
 	return (0);
 }
 
-static void			add_player(char *name)
+static void			add_player(char *name, t_corewar *corewar)
 {
-	
+	corewar->players[corewar->players_num] = new_player(name);
+	if (!parse_player(corewar->players[corewar->players_num]))
+	{
+		clear_corewar(&corewar);
+		exit(0);
+	}
+	corewar->players_num++;
+}
+
+static void			get_starts(t_corewar *corewar)
+{
+	int		step;
+	int		i;
+
+	step = MEM_SIZE / corewar->players_num;
+	i = 0;
+	while (i < corewar->players_num)
+	{
+		corewar->players[i]->start = i * step;
+		i++;
+	}
 }
 
 t_corewar			*create_corewar(char **agrv)
@@ -27,13 +47,14 @@ t_corewar			*create_corewar(char **agrv)
 				add_player(*agrv, res);
 			else if (flag == 1)
 				res->visual_mode = 1;
-			else if (flag = 2)
+			else if (flag == 2)
 			{
 				agrv++;
-				res->dump = get_int(*agrv);
+				res->dump = ft_atoi(*agrv);
 			}
 			agrv++;
 		}
 	}
+	get_starts(res);
 	return (res);
 }
