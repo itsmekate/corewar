@@ -52,7 +52,7 @@ t_cmnd		*new_command(t_lst **list, t_asm *a, t_cmnd *new)
 		return (new);
 	}
 	new->arg = find_args(list, new->command_name, a, 0);
-	if (!new->arg.arg_arr[0].type && !validation_args(new, a, 0))
+	if (!new->arg.arg_arr[0].type || !validation_args(new, a, 0))
 	{
 		ft_printf("Syntax error: bad arguments: line %d\n", (*list)->n_str);
 		free(new);

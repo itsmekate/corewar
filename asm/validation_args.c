@@ -40,7 +40,9 @@ int		label_while(t_cmnd *cmnds, t_cmnd *tmp, int *res)
 	{
 		if (cmnds->arg.arg_arr[i].text)
 		{
-			if ((tr = find_label_num(cmnds->arg.arg_arr[i].text, tmp)) == -1)
+			if ((tr = find_label_num(cmnds->arg.arg_arr[i].text, tmp)) == -1 ||
+				(cmnds->arg.arg_arr[i].type == 1 && (tr - *res < 0
+				|| tr - *res > 99)))
 			{
 				ft_strdel(&cmnds->arg.arg_arr[i].text);
 				ft_printf("Syntax error: wrong label argument on line %d\n",
