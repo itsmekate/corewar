@@ -74,13 +74,13 @@ char		*copy_n(char *dst, const char *src, int len, int arg)
 		dst = copy_n(dst, src, len, arg);
 		return (dst);
 	}
-	if (arg == 5 && i >= PROG_NAME_LENGTH)
+	if (arg == 5 && len >= PROG_NAME_LENGTH)
 	{
 		ft_putendl("Champion name too long (Max length 128)");
 		free(dst);
 		return (NULL);
 	}
-	if (arg == 8 && i >= COMMENT_LENGTH)
+	if (arg == 8 && len >= COMMENT_LENGTH)
 	{
 		ft_putendl("Champion comment too long (Max length 2048)");
 		free(dst);
