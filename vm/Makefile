@@ -3,7 +3,8 @@ CFLAG = -Wall -Wextra -Werror
 NAME = ../corewar
 INCL = vm.h op.h
 SRC = 	main.c \
-		memory.c 
+		memory.c \
+		init.c
 		##op.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a

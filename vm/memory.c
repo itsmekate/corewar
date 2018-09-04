@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static t_corewar	*new_corewar(void)
+t_corewar	*new_corewar(void)
 {
 	t_corewar	*res;
 	int			i;
@@ -13,11 +13,13 @@ static t_corewar	*new_corewar(void)
 		i = -1;
 		while (++i <= MAX_PLAYERS)
 			res->players[i] = NULL;
+		res->players_num = 0;
+		ft_memset(res->map, '\0', MEM_SIZE);
 	}
 	return (res);
 }
 
-t_player			*new_player(char *file)
+t_player		*new_player(char *file)
 {
 	t_player *res;
 
@@ -28,20 +30,11 @@ t_player			*new_player(char *file)
 	return (res);
 }
 
-void				clear_player(t_player **player)
+void			clear_player(t_player **player)
 {
 	free((*player)->file);
 	free(*player);
 	*player = NULL;
-}
-
-t_corewar			*create_corewar(char **agrv)
-{
-	t_corewar *res;
-
-	res = new_corewar();
-	(void)agrv;
-	return (res);
 }
 
 void				clear_corewar(t_corewar **corewar)
@@ -56,4 +49,18 @@ void				clear_corewar(t_corewar **corewar)
 	}
 	free(*corewar);
 	*corewar = NULL;
+}
+
+////
+////
+
+void				print_corewar(t_corewar *corewar)
+{
+	printf("visual %i, dump %i\ncycles to die %i\n", corewar->visual_mode,
+		corewar->dump, corewar->cycles_to_die);
+	int i = -1;
+	printf("players num %i\n", corewar->players_num);
+	while (++i < corewar->players_num)
+		printf("%s\n", corewar->players[i]->file);
+	//printf("%s\n", );
 }
