@@ -40,40 +40,6 @@ int			str_name(char *str)
 	return (0);
 }
 
-char		*copy_n(char *dst, const char *src, int i, int len, int arg)
-{
-	int j;
-
-	j = 0;
-	if (!dst)
-	{
-		dst = (arg == 5) ? ft_memalloc(PROG_NAME_LENGTH) : ft_memalloc(COMMENT_LENGTH);
-		dst = copy_n(dst, src, i, len, arg);
-		return (dst);
-	}
-	if (arg == 5 && i >= PROG_NAME_LENGTH)
-	{
-		ft_putendl("Champion name too long (Max length 128)");
-		free(dst);
-		return (NULL);
-	}
-	if (arg == 8 && i >= COMMENT_LENGTH)
-	{
-		ft_putendl("Champion comment too long (Max length 2048)");
-		free(dst);
-		return (NULL);
-	}
-	while (j < len && src[j])
-	{
-		dst[i] = src[j];
-		i++;
-		j++;
-	}
-	if (!src[j])
-		dst[i] = '\n';
-	return (dst);
-}
-
 int			find_lapki(t_lst **list, int *i, char *new, int arg)
 {
 	int tmp;
@@ -84,7 +50,7 @@ int			find_lapki(t_lst **list, int *i, char *new, int arg)
 		(*i)++;
 		if (!(*list)->str[*i])
 		{
-			if (!(new = copy_n(new, (*list)->str + tmp, ft_strlen(new), *i - tmp, arg)))
+			if (!(new = copy_n(new, (*list)->str + tmp, *i - tmp, arg)))
 			{
 				free(new);
 				return (-1);
@@ -114,7 +80,7 @@ char		*get_name(t_lst **l, int arg, char *new)
 		return (NULL);
 	if ((tmp = find_lapki(l, &i, new, arg)) == -1)
 		return (NULL);
-	if (!(new = copy_n(new, (*l)->str + tmp, ft_strlen(new), i - tmp, arg)))
+	if (!(new = copy_n(new, (*l)->str + tmp, i - tmp, arg)))
 	{
 		free(new);
 		return (NULL);

@@ -14,7 +14,7 @@
 # define ASM_H
 
 # include <stdlib.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -75,8 +75,8 @@ typedef struct			s_cmnd
 
 int						str_comment(char *str);
 int						str_name(char *str);
-char					*copy_n(char *dst, const char *src, int i,
-						int len, int arg);
+char					*copy_n(char *dst, const char *src, int len, int arg);
+char					*copy_n1(char *dst, const char *src, int i, int len);
 char					*get_name(t_lst **l, int arg, char *new);
 char					*get_comment(t_lst **list);
 void					create_file(t_asm a, char *name);
@@ -104,7 +104,13 @@ int						digits_char(char *str);
 int						ft_pow(int n, int pow);
 int						sum_exec(t_cmnd *c);
 
+void					arg_reg(t_args *t, int j, int *i, char *str);
+void					arg_dir(t_args *t, int j, int *i, char *str);
+void					arg_ind(t_args *t, int j, int *i, char *str);
+void					arg_zero(t_args *t, int j);
+
 char					*get_arg_label(char *str);
+int						count_codage(t_args t);
 int						find_comma(char *str);
 
 #endif

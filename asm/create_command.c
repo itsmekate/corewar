@@ -103,20 +103,6 @@ int			find_command_name(t_lst **list, char *label, t_asm *a)
 	return (find_command_name_1(list, i, size, a));
 }
 
-char		*get_arg_label(char *str)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != ',' && str[i] != ' ' && str[i] != '\t')
-		i++;
-	if (!i)
-		return (NULL);
-	new = ft_strsub(str, 0, i);
-	return (new);
-}
-
 int			find_comma(char *str)
 {
 	int		i;
