@@ -13,7 +13,9 @@ typedef struct		s_player
 	int				start;
 	//char			map[MEM_SIZE];
 	char			name[PROG_NAME_LENGTH + 1];
+	int				size;
 	char			comment[COMMENT_LENGTH + 1];
+	char			*exec;
 }					t_player;
 
 typedef struct 		s_corewar

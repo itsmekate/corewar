@@ -64,6 +64,16 @@ void				print_corewar(t_corewar *corewar)
 	int i = -1;
 	printf("players num %i\n", corewar->players_num);
 	while (++i < corewar->players_num)
-		printf("%s, %i\n", corewar->players[i]->file, corewar->players[i]->start);
-	//printf("%s\n", );
+	{
+		printf("%s (%s), starts at %i;\nbot_size %i, comment: %s\n", corewar->players[i]->file,
+		corewar->players[i]->name, corewar->players[i]->start, corewar->players[i]->size,
+		corewar->players[i]->comment);
+		int j = 0;
+		while (j < corewar->players[i]->size)
+		{
+			printf("%02x ", corewar->players[i]->exec[j] & 0xff);
+			j++;
+		}
+	}
+	printf("\n-----\n");
 }
