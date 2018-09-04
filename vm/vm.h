@@ -8,7 +8,7 @@
 typedef struct		s_player
 {
 	char			*file;
-	char			*start;
+	int				start;
 }					t_player;
 
 typedef struct 		s_corewar

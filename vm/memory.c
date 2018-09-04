@@ -7,7 +7,7 @@ t_corewar	*new_corewar(void)
 
 	if ((res = (t_corewar *)malloc(sizeof(t_corewar))))
 	{
-		res->visual_mode = 1;
+		res->visual_mode = 0;
 		res->dump = 0;
 		res->cycles_to_die = CYCLE_TO_DIE;
 		i = -1;
@@ -26,6 +26,7 @@ t_player		*new_player(char *file)
 	if ((res = (t_player *)malloc(sizeof(t_player))))
 	{
 		res->file = ft_strdup(file);
+		res->start = 0;
 	}
 	return (res);
 }
