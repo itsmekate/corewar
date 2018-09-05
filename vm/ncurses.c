@@ -2,19 +2,16 @@
 #include <unistd.h>
 #include <menu.h>
 
-#define DELAY 300000000
-
 void draw_borders(WINDOW *screen);
 
 int main(int argc, char **argv)
 {
 	int parent_x, parent_y;
-	int score_size = 50;
+	int score_size = 70;
 
 	initscr();
 	noecho();
 	curs_set(FALSE);
-
 	start_color();
 
 	// get our maximum window dimensions
@@ -32,15 +29,13 @@ int main(int argc, char **argv)
 	wattron(score,COLOR_PAIR(1));
 	box(score,0,0);
 	wattroff(score,COLOR_PAIR(1));
-	// draw_borders(field);
-	// draw_borders(score);
 
 	// // Celebration Funbere v0.99pl42
 
-	// // draw to our windows
+	// draw to our windows
 
-	init_pair(2, COLOR_RED, COLOR_RED);
-	attron(COLOR_PAIR(2));
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	
 	mvwprintw(field, 1, 1, "%s", "Field");
 	mvwprintw(score, 1, 3, "%s", "** PAUSED **");
 	mvwprintw(score, 4, 3, "%s", "Cycles/seconds limit:");
@@ -48,10 +43,16 @@ int main(int argc, char **argv)
 	mvwprintw(score, 8, 3, "%s", "Processes:");
 
 	mvwprintw(score, 10, 3, "%s", "Player -1 :");
+	wattron(score, COLOR_PAIR(2));
+	mvwprintw(score, 10, 15, "%s", "Celebration Funbere v0.99pl42");
+	wattroff(score, COLOR_PAIR(2));
 	mvwprintw(score, 11, 4, "%s", "Last live:");
 	mvwprintw(score, 12, 4, "%s", "Lives in current period :");
 
 	mvwprintw(score, 14, 3, "%s", "Player -2 :");
+	wattron(score, COLOR_PAIR(2));
+	mvwprintw(score, 14, 15, "%s", "Celebration Funbere v0.99pl42");
+	wattroff(score, COLOR_PAIR(2));
 	mvwprintw(score, 15, 4, "%s", "Last live:");
 	mvwprintw(score, 16, 4, "%s", "Lives in current period :");
 
@@ -63,18 +64,21 @@ int main(int argc, char **argv)
 	mvwprintw(score, 24, 3, "%s", "CYCLE_DELTA :");
 	mvwprintw(score, 26, 3, "%s", "NBR_LIVE :");
 	mvwprintw(score, 26, 3, "%s", "MAX_CHECKS :");
-	attron(COLOR_PAIR(2));
 
 	// refresh each window
+
 	wrefresh(field);
 	wrefresh(score);
-    usleep(DELAY);
-
-	// clean up
-	delwin(field);
-	delwin(score);
-	endwin();
-	return 0;
+	while (1)
+	{
+		if (wgetch(field) == 113)
+	    {
+			delwin(field);
+			delwin(score);
+			endwin();
+			return (0);
+		}
+	}
 }
 
 // void draw_borders(WINDOW *screen)
