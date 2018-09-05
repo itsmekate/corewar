@@ -12,7 +12,24 @@
 
 #include "asm.h"
 
-void	arg_reg(t_args *t, int j, int *i, char *str)
+int		clean_arg(t_args *t, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i < j)
+	{
+		t->arg_arr[i].size = 0;
+		t->arg_arr[i].type = 0;
+		t->arg_arr[i].value = 0;
+		if (t->arg_arr[i].text)
+			ft_strdel(&t->arg_arr[i].text);
+		i++;
+	}
+	return (0);
+}
+
+int		arg_reg(t_args *t, int j, int *i, char *str)
 {
 	t->arg_arr[j].type = 1;
 	t->arg_arr[j].size = 1;
@@ -35,10 +52,11 @@ void	arg_reg(t_args *t, int j, int *i, char *str)
 		}
 	}
 	else
-		arg_zero(t, j);
+		return (clean_arg(t, j));
+	return (1);
 }
 
-void	arg_dir(t_args *t, int j, int *i, char *str)
+int		arg_dir(t_args *t, int j, int *i, char *str)
 {
 	t->arg_arr[j].type = 2;
 	if (str[*i + 1] == ':')
@@ -55,10 +73,11 @@ void	arg_dir(t_args *t, int j, int *i, char *str)
 		(*i)++;
 	}
 	else
-		arg_zero(t, j);
+		return (clean_arg(t, j));
+	return (1);
 }
 
-void	arg_ind(t_args *t, int j, int *i, char *str)
+int		arg_ind(t_args *t, int j, int *i, char *str)
 {
 	t->arg_arr[j].type = 3;
 	t->arg_arr[j].size = 2;
@@ -75,7 +94,8 @@ void	arg_ind(t_args *t, int j, int *i, char *str)
 		t->arg_arr[j].text = NULL;
 	}
 	else
-		arg_zero(t, j);
+		return (clean_arg(t, j));
+	return (1);
 }
 
 void	arg_zero(t_args *t, int j)
