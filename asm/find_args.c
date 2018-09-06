@@ -36,7 +36,6 @@ t_args	return_t(t_args *t, int *j)
 	if (*j > 3)
 	{
 		clean_arg(t, *j);
-		// t->arg_arr[0].type = 0;
 		return (*t);
 	}
 	while (*j < 3)
@@ -66,7 +65,6 @@ t_args	find_args(t_lst **list, int n_command, t_asm *a, int i)
 	j = 0;
 	while ((*list)->str[i])
 	{
-		printf("%s %s\n", "HEREEE", (*list)->str + i);
 		if (!(find_more_args(list, &t, &i)))
 			return (t);
 		if ((*list)->str[i] == '%')
