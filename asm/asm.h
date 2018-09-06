@@ -95,7 +95,7 @@ void					validation(t_lst **list, t_asm *a);
 int						validation_name(t_lst **list, t_asm *a,
 						int n_name, int n_comment);
 int						validation_commands(t_lst **list, t_asm *a);
-int						validation_args(t_cmnd *c, t_asm *a, int i);
+int						validation_args(t_cmnd *c, t_asm *a, int i, int j);
 
 void					lst_next(t_lst **list);
 void					print_cmnds(t_cmnd	*new);
