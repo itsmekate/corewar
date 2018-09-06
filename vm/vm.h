@@ -11,11 +11,19 @@ typedef struct		s_player
 {
 	char			*file;
 	int				start;
+	int				color;
 	char			name[PROG_NAME_LENGTH + 1];
 	int				size;
 	char			comment[COMMENT_LENGTH + 1];
 	char			*exec;
 }					t_player;
+
+typedef struct 		s_point
+{
+	char			value;
+	t_player		*player;
+	int				is_new;
+}					t_point;
 
 typedef struct 		s_corewar
 {
@@ -24,7 +32,7 @@ typedef struct 		s_corewar
 	int				cycles_to_die;
 	t_player		*players[MAX_PLAYERS];
 	int				players_num;
-	char			map[MEM_SIZE];
+	t_point			map[MEM_SIZE];
 
 }					t_corewar;
 
@@ -48,5 +56,10 @@ t_corewar			*create_corewar(char **agrv);
 ** player.c
 */
 int					parse_player(t_player *player);
+
+/*
+** point.c
+*/
+void		set_point(t_point *point, char value, t_player *player);
 
 #endif

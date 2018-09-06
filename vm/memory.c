@@ -14,7 +14,7 @@ t_corewar	*new_corewar(void)
 		while (++i <= MAX_PLAYERS)
 			res->players[i] = NULL;
 		res->players_num = 0;
-		ft_memset(res->map, '\0', MEM_SIZE);
+		ft_memset(res->map, '\0', MEM_SIZE * sizeof(t_point));
 	}
 	return (res);
 }
@@ -27,6 +27,7 @@ t_player		*new_player(char *file)
 	{
 		res->file = ft_strdup(file);
 		res->start = 0;
+		res->color = 0;
 		ft_memset(res->name, '\0', PROG_NAME_LENGTH + 1);
 		res->size = 0;
 		ft_memset(res->comment, '\0', COMMENT_LENGTH + 1);
@@ -60,6 +61,17 @@ void				clear_corewar(t_corewar **corewar)
 
 ////
 ////
+void 				print_map(t_corewar *corewar)
+{
+	int i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		printf("%02x ", corewar->map[i].value);
+		i++;
+	}
+}
 
 void				print_corewar(t_corewar *corewar)
 {
@@ -80,4 +92,5 @@ void				print_corewar(t_corewar *corewar)
 		}
 		printf("\n-----\n");
 	}
+	print_map(corewar);
 }

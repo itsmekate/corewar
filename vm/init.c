@@ -26,6 +26,20 @@ static void			add_player(char *name, t_corewar *corewar)
 	corewar->players_num++;
 }
 
+static void			set_exec(t_corewar *corewar, t_player *player)
+{
+	int		i;
+
+	i = 0;
+	while (i < player->size)
+	{
+		if (i + player->start >= MEM_SIZE)
+			return ;
+		set_point(&corewar->map[i + player->start], player->exec[i], player);
+		i++;
+	}
+}
+
 static void			get_starts(t_corewar *corewar)
 {
 	int		step;
@@ -36,6 +50,7 @@ static void			get_starts(t_corewar *corewar)
 	while (i < corewar->players_num)
 	{
 		corewar->players[i]->start = i * step;
+		set_exec(corewar, corewar->players[i]);
 		i++;
 	}
 }

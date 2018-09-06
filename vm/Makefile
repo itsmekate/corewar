@@ -5,7 +5,8 @@ INCL = vm.h op.h
 SRC = 	main.c \
 		memory.c \
 		init.c \
-		player.c
+		player.c \
+		point.c
 		##op.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a
