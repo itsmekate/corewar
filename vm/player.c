@@ -65,6 +65,7 @@ int			parse_player(t_player *player)
 {
 	int		fd;
 	int		status;
+	char	n;
 
 	status = 0;
 	if ((fd = open(player->file, O_RDONLY)) > 0)
@@ -79,9 +80,8 @@ int			parse_player(t_player *player)
 		player->exec = (char *)malloc(sizeof(char) * (player->size + 1));
 		if (status)
 			status = add_info(fd, player->exec, player->size, 0);
-		//if (status)
-		//add_info(fd, player->name, PROG_NAME_LENGTH);
-		//add_info(fd, player->name, PROG_NAME_LENGTH);
+		if (read(fd, &n, 1) == 1)
+			status = 0;
 		close(fd);
 	}
 	return (status);

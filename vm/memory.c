@@ -27,8 +27,10 @@ t_player		*new_player(char *file)
 	{
 		res->file = ft_strdup(file);
 		res->start = 0;
-		//ft_memset(res->map, '\0', MEM_SIZE);
 		ft_memset(res->name, '\0', PROG_NAME_LENGTH + 1);
+		res->size = 0;
+		ft_memset(res->comment, '\0', COMMENT_LENGTH + 1);
+		res->exec = NULL;
 	}
 	return (res);
 }
@@ -36,6 +38,8 @@ t_player		*new_player(char *file)
 void			clear_player(t_player **player)
 {
 	free((*player)->file);
+	if ((*player)->exec)
+		free((*player)->exec);
 	free(*player);
 	*player = NULL;
 }
@@ -74,6 +78,6 @@ void				print_corewar(t_corewar *corewar)
 			printf("%02x ", corewar->players[i]->exec[j] & 0xff);
 			j++;
 		}
+		printf("\n-----\n");
 	}
-	printf("\n-----\n");
 }

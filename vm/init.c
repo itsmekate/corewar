@@ -12,7 +12,13 @@ static int			is_flag(char *arg)
 static void			add_player(char *name, t_corewar *corewar)
 {
 	corewar->players[corewar->players_num] = new_player(name);
-	if (!parse_player(corewar->players[corewar->players_num]))
+	if (corewar->players_num >= MAX_PLAYERS)
+	{
+		ft_putendl("ERROR: Too many champions");
+		clear_corewar(&corewar);
+		exit(0);
+	}
+	else if (!parse_player(corewar->players[corewar->players_num]))
 	{
 		clear_corewar(&corewar);
 		exit(0);
