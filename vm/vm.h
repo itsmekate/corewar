@@ -26,14 +26,19 @@ typedef struct 		s_point
 	int				is_new;
 }					t_point;
 
+// typedef struct 		s_cursor	
+// {
+// };
+
 typedef struct 		s_corewar
 {
 	int				visual_mode;
 	int				dump;
-	int				cycles_to_die;
+	int				cycle_to_die;
 	t_player		*players[MAX_PLAYERS];
 	int				players_num;
 	t_point			map[MEM_SIZE];
+	uintmax_t		cycle;
 
 }					t_corewar;
 

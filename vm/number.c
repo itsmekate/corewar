@@ -35,9 +35,14 @@ int				get_number(t_corewar *corewar, int num)
 
 	if (num < 0)
 	{
-		ret = corewar->players[corewar->players_num - 1]->number + 1;
-		while (is_exist(corewar, ret))
-			ret++;
+		if (!corewar->players_num)
+			ret = 1;
+		else
+		{
+			ret = corewar->players[corewar->players_num - 1]->number + 1;
+			while (is_exist(corewar, ret))
+				ret++;
+		}
 	}
 	else
 	{

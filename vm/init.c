@@ -64,6 +64,7 @@ t_corewar			*create_corewar(char **agrv)
 
 	if ((res = new_corewar()))
 	{
+		num = -1;
 		while (*agrv)
 		{
 			if (!(flag = is_flag(*agrv)))
