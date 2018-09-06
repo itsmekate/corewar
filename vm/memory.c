@@ -34,6 +34,7 @@ t_player		*new_player(char *file)
 		res->size = 0;
 		ft_memset(res->comment, '\0', COMMENT_LENGTH + 1);
 		res->exec = NULL;
+		res->process_num = 0;
 	}
 	return (res);
 }

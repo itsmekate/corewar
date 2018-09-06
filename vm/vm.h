@@ -17,6 +17,7 @@ typedef struct		s_player
 	int				size;
 	char			comment[COMMENT_LENGTH + 1];
 	char			*exec;
+	int				process_num;
 }					t_player;
 
 typedef struct 		s_point
@@ -26,9 +27,16 @@ typedef struct 		s_point
 	int				is_new;
 }					t_point;
 
-// typedef struct 		s_cursor	
-// {
-// };
+typedef struct 		s_process
+{
+	int				position;
+	int				carry;
+	t_player		*player;
+	int				alive;
+	char			command;
+	int				pause_cycle;
+	int				reg[REG_NUMBER];
+}					t_process;
 
 typedef struct 		s_corewar
 {
@@ -39,7 +47,7 @@ typedef struct 		s_corewar
 	int				players_num;
 	t_point			map[MEM_SIZE];
 	uintmax_t		cycle;
-
+	t_list			*processes;
 }					t_corewar;
 
 /*
