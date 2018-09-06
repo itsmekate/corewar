@@ -9,12 +9,12 @@ static int			is_flag(char *arg)
 	return (0);
 }
 
-static void			add_player(char *name, t_corewar *corewar)
+static void			add_player(char *name, t_corewar *corewar, int num)
 {
 	corewar->players[corewar->players_num] = new_player(name);
 	if (corewar->players_num >= MAX_PLAYERS)
 	{
-		ft_putendl("ERROR: Too many champions");
+		ft_putendl_fd("ERROR: Too many champions", 2);
 		clear_corewar(&corewar);
 		exit(0);
 	}
@@ -23,6 +23,7 @@ static void			add_player(char *name, t_corewar *corewar)
 		clear_corewar(&corewar);
 		exit(0);
 	}
+	corewar->players[corewar->players_num]->number = get_number(corewar, num);
 	corewar->players_num++;
 }
 
@@ -59,20 +60,21 @@ t_corewar			*create_corewar(char **agrv)
 {
 	t_corewar	*res;
 	int			flag;
+	int			num;
 
 	if ((res = new_corewar()))
 	{
 		while (*agrv)
 		{
 			if (!(flag = is_flag(*agrv)))
-				add_player(*agrv, res);
-			else if (flag == 1)
-				res->visual_mode = 1;
-			else if (flag == 2)
 			{
-				agrv++;
-				res->dump = ft_atoi(*agrv);
+				add_player(*agrv, res, num);
+				num = -1;
 			}
+			else if (flag == 1)
+				num = is_number(res, *(++agrv)) ? ft_atoi(*agrv) : 0;
+			else if (flag == 2)
+				res->dump = is_number(res, *(++agrv)) ? ft_atoi(*agrv) : 0;
 			agrv++;
 		}
 	}

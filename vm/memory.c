@@ -75,12 +75,14 @@ void 				print_map(t_corewar *corewar)
 
 void				print_corewar(t_corewar *corewar)
 {
+	print_map(corewar);
 	printf("visual %i, dump %i\ncycles to die %i\n", corewar->visual_mode,
 		corewar->dump, corewar->cycles_to_die);
 	int i = -1;
 	printf("players num %i\n", corewar->players_num);
 	while (++i < corewar->players_num)
 	{
+		printf("Player number %i\n", corewar->players[i]->number);
 		printf("%s (%s), starts at %i;\nbot_size %i, comment: %s\n", corewar->players[i]->file,
 		corewar->players[i]->name, corewar->players[i]->start, corewar->players[i]->size,
 		corewar->players[i]->comment);
@@ -92,5 +94,4 @@ void				print_corewar(t_corewar *corewar)
 		}
 		printf("\n-----\n");
 	}
-	print_map(corewar);
 }

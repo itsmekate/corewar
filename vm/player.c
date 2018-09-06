@@ -63,9 +63,9 @@ static int	add_size(int fd, t_player *player)
 
 int			parse_player(t_player *player)
 {
-	int		fd;
-	int		status;
-	char	n;
+	int				fd;
+	int				status;
+	char			n;
 
 	status = 0;
 	if ((fd = open(player->file, O_RDONLY)) > 0)
