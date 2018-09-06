@@ -41,6 +41,8 @@ t_cmnd		*new_command(t_lst **list, t_asm *a, t_cmnd *new)
 	new->n_str = (*list)->n_str;
 	if (!(new->command_name = find_command_name(list, new->label, a)))
 	{
+		if (new->label)
+			free(new->label);
 		free(new);
 		ft_printf("Syntax error: bad command name: line %d\n", (*list)->n_str);
 		return (NULL);
@@ -55,6 +57,9 @@ t_cmnd		*new_command(t_lst **list, t_asm *a, t_cmnd *new)
 	if (!new->arg.arg_arr[0].type || !validation_args(new, a, 0, 0))
 	{
 		ft_printf("Syntax error: bad arguments: line %d\n", (*list)->n_str);
+		if (new->label)
+			free(new->label);
+		free(new);
 		return (NULL);
 	}
 	new->n_byte = count_bytes(new, a);
