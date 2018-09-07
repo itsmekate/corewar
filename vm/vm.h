@@ -19,16 +19,16 @@ typedef struct		s_player
 	char			*exec;
 }					t_player;
 
+typedef struct 		s_process	
+{
+}					t_procces;
+
 typedef struct 		s_point
 {
 	char			value;
 	t_player		*player;
 	int				is_new;
 }					t_point;
-
-// typedef struct 		s_cursor	
-// {
-// };
 
 typedef struct 		s_corewar
 {
