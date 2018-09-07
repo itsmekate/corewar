@@ -19,7 +19,7 @@ int			count_bytes(t_cmnd *new, t_asm *a)
 
 	res = 1;
 	i = 0;
-	while (new->arg.arg_arr[i].type)
+	while (new->arg.arg_arr[i].type && i < 3)
 	{
 		if (new->arg.arg_arr[i].type == 1)
 			res += 1;
