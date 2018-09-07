@@ -50,7 +50,14 @@ void 	print_field(t_corewar *c, t_window win)
 			row++;
 			col = 2;
 		}
-		mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+		// if (c->map[i].player->color != 0)
+		// {
+		// 	wattron(win.score, COLOR_PAIR(2));
+		// 	mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+		// 	wattroff(win.score, COLOR_PAIR(2));
+		// }
+		// else
+			mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
 		i++;
 		col+=3;
 	}
@@ -76,6 +83,7 @@ int visualize(t_corewar *c)
 	win.score = newwin(129, score_size, 0, 130);
 
 	init_pair (1, COLOR_WHITE, COLOR_WHITE);
+	init_pair (2, COLOR_GREEN, COLOR_BLACK);
 	wattron(win.field,COLOR_PAIR(1));
 	box(win.field,0,0);
 	wattroff(win.field,COLOR_PAIR(1));
@@ -85,11 +93,9 @@ int visualize(t_corewar *c)
 	wattroff(win.score,COLOR_PAIR(1));
 
 	// draw to our windows
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	
 	mvwprintw(win.score, 1, 3, "%s", "** PAUSED **");
 	mvwprintw(win.score, 4, 3, "%s", "Cycles/seconds limit:");
-	mvwprintw(win.score, 6, 3, "%s", "Cycle:");
+	mvwprintw(win.score, 6, 3, "Cycle: %d", c->cycle);
 	mvwprintw(win.score, 8, 3, "%s", "Processes:");
 
 
