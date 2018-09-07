@@ -60,6 +60,7 @@ t_corewar			*create_corewar(char **agrv);
 ** player.c
 */
 int					parse_player(t_player *player);
+int					get_color(int num);
 
 /*
 ** point.c

@@ -24,6 +24,8 @@ static void			add_player(char *name, t_corewar *corewar, int num)
 		exit(0);
 	}
 	corewar->players[corewar->players_num]->number = get_number(corewar, num);
+	corewar->players[corewar->players_num]->color =
+	get_color(corewar->players[corewar->players_num]->number);
 	corewar->players_num++;
 }
 
