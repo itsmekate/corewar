@@ -50,7 +50,15 @@ void 	print_field(t_corewar *c, t_window win)
 			row++;
 			col = 2;
 		}
-		mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+		if (c->map[i].player != 0)
+		{
+			init_pair(2, COLOR_GREEN, COLOR_BLACK);
+			wattron(win.score, COLOR_PAIR(2));
+			mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+			wattroff(win.score, COLOR_PAIR(2));
+		}
+		else
+			mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
 		i++;
 		col+=3;
 	}
@@ -85,7 +93,7 @@ int visualize(t_corewar *c)
 	wattroff(win.score,COLOR_PAIR(1));
 
 	// draw to our windows
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	// init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	
 	mvwprintw(win.score, 1, 3, "%s", "** PAUSED **");
 	mvwprintw(win.score, 4, 3, "%s", "Cycles/seconds limit:");
