@@ -72,4 +72,9 @@ void				set_point(t_point *point, char value, t_player *player);
 int					is_number(t_corewar *corewar, char *s);
 int					get_number(t_corewar *corewar, int num);
 
+/*
+**ncurses.c
+*/
+int					visualize(t_corewar *c);
+
 #endif

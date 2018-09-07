@@ -16,6 +16,7 @@ int			main(int argc, char **argv)
 	if ((corewar = create_corewar(++argv)))
 	{
 		print_corewar(corewar);
+		// visualize(corewar);
 		clear_corewar(&corewar);
 	}
 	return 0;
