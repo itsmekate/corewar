@@ -114,4 +114,7 @@ char					*get_arg_label(char *str);
 int						count_codage(t_args t);
 int						find_comma(char *str);
 
+int						a_flag(int argc, char **argv);
+void					a_bonus(t_asm a);
+
 #endif

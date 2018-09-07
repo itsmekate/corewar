@@ -50,7 +50,7 @@ int		label_while(t_cmnd *cmnds, t_cmnd *tmp, int *res)
 				return (0);
 			}
 			cmnds->arg.arg_arr[i].value = tr - *res;
-			ft_strdel(&cmnds->arg.arg_arr[i].text);
+			// ft_strdel(&cmnds->arg.arg_arr[i].text);
 		}
 		i++;
 	}

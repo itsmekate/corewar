@@ -24,6 +24,7 @@ SRCS = main.c \
 		args_type.c \
 		additional.c \
 		additional1.c \
+		a_bonus.c \
 
 LIB = -L ../libft/ -lft
 OBJ = $(SRCS:.c=.o)
