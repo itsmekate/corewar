@@ -18,6 +18,7 @@
 # include <string.h>
 # include <stdarg.h>
 # include <wchar.h>
+# include <stdint.h>
 # include "get_next_line.h"
 
 typedef struct		s_printf
