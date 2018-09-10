@@ -14,4 +14,3 @@ void		clear_process(t_process **process, size_t size)
 	free(*process);
 	*process = NULL;
 }
-

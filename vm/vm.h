@@ -33,7 +33,7 @@ typedef struct 		s_process
 	t_player		*player;
 	int				alive;
 	char			command;
-	int				pause_cycle;
+	int				cycle;
 	int				reg[REG_NUMBER];
 }					t_process;
 

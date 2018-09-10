@@ -9,8 +9,8 @@ void		set_point(t_point *point, char value, t_player *player)
 
 int			get_color(int num)
 {
-	static int ctab[6] = {0xff0000, 0xff, 0xff00, 0xe6c800,
-		0x00c8c8, 0xc800c8};
+	static int ctab[6] = {COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_YELLOW,
+		COLOR_CYAN, COLOR_MAGENTA};
 
 	while (num >= 6)
 		num -= 6;
