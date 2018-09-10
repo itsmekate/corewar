@@ -1,4 +1,4 @@
-#include "vm.h"
+#include "../vm.h"
 
 void			ft_xor(t_corewar *corewar, t_process *process)
 {

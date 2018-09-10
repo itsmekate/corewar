@@ -1,4 +1,4 @@
-#include "vm.h"
+#include "../vm.h"
 
 void			store_index(t_corewar *corewar, t_process *process)
 {

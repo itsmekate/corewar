@@ -1,4 +1,4 @@
-#include "vm.h"
+#include "../vm.h"
 
 void			addition(t_corewar *corewar, t_process *process)
 {
