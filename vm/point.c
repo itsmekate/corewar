@@ -21,7 +21,7 @@ int			get_color_new(int num)
 {
 	static int ctab[6] = {0xff6464, 0x6464ff, 0x64ff64, 0xFFE741,
 		0x3CFFFF, 0xFF48FF};
-
+		
 	while (num >= 6)
 		num -= 6;
 	return (ctab[num]);
