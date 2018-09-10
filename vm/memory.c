@@ -80,6 +80,21 @@ void 				print_map(t_corewar *corewar)
 	}
 }
 
+void				print_processes(t_corewar *corewar)
+{
+	t_list *lst;
+	t_process *pr;
+
+	lst = corewar->processes;
+	while (lst)
+	{
+		pr = lst->content;
+		printf("position %i, player %s, command %02x, cycle %i\n---\n", 
+			pr->position, pr->player->name, pr->command & 0xff, pr->cycle);
+		lst = lst->next;
+	}
+}
+
 void				print_corewar(t_corewar *corewar)
 {
 	print_map(corewar);
@@ -101,4 +116,5 @@ void				print_corewar(t_corewar *corewar)
 		}
 		printf("\n-----\n");
 	}
+	print_processes(corewar);
 }

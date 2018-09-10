@@ -103,4 +103,9 @@ int					is_number(t_corewar *corewar, char *s);
 */
 int					visualize(t_corewar *c);
 
+/*
+**info.c
+*/
+int					get_cycles(char	value);
+
 #endif
