@@ -50,14 +50,17 @@ void 	print_field(t_corewar *c, t_window win)
 			row++;
 			col = 2;
 		}
-		// if (c->map[i].player->color != 0)
-		// {
-		// 	wattron(win.score, COLOR_PAIR(2));
-		// 	mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
-		// 	wattroff(win.score, COLOR_PAIR(2));
-		// }
-		// else
+		if (c->map[i].player != NULL)
+		{
+			init_pair (c->map[i].player->number + 1, 0xff, COLOR_BLACK);
+			wattron(win.field, COLOR_PAIR(c->map[i].player->number + 1));
 			mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+			wattroff(win.field, COLOR_PAIR(c->map[i].player->number + 1));
+		}
+		else
+		{
+			mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+		}
 		i++;
 		col+=3;
 	}
@@ -110,7 +113,7 @@ int visualize(t_corewar *c)
 	mvwprintw(win.score, score_row += 2, 3, "%s", "CYCLE_DELTA :");
 	mvwprintw(win.score, score_row += 2, 3, "%s", "NBR_LIVE :");
 	mvwprintw(win.score, score_row += 2, 3, "%s", "MAX_CHECKS :");
-
+	mvwprintw(win.score, score_row += 2, 3, "%x", get_color(c->map[1].player->number));
 	// refresh each window
 	wrefresh(win.field);
 	wrefresh(win.score);
