@@ -26,3 +26,10 @@ int			get_color_new(int num)
 		num -= 6;
 	return (ctab[num]);
 }
+
+int			get_index(int index)
+{
+	while (index >= MEM_SIZE)
+		index -= MEM_SIZE;
+	return (index);
+}
