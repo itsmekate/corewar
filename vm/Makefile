@@ -11,10 +11,14 @@ SRC = 	main.c \
 		number.c \
 		info.c \
 		cycle.c \
-		command.c \
-		command2.c \
-		command3.c \
-		command4.c
+		functions/addition.c functions/aff.c \
+		functions/ft_and.c functions/ft_fork.c \
+		functions/ft_or.c functions/ft_xor.c \
+		functions/live.c functions/load.c \
+		functions/load_index.c functions/long_fork.c \
+		functions/long_load.c functions/long_load_index.c \
+		functions/store.c functions/store_index.c \
+		functions/substraction.c functions/zjump.c
 		##op.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a
