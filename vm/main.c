@@ -17,6 +17,7 @@ int			main(int argc, char **argv)
 	{
 		print_corewar(corewar);
 		//visualize(corewar);
+		grand_cycle(corewar);
 		clear_corewar(&corewar);
 	}
 	return 0;

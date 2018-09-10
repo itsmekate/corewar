@@ -1,15 +1,15 @@
 #include "vm.h"
 
-static void		process_execute(t_procces *process)
+static void		process_execute(t_process *process)
 {
 	(void)process;
 }
 
-static void		process_cycle(t_procces *process)
+static void		process_cycle(t_process *process)
 {
 	if (--process->cycle)
 		return ;
-	proccess_execute(process);
+	process_execute(process);
 }
 
 static void		nbr_live(t_corewar *corewar)
@@ -20,7 +20,7 @@ static void		nbr_live(t_corewar *corewar)
 	i = -1;
 	while (++i < corewar->players_num)
 	{
-		if (corewar->players[i]->players_num >= NBR_LIVE)
+		if (corewar->players[i]->process_num >= NBR_LIVE)
 		{
 			n = 0;
 			corewar->cycle_to_die -= CYCLE_DELTA;
@@ -40,7 +40,7 @@ static void		cycle_to_die(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
-	lst = corewar->proceses;
+	lst = corewar->processes;
 	while (lst)
 	{
 		pr = lst->content;
@@ -56,20 +56,21 @@ static void		cycle_to_die(t_corewar *corewar)
 void			grand_cycle(t_corewar *corewar)
 {
 	t_list		*lst;
-	t_process	pr;
+	t_process	*pr;
 
 	while (42)
 	{
 		if (++corewar->cycle && !(corewar->cycle % corewar->cycle_to_die))
-			cycle_to_die(t_corewar *corewar);
-		if (corewar->cycle_to_die <= 0 || !corewar->proceses)
+			cycle_to_die(corewar);
+		if (corewar->cycle_to_die <= 0 || !corewar->processes)
 			return ;
-		lst = corewar->proceses;
+		lst = corewar->processes;
 		while (lst)
 		{
 			pr = lst->content;
-			proceses_cycle(pr);
+			process_cycle(pr);
 			lst = lst->next;
 		}
+		printf("%ji\n", corewar->cycle);
 	}
 }

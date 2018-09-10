@@ -108,4 +108,9 @@ int					visualize(t_corewar *c);
 */
 int					get_cycles(char	value);
 
+/*
+**cycle.c
+*/
+void				grand_cycle(t_corewar *corewar);
+
 #endif

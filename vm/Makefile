@@ -9,7 +9,8 @@ SRC = 	main.c \
 		player.c \
 		point.c \
 		number.c \
-		info.c
+		info.c \
+		cycle.c
 		##op.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a
