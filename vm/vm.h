@@ -20,13 +20,6 @@ typedef struct		s_player
 	int				process_num;
 }					t_player;
 
-typedef struct 		s_point
-{
-	char			value;
-	t_player		*player;
-	int				is_new;
-}					t_point;
-
 typedef struct 		s_process
 {
 	int				position;
@@ -37,6 +30,14 @@ typedef struct 		s_process
 	int				cycle;
 	int				reg[REG_NUMBER];
 }					t_process;
+
+typedef struct 		s_point
+{
+	char			value;
+	t_player		*player;
+	int				is_new;
+	t_process		*process;
+}					t_point;
 
 typedef struct 		s_corewar
 {
@@ -68,6 +69,7 @@ void				kill_process(t_corewar *corewar, t_process *process);
 t_process			*new_procces(void);
 void				clear_process(t_process **process, size_t size);
 t_list				*obj_in_lst(void *obj);
+t_process			*create_process(int position, t_player *player, t_corewar *corewar);
 
 
 /*

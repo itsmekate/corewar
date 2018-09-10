@@ -11,14 +11,14 @@ static int			is_flag(char *arg)
 
 static void			add_player(char *name, t_corewar *corewar, int num)
 {
-	corewar->players[corewar->players_num] = new_player(name);
 	if (corewar->players_num >= MAX_PLAYERS)
 	{
 		ft_putendl_fd("ERROR: Too many champions", 2);
 		clear_corewar(&corewar);
 		exit(0);
 	}
-	else if (!parse_player(corewar->players[corewar->players_num]))
+	corewar->players[corewar->players_num] = new_player(name);
+	if (!parse_player(corewar->players[corewar->players_num]))
 	{
 		clear_corewar(&corewar);
 		exit(0);
@@ -38,7 +38,7 @@ static void			set_exec(t_corewar *corewar, t_player *player)
 			return ;
 		set_point(&corewar->map[i + player->start], player->exec[i], player);
 		ft_lstadd(&corewar->processes, obj_in_lst(
-			create_proccess(player->start, player, corewar)));
+			create_process(player->start, player, corewar)));
 		i++;
 	}
 }

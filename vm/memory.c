@@ -52,9 +52,9 @@ void				clear_corewar(t_corewar **corewar)
 	int		i;
 
 	i = 0;
-	while ((*corewar)->players[i])
+	while (i < (*corewar)->players_num)
 	{
-		clear_player(&(*corewar)->players[i]);
+		clear_player(&((*corewar)->players[i]));
 		i++;
 	}
 	free(*corewar);
@@ -73,7 +73,7 @@ void 				print_map(t_corewar *corewar)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (corewar->map[i]->procces)
+		if (corewar->map[i].process)
 			printf(RED);
 		printf("%02x " RESET, corewar->map[i].value & 0xff);
 		i++;

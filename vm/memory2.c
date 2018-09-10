@@ -12,12 +12,12 @@ t_process	*create_process(int position, t_player *player, t_corewar *corewar)
 {
 	t_process *res;
 
-	if ((res == new_procces()))
+	if ((res = new_procces()))
 	{
 		res->position = get_index(position);
 		res->player = player;
-		res->command = corewar->map[get_index(position)]->value;
-		corewar->map[get_index(position)]->process = res;
+		res->command = corewar->map[get_index(position)].value;
+		corewar->map[get_index(position)].process = res;
 	}
 	return (res);
 }
@@ -36,8 +36,8 @@ void		kill_process(t_corewar *corewar, t_process *process)
 	t_list		*lst0;
 	t_process	*pr;
 
-	lst = corewar->process;
-	lst0 = NULL:
+	lst = corewar->processes;
+	lst0 = NULL;
 	while (lst)
 	{
 		lst1 = lst->next;
@@ -45,10 +45,10 @@ void		kill_process(t_corewar *corewar, t_process *process)
 		if (pr == process)
 		{
 			if (!lst0)
-				corewar->process = lst1;
+				corewar->processes = lst1;
 			else
 				lst0->next = lst1;
-			clear_process(pr);
+			clear_process(&pr, sizeof(t_process));
 			free(lst);
 			lst = NULL;
 			return ;

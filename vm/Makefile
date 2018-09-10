@@ -4,6 +4,7 @@ NAME = ../corewar
 INCL = vm.h op.h
 SRC = 	main.c \
 		memory.c \
+		memory2.c \
 		init.c \
 		player.c \
 		point.c \
