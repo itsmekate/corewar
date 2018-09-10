@@ -81,7 +81,7 @@ t_args	find_args(t_lst **list, int n_command, t_asm *a, int i)
 		else if (ft_isdigit((*list)->str[i]) ||
 			(*list)->str[i] == '-' || (*list)->str[i] == ':')
 		{
-			if (!arg_ind(&t, j, &i, (*list)->str + i))
+			if (!arg_ind(&t, j, &i, (*list)->str))
 				return (t);
 		}
 		else

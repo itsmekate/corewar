@@ -70,6 +70,8 @@ int			main(int argc, char **argv)
 {
 	t_lst	*list;
 	t_asm	a;
+	int		arg;
+	int		k;
 
 	if (argc < 2)
 	{
@@ -77,9 +79,16 @@ int			main(int argc, char **argv)
 		return (0);
 	}
 	list = NULL;
-	list = ft_read(argv[argc - 1], list, 1);
+	if ((arg = a_flag(argc, argv)))
+		k = 1;
+	else
+	{
+		k = 0;
+		arg = argc - 1;
+	}
+	list = ft_read(argv[arg], list, 1);
 	validation(&list, &a);
-	create_file(a, argv[argc - 1]);
+	(k == 1) ? a_bonus(a) : create_file(a, argv[arg]);
 	system("leaks asm");
 	return (0);
 }

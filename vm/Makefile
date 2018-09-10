@@ -15,7 +15,7 @@ LIB = ../libft/libft.a
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ)
-	$(CC) $(OBJ) $(LIB) -o $(NAME)
+	$(CC) $(OBJ) $(LIB) -lncurses ncurses.c -o $(NAME) 
 
 %.o: %.c $(INCL)
 	$(CC) -c $(CFLAG) $< -o $@

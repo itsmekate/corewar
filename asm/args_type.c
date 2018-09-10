@@ -48,7 +48,8 @@ int		arg_reg(t_args *t, int j, int *i, char *str)
 		if (t->arg_arr[j].value < 0 || t->arg_arr[j].value > 99)
 		{
 			ft_putendl("T_REG parameter should be from 0 to 99");
-			arg_zero(t, j);
+			// arg_zero(t, j);
+			return (clean_arg(t, j));
 		}
 	}
 	else
@@ -81,16 +82,16 @@ int		arg_ind(t_args *t, int j, int *i, char *str)
 {
 	t->arg_arr[j].type = 3;
 	t->arg_arr[j].size = 2;
-	if (*str == ':')
+	if (str[*i] == ':')
 	{
 		(*i)++;
-		t->arg_arr[j].text = get_arg_label(str + 1);
+		t->arg_arr[j].text = get_arg_label(str + *i);
 		t->arg_arr[j].value = 0;
 	}
-	else if ((str[*i + 1] >= 48 && str[*i + 1] <= 57) ||
-		str[*i + 1] == '-')
+	else if ((str[*i] >= 48 && str[*i] <= 57) ||
+		str[*i] == '-')
 	{
-		t->arg_arr[j].value = ft_atoi(str);
+		t->arg_arr[j].value = ft_atoi(str + *i);
 		t->arg_arr[j].text = NULL;
 	}
 	else

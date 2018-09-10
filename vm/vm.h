@@ -20,6 +20,10 @@ typedef struct		s_player
 	int				process_num;
 }					t_player;
 
+typedef struct 		s_process	
+{
+}					t_procces;
+
 typedef struct 		s_point
 {
 	char			value;
@@ -27,6 +31,7 @@ typedef struct 		s_point
 	int				is_new;
 }					t_point;
 
+<<<<<<< HEAD
 typedef struct 		s_process
 {
 	int				position;
@@ -38,6 +43,8 @@ typedef struct 		s_process
 	int				reg[REG_NUMBER];
 }					t_process;
 
+=======
+>>>>>>> 56a6343a91661fa169b299cf78fe127108b9cc4a
 typedef struct 		s_corewar
 {
 	int				visual_mode;
@@ -68,6 +75,7 @@ t_corewar			*create_corewar(char **agrv);
 ** player.c
 */
 int					parse_player(t_player *player);
+int					get_color(int num);
 
 /*
 ** point.c
@@ -79,5 +87,10 @@ void				set_point(t_point *point, char value, t_player *player);
 */
 int					is_number(t_corewar *corewar, char *s);
 int					get_number(t_corewar *corewar, int num);
+
+/*
+**ncurses.c
+*/
+int					visualize(t_corewar *c);
 
 #endif

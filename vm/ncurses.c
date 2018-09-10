@@ -1,13 +1,74 @@
 #include <ncurses.h>
 #include <unistd.h>
 #include <menu.h>
+#include "vm.h"
 
-void draw_borders(WINDOW *screen);
-
-int main(int argc, char **argv)
+typedef struct s_window
 {
+	WINDOW *field;
+	WINDOW *score;
+	// int field_x;
+	// int filed_y;
+	// int score_x;
+	// int score_y;
+}				t_window;
+
+int print_players(t_corewar *c, t_window win)
+{
+	int i;
+	int row;
+
+	i = 0;
+	row = 10;
+	while (i < c->players_num)
+	{
+		mvwprintw(win.score, row, 3, "Player -%d :", c->players[i]->number);
+		wattron(win.score, COLOR_PAIR(2));
+		mvwprintw(win.score, row, 15, "%s", c->players[i]->name);
+		wattroff(win.score, COLOR_PAIR(2));
+		mvwprintw(win.score, row + 1, 4, "%s", "Last live:");
+		mvwprintw(win.score, row + 2, 4, "%s", "Lives in current period :");
+		i++;
+		row += 5;
+	}
+	return (row);
+}
+
+void 	print_field(t_corewar *c, t_window win)
+{
+	int col;
+	int row;
+	int i;
+
+	i = 0;
+	col = 2;
+	row = 1;
+	while (i < MEM_SIZE)
+	{
+		if (col % 64 == 0)
+		{
+			row++;
+			col = 2;
+		}
+		// if (c->map[i].player->color != 0)
+		// {
+		// 	wattron(win.score, COLOR_PAIR(2));
+		// 	mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+		// 	wattroff(win.score, COLOR_PAIR(2));
+		// }
+		// else
+			mvwprintw(win.field, row, col, "%02x ", c->map[i].value & 0xff);
+		i++;
+		col+=3;
+	}
+}
+
+int visualize(t_corewar *c)
+{
+	t_window win;
 	int parent_x, parent_y;
 	int score_size = 70;
+	int score_row;
 
 	initscr();
 	noecho();
@@ -18,88 +79,47 @@ int main(int argc, char **argv)
 	getmaxyx(stdscr, parent_y, parent_x);
 
 	// set up initial windows
-	WINDOW *field = newwin(parent_y, parent_x - score_size, 0, 0);
-	WINDOW *score = newwin(parent_y, score_size, 0, parent_x - score_size);
+	win.field = newwin(129, 129, 0, 0);
+	win.score = newwin(129, score_size, 0, 130);
 
 	init_pair (1, COLOR_WHITE, COLOR_WHITE);
-	wattron(field,COLOR_PAIR(1));
-	box(field,0,0);
-	wattroff(field,COLOR_PAIR(1));
+	init_pair (2, COLOR_GREEN, COLOR_BLACK);
+	wattron(win.field,COLOR_PAIR(1));
+	box(win.field,0,0);
+	wattroff(win.field,COLOR_PAIR(1));
 
-	wattron(score,COLOR_PAIR(1));
-	box(score,0,0);
-	wattroff(score,COLOR_PAIR(1));
-
-	// // Celebration Funbere v0.99pl42
+	wattron(win.score,COLOR_PAIR(1));
+	box(win.score,0,0);
+	wattroff(win.score,COLOR_PAIR(1));
 
 	// draw to our windows
+	mvwprintw(win.score, 1, 3, "%s", "** PAUSED **");
+	mvwprintw(win.score, 4, 3, "%s", "Cycles/seconds limit:");
+	mvwprintw(win.score, 6, 3, "Cycle: %d", c->cycle);
+	mvwprintw(win.score, 8, 3, "%s", "Processes:");
 
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	
-	mvwprintw(field, 1, 1, "%s", "Field");
-	mvwprintw(score, 1, 3, "%s", "** PAUSED **");
-	mvwprintw(score, 4, 3, "%s", "Cycles/seconds limit:");
-	mvwprintw(score, 6, 3, "%s", "Cycle:");
-	mvwprintw(score, 8, 3, "%s", "Processes:");
 
-	mvwprintw(score, 10, 3, "%s", "Player -1 :");
-	wattron(score, COLOR_PAIR(2));
-	mvwprintw(score, 10, 15, "%s", "Celebration Funbere v0.99pl42");
-	wattroff(score, COLOR_PAIR(2));
-	mvwprintw(score, 11, 4, "%s", "Last live:");
-	mvwprintw(score, 12, 4, "%s", "Lives in current period :");
+	score_row = print_players(c, win);
+	print_field(c, win);
 
-	mvwprintw(score, 14, 3, "%s", "Player -2 :");
-	wattron(score, COLOR_PAIR(2));
-	mvwprintw(score, 14, 15, "%s", "Celebration Funbere v0.99pl42");
-	wattroff(score, COLOR_PAIR(2));
-	mvwprintw(score, 15, 4, "%s", "Last live:");
-	mvwprintw(score, 16, 4, "%s", "Lives in current period :");
-
-	mvwprintw(score, 18, 3, "%s", "Live breakdown for current period :");
-
-	mvwprintw(score, 20, 3, "%s", "Live breakdown for last period :");
-
-	mvwprintw(score, 22, 3, "%s", "CYCLE_TO_DIE :");
-	mvwprintw(score, 24, 3, "%s", "CYCLE_DELTA :");
-	mvwprintw(score, 26, 3, "%s", "NBR_LIVE :");
-	mvwprintw(score, 26, 3, "%s", "MAX_CHECKS :");
+	mvwprintw(win.score, score_row += 2, 3, "%s", "Live breakdown for current period :");
+	mvwprintw(win.score, score_row += 2, 3, "%s", "Live breakdown for last period :");
+	mvwprintw(win.score, score_row += 2, 3, "CYCLE_TO_DIE : %d", c->cycle_to_die);
+	mvwprintw(win.score, score_row += 2, 3, "%s", "CYCLE_DELTA :");
+	mvwprintw(win.score, score_row += 2, 3, "%s", "NBR_LIVE :");
+	mvwprintw(win.score, score_row += 2, 3, "%s", "MAX_CHECKS :");
 
 	// refresh each window
-
-	wrefresh(field);
-	wrefresh(score);
+	wrefresh(win.field);
+	wrefresh(win.score);
 	while (1)
 	{
-		if (wgetch(field) == 113)
+		if (wgetch(win.field) == 113)
 	    {
-			delwin(field);
-			delwin(score);
+			delwin(win.field);
+			delwin(win.score);
 			endwin();
 			return (0);
 		}
 	}
 }
-
-// void draw_borders(WINDOW *screen)
-// {
-// 	int x, y, i;
-// 	getmaxyx(screen, y, x);
-// 	// 4 corners
-// 	mvwprintw(screen, 0, 0, "+");
-// 	mvwprintw(screen, y - 1, 0, "+");
-// 	mvwprintw(screen, 0, x - 1, "+");
-// 	mvwprintw(screen, y - 1, x - 1, "+");
-// 	// sides
-// 	for (i = 1; i < (y - 1); i++)
-// 	{
-// 		mvwprintw(screen, i, 0, "|");
-// 		mvwprintw(screen, i, x - 1, "|");
-// 	}
-// 	// top and bottom
-// 	for (i = 1; i < (x - 1); i++)
-// 	{
-// 		mvwprintw(screen, 0, i, "-");
-// 		mvwprintw(screen, y - 1, i, "-");
-// 	}
-// }

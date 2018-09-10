@@ -1,5 +1,14 @@
 #include "vm.h"
 
+int			get_color(int num)
+{
+	static int ctab[6] = {0xff0000, 0xff, 0xff00, 0xe6c800, 0x00c8c8, 0xc800c8};
+
+	while (num >= 6)
+		num -= 6;
+	return (ctab[num]);
+}
+
 static int	check_header(int fd)
 {
 	int		i;
