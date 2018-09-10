@@ -4,6 +4,7 @@
 # include "../libft/libft.h"
 # include "op.h"
 # include <fcntl.h>
+#include <ncurses.h>
 
 # include <stdio.h>
 
@@ -47,6 +48,7 @@ typedef struct 		s_corewar
 	t_point			map[MEM_SIZE];
 	uintmax_t		cycle;
 	t_list			*processes;
+	int				pause;
 }					t_corewar;
 
 /*

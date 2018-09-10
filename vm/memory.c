@@ -29,7 +29,6 @@ t_player		*new_player(char *file)
 		res->number = 0;
 		res->file = ft_strdup(file);
 		res->start = 0;
-		res->color = 0;
 		ft_memset(res->name, '\0', PROG_NAME_LENGTH + 1);
 		res->size = 0;
 		ft_memset(res->comment, '\0', COMMENT_LENGTH + 1);
