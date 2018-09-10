@@ -1,15 +1,15 @@
 #include "vm.h"
 
-static void		proccess_execute(t_procces *procces)
+static void		process_execute(t_procces *process)
 {
-	(void)procces;
+	(void)process;
 }
 
-static void		process_cycle(t_procces *procces)
+static void		process_cycle(t_procces *process)
 {
-	if (--procces->cycle)
+	if (--process->cycle)
 		return ;
-	proccess_execute(procces);
+	proccess_execute(process);
 }
 
 static void		nbr_live(t_corewar *corewar)
@@ -40,12 +40,12 @@ static void		cycle_to_die(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
-	lst = corewar->procceses;
+	lst = corewar->proceses;
 	while (lst)
 	{
 		pr = lst->content;
 		if (!pr->alive)
-			kill_process(corewar, procces);
+			kill_process(corewar, pr);
 		else
 			pr->alive = 0;
 		lst = lst->next;
@@ -55,12 +55,21 @@ static void		cycle_to_die(t_corewar *corewar)
 
 void			grand_cycle(t_corewar *corewar)
 {
+	t_list		*lst;
+	t_process	pr;
+
 	while (42)
 	{
 		if (++corewar->cycle && !(corewar->cycle % corewar->cycle_to_die))
 			cycle_to_die(t_corewar *corewar);
-		if (corewar->cycle_to_die <= 0 || !corewar->procceses)
+		if (corewar->cycle_to_die <= 0 || !corewar->proceses)
 			return ;
-
+		lst = corewar->proceses;
+		while (lst)
+		{
+			pr = lst->content;
+			proceses_cycle(pr);
+			lst = lst->next;
+		}
 	}
 }

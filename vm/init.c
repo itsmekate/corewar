@@ -37,6 +37,8 @@ static void			set_exec(t_corewar *corewar, t_player *player)
 		if (i + player->start >= MEM_SIZE)
 			return ;
 		set_point(&corewar->map[i + player->start], player->exec[i], player);
+		ft_lstadd(&corewar->processes, obj_in_lst(
+			create_proccess(player->start, player, corewar)));
 		i++;
 	}
 }

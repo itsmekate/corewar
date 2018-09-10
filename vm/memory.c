@@ -64,6 +64,9 @@ void				clear_corewar(t_corewar **corewar)
 
 ////
 ////
+# define RED		"\x1B[31m"
+# define RESET		"\x1B[0m"
+
 void 				print_map(t_corewar *corewar)
 {
 	int i;
@@ -71,7 +74,9 @@ void 				print_map(t_corewar *corewar)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		printf("%02x ", corewar->map[i].value & 0xff);
+		if (corewar->map[i]->procces)
+			printf(RED);
+		printf("%02x " RESET, corewar->map[i].value & 0xff);
 		i++;
 	}
 }

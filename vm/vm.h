@@ -65,6 +65,7 @@ void				print_corewar(t_corewar *corewar);
 void				kill_process(t_corewar *corewar, t_process *process);
 t_process			*new_procces(void);
 void				clear_process(t_process **process, size_t size);
+t_list				*obj_in_lst(void *obj);
 
 
 /*
