@@ -12,7 +12,6 @@ typedef struct		s_player
 	int				number;
 	char			*file;
 	int				start;
-	int				color;
 	char			name[PROG_NAME_LENGTH + 1];
 	int				size;
 	char			comment[COMMENT_LENGTH + 1];
@@ -34,7 +33,7 @@ typedef struct 		s_process
 	t_player		*player;
 	int				alive;
 	char			command;
-	int				pause_cycle;
+	int				cycle;
 	int				reg[REG_NUMBER];
 }					t_process;
 
@@ -75,12 +74,15 @@ int					get_color_new(int num);
 ** point.c
 */
 void				set_point(t_point *point, char value, t_player *player);
-int					is_number(t_corewar *corewar, char *s);
+int					get_color(int num);
+int					get_color_new(int num);
+int					get_index(int index);
 
 /*
 ** number.c
 */
 int					get_number(t_corewar *corewar, int num);
+int					is_number(t_corewar *corewar, char *s);
 
 /*
 **ncurses.c
