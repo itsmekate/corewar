@@ -82,5 +82,6 @@ t_corewar			*create_corewar(char **agrv)
 		}
 	}
 	get_starts(res);
+	init_commands(res);
 	return (res);
 }

@@ -4,7 +4,7 @@
 # include "../libft/libft.h"
 # include "op.h"
 # include <fcntl.h>
-#include <ncurses.h>
+# include <ncurses.h>
 
 # include <stdio.h>
 
@@ -50,6 +50,7 @@ typedef struct 		s_corewar
 	uintmax_t		cycle;
 	t_list			*processes;
 	int				pause;
+	void			(*f[16]) (struct s_corewar *, t_process *);
 }					t_corewar;
 
 /*
@@ -107,10 +108,29 @@ int					visualize(t_corewar *c);
 **info.c
 */
 int					get_cycles(char	value);
+void				init_commands(t_corewar *corewar);
 
 /*
 **cycle.c
 */
 void				grand_cycle(t_corewar *corewar);
+
+
+void				live(t_corewar *corewar, t_process *process);
+void				load(t_corewar *corewar, t_process *process);
+void				store(t_corewar *corewar, t_process *process);
+void				addition(t_corewar *corewar, t_process *process);
+void				substraction(t_corewar *corewar, t_process *process);
+void				ft_and(t_corewar *corewar, t_process *process);
+void				ft_or(t_corewar *corewar, t_process *process);
+void				ft_xor(t_corewar *corewar, t_process *process);
+void				zjump(t_corewar *corewar, t_process *process);
+void				load_index(t_corewar *corewar, t_process *process);
+void				store_index(t_corewar *corewar, t_process *process);
+void				ft_fork(t_corewar *corewar, t_process *process);
+void				long_load(t_corewar *corewar, t_process *process);
+void				long_load_index(t_corewar *corewar, t_process *process);
+void				long_fork(t_corewar *corewar, t_process *process);
+void				aff(t_corewar *corewar, t_process *process);
 
 #endif

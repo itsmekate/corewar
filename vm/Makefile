@@ -10,7 +10,11 @@ SRC = 	main.c \
 		point.c \
 		number.c \
 		info.c \
-		cycle.c
+		cycle.c \
+		command.c \
+		command2.c \
+		command3.c \
+		command4.c
 		##op.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a

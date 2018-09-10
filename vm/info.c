@@ -1,31 +1,33 @@
 #include "vm.h"
 
-static int	get_indexv(char value)
-{
-	static int	values[16] = {0x01, 0x02, 0x03, 0x04,
-		0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c,
-		0x0d, 0x0e, 0x0f, 0x10};
-	int			i;
-
-	i = 0;
-	while (i < 16)
-	{
-		if (values[i] == (value & 0xff))
-			return(i);
-		i++;
-	}
-	return (-1);
-}
-
 int			get_cycles(char	value)
 {
 	static int	values[16] = {10, 5, 5, 10,
 		10, 6, 6, 6, 20, 25, 25, 800,
 		10, 50, 1000, 2};
-	int	i;
 
-	i = get_indexv(value);
-	if (i == -1)
-		return (-1);
-	return (values[i]);
+	value -= 1;
+	if (value < 0 || value > 15)
+		return (0);
+	return (values[(int)(value & 0xff)]);
+}
+
+void		init_commands(t_corewar *corewar)
+{
+		corewar->f[0] = &live;
+		corewar->f[1] = &load;
+		corewar->f[2] = &store;
+		corewar->f[3] = &addition;
+		corewar->f[4] = &substraction;
+		corewar->f[5] = &ft_and;
+		corewar->f[6] = &ft_or;
+		corewar->f[7] = &ft_xor;
+		corewar->f[8] = &zjump;
+		corewar->f[9] = &load_index;
+		corewar->f[10] = &store_index;
+		corewar->f[11] = &ft_fork;
+		corewar->f[12] = &long_load;
+		corewar->f[13] = &long_load_index;
+		corewar->f[14] = &long_fork;
+		corewar->f[15] = &aff;
 }

@@ -1,15 +1,13 @@
 #include "vm.h"
 
-static void		process_execute(t_process *process)
+static void		process_cycle(t_corewar *corewar, t_process *process)
 {
-	(void)process;
-}
+	void			(*f) (t_corewar *, t_process *);
 
-static void		process_cycle(t_process *process)
-{
 	if (--process->cycle)
 		return ;
-	process_execute(process);
+	f = corewar->f[(process->command & 0xff) - 1];
+	f(corewar, process);
 }
 
 static void		nbr_live(t_corewar *corewar)
@@ -68,7 +66,7 @@ void			grand_cycle(t_corewar *corewar)
 		while (lst)
 		{
 			pr = lst->content;
-			process_cycle(pr);
+			process_cycle(corewar, pr);
 			lst = lst->next;
 		}
 		printf("%ji\n", corewar->cycle);
