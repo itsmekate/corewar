@@ -20,10 +20,6 @@ typedef struct		s_player
 	int				process_num;
 }					t_player;
 
-typedef struct 		s_process	
-{
-}					t_procces;
-
 typedef struct 		s_point
 {
 	char			value;
@@ -31,7 +27,6 @@ typedef struct 		s_point
 	int				is_new;
 }					t_point;
 
-<<<<<<< HEAD
 typedef struct 		s_process
 {
 	int				position;
@@ -43,8 +38,6 @@ typedef struct 		s_process
 	int				reg[REG_NUMBER];
 }					t_process;
 
-=======
->>>>>>> 56a6343a91661fa169b299cf78fe127108b9cc4a
 typedef struct 		s_corewar
 {
 	int				visual_mode;

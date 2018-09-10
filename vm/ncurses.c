@@ -42,10 +42,10 @@ void 	print_field(t_corewar *c, t_window win)
 
 	i = 0;
 	col = 2;
-	row = 1;
+	row = 0;
 	while (i < MEM_SIZE)
 	{
-		if (col % 64 == 0)
+		if (i % 64 == 0)
 		{
 			row++;
 			col = 2;
@@ -69,6 +69,7 @@ int visualize(t_corewar *c)
 	int parent_x, parent_y;
 	int score_size = 70;
 	int score_row;
+	int h;
 
 	initscr();
 	noecho();
@@ -78,18 +79,19 @@ int visualize(t_corewar *c)
 	// get our maximum window dimensions
 	getmaxyx(stdscr, parent_y, parent_x);
 
+	h = (MEM_SIZE / 64) + 2;
 	// set up initial windows
-	win.field = newwin(129, 129, 0, 0);
-	win.score = newwin(129, score_size, 0, 130);
+	win.field = newwin(h, 195, 0, 0);
+	win.score = newwin(h, score_size, 0, 196);
 
 	init_pair (1, COLOR_WHITE, COLOR_WHITE);
 	init_pair (2, COLOR_GREEN, COLOR_BLACK);
 	wattron(win.field,COLOR_PAIR(1));
-	box(win.field,0,0);
+	box(win.field, 0, 0);
 	wattroff(win.field,COLOR_PAIR(1));
 
 	wattron(win.score,COLOR_PAIR(1));
-	box(win.score,0,0);
+	box(win.score, 0, 0);
 	wattroff(win.score,COLOR_PAIR(1));
 
 	// draw to our windows
