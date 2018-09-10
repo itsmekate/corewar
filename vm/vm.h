@@ -69,16 +69,17 @@ t_corewar			*create_corewar(char **agrv);
 */
 int					parse_player(t_player *player);
 int					get_color(int num);
+int					get_color_new(int num);
 
 /*
 ** point.c
 */
 void				set_point(t_point *point, char value, t_player *player);
+int					is_number(t_corewar *corewar, char *s);
 
 /*
 ** number.c
 */
-int					is_number(t_corewar *corewar, char *s);
 int					get_number(t_corewar *corewar, int num);
 
 /*
