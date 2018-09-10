@@ -60,6 +60,15 @@ void				clear_player(t_player **player);
 void				clear_corewar(t_corewar **corewar);
 void				print_corewar(t_corewar *corewar);
 
+
+/*
+** memory2.c
+*/
+void				kill_process(t_corewar *corewar, t_process *process);
+t_process			*new_procces(void);
+void				clear_process(t_process **process, size_t size);
+
+
 /*
 ** init.c
 */
