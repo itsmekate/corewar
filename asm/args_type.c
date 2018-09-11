@@ -48,7 +48,6 @@ int		arg_reg(t_args *t, int j, int *i, char *str)
 		if (t->arg_arr[j].value < 0 || t->arg_arr[j].value > 99)
 		{
 			ft_putendl("T_REG parameter should be from 0 to 99");
-			// arg_zero(t, j);
 			return (clean_arg(t, j));
 		}
 	}
