@@ -24,7 +24,6 @@ void		add_to_list(char *str, t_lst *list, int i)
 
 t_lst		*ft_read(char *f, t_lst *list, int i)
 {
-	t_lst	*head;
 	int		fd;
 	char	*tmp;
 
@@ -42,13 +41,12 @@ t_lst		*ft_read(char *f, t_lst *list, int i)
 		list->next = NULL;
 		free(tmp);
 	}
-	head = list;
 	while (get_next_line(fd, &tmp) > 0)
 	{
 		add_to_list(tmp, list, ++i);
 		free(tmp);
 	}
-	return (head);
+	return (list);
 }
 
 void		validation(t_lst **list, t_asm *a)
