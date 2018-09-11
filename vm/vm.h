@@ -54,6 +54,23 @@ typedef struct 		s_corewar
 }					t_corewar;
 
 /*
+** ncurses
+*/
+typedef struct		s_window
+{
+	WINDOW			*field;
+	WINDOW			*score;
+	int				h;
+	int				score_row;
+}					t_window;
+
+typedef struct		s_field
+{
+	int				row;
+	int				col;
+}					t_field;
+
+/*
 ** memory.c
 */
 t_corewar			*new_corewar(void);
@@ -103,6 +120,12 @@ int					is_number(t_corewar *corewar, char *s);
 **ncurses.c
 */
 int					visualize(t_corewar *c);
+
+/*
+**ncurses2.c
+*/
+void				print_field(t_corewar *c, t_window win);
+int					print_players(t_corewar *c, t_window win);
 
 /*
 **info.c

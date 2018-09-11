@@ -20,13 +20,15 @@ SRC = 	main.c \
 		functions/store.c functions/store_index.c \
 		functions/substraction.c functions/zjump.c
 		##op.c
+VISUAL_FLAG = -lncurses
+VISUAL_SRC =  ncurses.c ncurses2.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a
 
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ)
-	$(CC) $(OBJ) $(LIB) -lncurses ncurses.c -o $(NAME) 
+	$(CC) $(OBJ) $(LIB) $(VISUAL_FLAG) $(VISUAL_SRC) -o $(NAME) 
 
 %.o: %.c $(INCL)
 	$(CC) -c $(CFLAG) $< -o $@
