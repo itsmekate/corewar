@@ -34,7 +34,7 @@ int			a_flag(int argc, char **argv)
 void		cmnd_labl_size(t_cmnd *c, t_asm a, int k)
 {
 	int		i;
-	int		j;
+	unsigned char *n;
 
 	i = 0;
 	ft_printf("\n\t\t    ");
@@ -46,13 +46,11 @@ void		cmnd_labl_size(t_cmnd *c, t_asm a, int k)
 	{
 		if (c->arg.arg_arr[i].type > 1 && !k)
 		{
-			j = 0;
-			while (j < a.op_tab[c->command_name - 1].label_size - 1)
-			{
-				ft_printf("%-4d", 0);
-				j++;
-			}
-			ft_printf("%-*d", 16 - j * 4, c->arg.arg_arr[i].value);
+			n = (unsigned char *)&c->arg.arg_arr[i].value;
+			if (a.op_tab[c->command_name - 1].label_size == 2 || c->arg.arg_arr[i].type == 3)
+				ft_printf("%-4d%-4d%8c", n[1], n[0], ' ');
+			else if (a.op_tab[c->command_name - 1].label_size == 4 && c->arg.arg_arr[i].type == 2)
+				ft_printf("%-4d%-4d%-4d%-4d", n[3], n[2], n[1], n[0]);
 		}
 		else
 			ft_printf("%-16d", c->arg.arg_arr[i].value);
@@ -99,7 +97,7 @@ void		print_commands(t_cmnd *c, t_asm a)
 
 void		a_bonus(t_asm a)
 {
-	ft_printf("Dumping annotato	ed program on standard output\n");
+	ft_printf("Dumping annotated program on standard output\n");
 	ft_printf("Program size : %d bytes\n", sum_exec(a.command));
 	ft_printf("Name : \"%s\"\n", a.bot_name);
 	ft_printf("Comment : \"%s\"\n\n", a.bot_comment);
