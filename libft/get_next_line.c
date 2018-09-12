@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int					find_n(t_lines **lst, char **line, int k)
+int					find_n(t_lines **lst, char **line, int k, int ret)
 {
 	int				i;
 	char			*tmp;
@@ -25,6 +25,11 @@ int					find_n(t_lines **lst, char **line, int k)
 		if ((*lst)->buf[i] == '\n')
 			break ;
 		i++;
+	}
+	if (ret == 0 && !(*lst)->buf[i])
+	{
+		ft_putendl("no end of file");
+		exit (0);
 	}
 	if ((((*lst)->buf[i] == '\n') && k == 0) || (k == 1))
 	{
@@ -44,7 +49,7 @@ int					reading(int fd, t_lines **lst, char **line)
 	char			*buf;
 	char			*tmp;
 
-	if (find_n(lst, line, 0))
+	if (find_n(lst, line, 0, 1))
 		return (1);
 	if (!(buf = ft_strnew(BUFF_SIZE)))
 		return (-1);
@@ -54,14 +59,14 @@ int					reading(int fd, t_lines **lst, char **line)
 		tmp = (*lst)->buf;
 		(*lst)->buf = ft_strjoin((*lst)->buf, buf);
 		free(tmp);
-		if (find_n(lst, line, 0))
+		if (find_n(lst, line, 0, ret))
 		{
 			free(buf);
 			return (1);
 		}
 	}
 	free(buf);
-	if (find_n(lst, line, 1))
+	if (find_n(lst, line, 1, ret))
 		return (1);
 	return (ret);
 }
