@@ -33,6 +33,16 @@ static	void	print_carriage(t_corewar *c, t_window win, int i, t_field f)
 	mvwprintw(win.field, f.row, f.col + 2, " ");
 }
 
+static	void	print_carriage_empty(t_corewar *c, t_window win, int i, t_field f)
+{
+	init_pair(c->map[i].player->number + 15, COLOR_BLACK,
+		COLOR_WHITE);
+	wattron(win.field, COLOR_PAIR(c->map[i].player->number + 15));
+	mvwprintw(win.field, f.row, f.col, "%02x", c->map[i].value & 0xff);
+	wattroff(win.field, COLOR_PAIR(c->map[i].player->number + 15));
+	mvwprintw(win.field, f.row, f.col + 2, " ");
+}
+
 static	void	print_old(t_corewar *c, t_window win, int i, t_field f)
 {
 	init_pair(c->map[i].player->number + 10,
@@ -62,6 +72,8 @@ void			print_field(t_corewar *c, t_window win)
 			print_new(c, win, i, f);
 		else if (c->map[i].player != NULL && c->map[i].process != NULL)
 			print_carriage(c, win, i, f);
+		else if (c->map[i].player == NULL && c->map[i].process != NULL)
+			print_carriage_empty(c, win, i, f);
 		else if (c->map[i].player != NULL)
 			print_old(c, win, i, f);
 		else
