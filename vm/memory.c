@@ -61,6 +61,15 @@ void				clear_corewar(t_corewar **corewar)
 	*corewar = NULL;
 }
 
+t_list		*obj_in_lst(void *obj)
+{
+	t_list	*lst;
+
+	lst = ft_lstnew(NULL, 0);
+	lst->content = obj;
+	return (lst);
+}
+
 ////
 ////
 # define RED		"\x1B[31m"

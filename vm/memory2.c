@@ -23,6 +23,14 @@ t_process	*create_process(int position, t_player *player, t_corewar *corewar)
 	return (res);
 }
 
+void		move_process(int index, t_process *process, t_corewar *corewar)
+{
+	corewar->map[process->position].process = NULL;
+	process->position = get_index(process->position + index);
+	corewar->map[process->position].process = process;
+	process->command = corewar->map[process->position].value;
+}
+
 void		clear_process(t_process **process, size_t size)
 {
 	ft_memset(*process, '\0', size);
@@ -57,13 +65,4 @@ void		kill_process(t_corewar *corewar, t_process *process)
 		lst0 = lst;
 		lst = lst1;
 	}
-}
-
-t_list		*obj_in_lst(void *obj)
-{
-	t_list	*lst;
-
-	lst = ft_lstnew(NULL, 0);
-	lst->content = obj;
-	return (lst);
 }
