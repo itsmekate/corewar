@@ -70,20 +70,13 @@ t_args	find_args(t_lst **list, int n_command, t_asm *a, int i)
 		if ((*list)->str[i] == '%')
 		{
 			t.arg_arr[j].size = a->op_tab[n_command - 1].label_size;
-			if (!arg_dir(&t, j, &i, (*list)->str))
-				return (t);
+			arg_dir(&t, j, &i, *list);
 		}
 		else if ((*list)->str[i] == 'r')
-		{
-			if (!arg_reg(&t, j, &i, (*list)->str))
-				return (t);
-		}
+			arg_reg(&t, j, &i, *list);
 		else if (ft_isdigit((*list)->str[i]) ||
 			(*list)->str[i] == '-' || (*list)->str[i] == ':')
-		{
-			if (!arg_ind(&t, j, &i, (*list)->str))
-				return (t);
-		}
+			arg_ind(&t, j, &i, *list);
 		else
 			break ;
 		if (!(add_i(list, &t, &i, &j)))

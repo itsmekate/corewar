@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-int		clean_arg(t_args *t, int j)
+int			clean_arg(t_args *t, int j)
 {
 	int	i;
 
@@ -29,76 +29,82 @@ int		clean_arg(t_args *t, int j)
 	return (0);
 }
 
-int		arg_reg(t_args *t, int j, int *i, char *str)
+void		arg_reg(t_args *t, int j, int *i, t_lst *l)
 {
 	t->arg_arr[j].type = 1;
 	t->arg_arr[j].size = 1;
-	if (str[*i + 1] == ':')
+	if (l->str[*i + 1] == ':')
 	{
 		*i += 2;
-		t->arg_arr[j].text = get_arg_label(str + *i);
+		t->arg_arr[j].text = get_arg_label(l->str + *i);
 		t->arg_arr[j].value = 0;
 	}
-	else if ((str[*i + 1] >= 48 && str[*i + 1] <= 57) ||
-		str[*i + 1] == '-')
+	else if ((l->str[*i + 1] >= 48 && l->str[*i + 1] <= 57) ||
+		l->str[*i + 1] == '-')
 	{
 		t->arg_arr[j].text = NULL;
-		t->arg_arr[j].value = ft_atoi(str + *i + 1);
+		t->arg_arr[j].value = ft_atoi(l->str + *i + 1);
 		(*i)++;
 		if (t->arg_arr[j].value < 0 || t->arg_arr[j].value > 99)
 		{
-			ft_putendl("T_REG parameter should be from 0 to 99");
-			return (clean_arg(t, j));
+			ft_printf("T_REG arg should be from 0 to 99: line %d", l->n_str);
+			exit(0);
 		}
 	}
 	else
-		return (clean_arg(t, j));
-	return (1);
+	{
+		ft_printf("Bad T_REG arg: line %d\n", l->n_str);
+		exit(0);
+	}
 }
 
-int		arg_dir(t_args *t, int j, int *i, char *str)
+void		arg_dir(t_args *t, int j, int *i, t_lst *l)
 {
 	t->arg_arr[j].type = 2;
-	if (str[*i + 1] == ':')
+	if (l->str[*i + 1] == ':')
 	{
 		*i += 2;
-		t->arg_arr[j].text = get_arg_label(str + *i);
+		t->arg_arr[j].text = get_arg_label(l->str + *i);
 		t->arg_arr[j].value = 0;
 	}
-	else if ((str[*i + 1] >= 48 && str[*i + 1] <= 57) ||
-		str[*i + 1] == '-')
+	else if ((l->str[*i + 1] >= 48 && l->str[*i + 1] <= 57) ||
+		l->str[*i + 1] == '-')
 	{
 		t->arg_arr[j].text = NULL;
-		t->arg_arr[j].value = ft_atoi(str + *i + 1);
+		t->arg_arr[j].value = ft_atoi(l->str + *i + 1);
 		(*i)++;
 	}
 	else
-		return (clean_arg(t, j));
-	return (1);
+	{
+		ft_printf("Bad T_DIR arg: line %d\n", l->n_str);
+		exit(0);
+	}
 }
 
-int		arg_ind(t_args *t, int j, int *i, char *str)
+void		arg_ind(t_args *t, int j, int *i, t_lst *l)
 {
 	t->arg_arr[j].type = 3;
 	t->arg_arr[j].size = 2;
-	if (str[*i] == ':')
+	if (l->str[*i] == ':')
 	{
 		(*i)++;
-		t->arg_arr[j].text = get_arg_label(str + *i);
+		t->arg_arr[j].text = get_arg_label(l->str + *i);
 		t->arg_arr[j].value = 0;
 	}
-	else if ((str[*i] >= 48 && str[*i] <= 57) ||
-		str[*i] == '-')
+	else if ((l->str[*i] >= 48 && l->str[*i] <= 57) ||
+		l->str[*i] == '-')
 	{
-		t->arg_arr[j].value = ft_atoi(str + *i);
+		t->arg_arr[j].value = ft_atoi(l->str + *i);
 		t->arg_arr[j].text = NULL;
 	}
 	else
-		return (clean_arg(t, j));
-	return (1);
+	{
+		ft_printf("Bad T_IND arg: line %d\n", l->n_str);
+		exit(0);
+	}
 }
 
-void	arg_zero(t_args *t, int j)
+void		arg_zero(t_args *t, int j)
 {
 	t->arg_arr[j].size = 0;
 	t->arg_arr[j].type = 0;

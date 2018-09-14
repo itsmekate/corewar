@@ -105,9 +105,9 @@ int						ft_pow(int n, int pow);
 int						sum_exec(t_cmnd *c);
 
 int						clean_arg(t_args *t, int j);
-int						arg_reg(t_args *t, int j, int *i, char *str);
-int						arg_dir(t_args *t, int j, int *i, char *str);
-int						arg_ind(t_args *t, int j, int *i, char *str);
+void					arg_reg(t_args *t, int j, int *i, t_lst *l);
+void					arg_dir(t_args *t, int j, int *i, t_lst *l);
+void					arg_ind(t_args *t, int j, int *i, t_lst *l);
 void					arg_zero(t_args *t, int j);
 
 char					*get_arg_label(char *str);

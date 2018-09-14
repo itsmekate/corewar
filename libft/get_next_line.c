@@ -17,19 +17,16 @@ int					find_n(t_lines **lst, char **line, int k, int ret)
 	int				i;
 	char			*tmp;
 
-	i = 0;
+	i = -1;
 	if (!(*lst)->buf || ft_strlen((*lst)->buf) == 0)
 		return (0);
-	while ((*lst)->buf[i] != '\0')
-	{
+	while ((*lst)->buf[++i] != '\0')
 		if ((*lst)->buf[i] == '\n')
 			break ;
-		i++;
-	}
 	if (ret == 0 && !(*lst)->buf[i])
 	{
 		ft_putendl("no end of file");
-		exit (0);
+		exit(0);
 	}
 	if ((((*lst)->buf[i] == '\n') && k == 0) || (k == 1))
 	{
