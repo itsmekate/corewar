@@ -90,7 +90,7 @@ int			errors(t_lst **list, int name_exists, int comment_exists)
 	return (1);
 }
 
-int			validation_name(t_lst **list, t_asm *a, int n_name, int n_comment)
+int			name_comment(t_lst **list, t_asm *a, int n_name, int n_comment)
 {
 	char	*tmp_buf_name;
 	char	*tmp_buf_comment;

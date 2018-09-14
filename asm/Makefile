@@ -13,11 +13,11 @@
 NAME = asm
 
 SRCS = main.c \
+		get_name_comment.c \
+		find_name_comment.c \
 		create_file.c \
 		create_command.c \
 		op.c \
-		get_name.c \
-		validation_name.c \
 		validation_commands.c \
 		validation_args.c \
 		find_args.c \

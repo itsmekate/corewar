@@ -73,17 +73,27 @@ typedef struct			s_cmnd
 	struct s_cmnd		*next;
 }						t_cmnd;
 
+void					get_asm(t_lst **list, t_asm *a);
+int						name_comment(t_lst **list, t_asm *a,
+						int n_name, int n_comment);
+
+int						name_comment(t_lst **list, t_asm *a,
+						int n_name, int n_comment);
+int						is_command(char *str);
+int						errors(t_lst **list, int name_exists, int comment_exists);
+int						set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists);
+int						set_bot_comment(t_asm *a, char *buf_comment, int *comment_exists);
+
 int						str_comment(char *str);
 int						str_name(char *str);
+int						find_lapki(t_lst **list, int *i, char **new, int arg);
 char					*copy_n(char *dst, const char *src, int len, int arg);
 char					*copy_n1(char *dst, const char *src, int i, int len);
 char					*get_name(t_lst **l, int arg, char *new);
-char					*get_comment(t_lst **list);
+
 void					create_file(t_asm a, char *name);
 
 void					get_t_op(t_asm *a);
-
-int						is_command(char *str);
 
 char					*find_label(t_lst **list);
 int						find_command_name(t_lst **list, char *label, t_asm *a);
@@ -91,9 +101,6 @@ t_args					find_args(t_lst **list, int n_command, t_asm *a, int i);
 int						find_label_num(char *str, t_cmnd *cmnds);
 int						label_to_numbers(t_cmnd	*cmnds);
 
-void					validation(t_lst **list, t_asm *a);
-int						validation_name(t_lst **list, t_asm *a,
-						int n_name, int n_comment);
 int						validation_commands(t_lst **list, t_asm *a);
 int						validation_args(t_cmnd *c, t_asm *a, int i, int j);
 

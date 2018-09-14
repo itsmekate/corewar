@@ -37,8 +37,9 @@ int			add_i(t_lst **list, t_args *t, int *i, int *j)
 
 	*i += digits_char((*list)->str + *i);
 	tmp = find_comma((*list)->str + *i);
-	if (tmp != 0 && *j > 1)
+	if (tmp > 0 && *j > 1)
 	{
+		ft_printf("%d %d\n", tmp, *j);
 		ft_printf("Too much args: line %d\n", (*list)->n_str);
 		system("leaks asm");
 		exit(0);

@@ -30,7 +30,7 @@ t_lst		*ft_read(char *f, t_lst *list, int i)
 	fd = open(f, O_RDONLY);
 	if (fd == 0 || fd == -1)
 	{
-		ft_putendl("Wrong file");
+		ft_printf("Can't read source file %s\n", f);
 		exit(0);
 	}
 	if (get_next_line(fd, &tmp) > 0)
@@ -43,15 +43,16 @@ t_lst		*ft_read(char *f, t_lst *list, int i)
 	}
 	while (get_next_line(fd, &tmp) > 0)
 	{
+		// printf("line %d:%s\n", i + 1, tmp);
 		add_to_list(tmp, list, ++i);
 		free(tmp);
 	}
 	return (list);
 }
 
-void		validation(t_lst **list, t_asm *a)
+void		get_asm(t_lst **list, t_asm *a)
 {
-	if (!validation_name(list, a, 0, 0))
+	if (!name_comment(list, a, 0, 0))
 	{
 		system("leaks asm");
 		exit(0);
@@ -73,7 +74,7 @@ int			main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		ft_putendl("Usage:./asm [-a] [file_name.s]");
+		ft_putendl("Usage: ./asm [-a] <sourcefile.s>");
 		return (0);
 	}
 	list = NULL;
@@ -85,7 +86,7 @@ int			main(int argc, char **argv)
 		arg = argc - 1;
 	}
 	list = ft_read(argv[arg], list, 1);
-	validation(&list, &a);
+	get_asm(&list, &a);
 	(k == 1) ? a_bonus(a) : create_file(a, argv[arg]);
 	system("leaks asm");
 	return (0);

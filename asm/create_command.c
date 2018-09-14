@@ -129,5 +129,5 @@ int			find_comma(char *str)
 		else
 			return (-1);
 	}
-	return (i);
+	return (0);
 }

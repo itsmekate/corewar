@@ -12,42 +12,6 @@
 
 #include "asm.h"
 
-int			str_comment(char *str)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	tmp = ft_strsub(str, i, 8);
-	if (!ft_strcmp(tmp, ".comment"))
-	{
-		free(tmp);
-		return (i + 8);
-	}
-	free(tmp);
-	return (0);
-}
-
-int			str_name(char *str)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	tmp = ft_strsub(str, i, 5);
-	if (!ft_strcmp(tmp, ".name"))
-	{
-		free(tmp);
-		return (i + 5);
-	}
-	free(tmp);
-	return (0);
-}
-
 int			find_lapki(t_lst **list, int *i, char **new, int arg)
 {
 	int tmp;
@@ -73,7 +37,51 @@ int			find_lapki(t_lst **list, int *i, char **new, int arg)
 			}
 		}
 	}
+	// printf("lapki %c %d\n", (*list)->str[*i], (*list)->n_str);
 	return (tmp);
+}
+
+char		*copy_n1(char *dst, const char *src, int i, int len)
+{
+	int		j;
+
+	j = 0;
+	while (j < len && src[j])
+	{
+		dst[i] = src[j];
+		i++;
+		j++;
+	}
+	if (!src[j])
+		dst[i] = '\n';
+	return (dst);
+}
+
+char		*copy_n(char *dst, const char *src, int len, int arg)
+{
+	int		i;
+
+	i = ft_strlen(dst);
+	if (!dst)
+	{
+		dst = (arg == 5) ? ft_memalloc(PROG_NAME_LENGTH) :
+		ft_memalloc(COMMENT_LENGTH);
+		dst = copy_n(dst, src, len, arg);
+		return (dst);
+	}
+	if (arg == 5 && len >= PROG_NAME_LENGTH)
+	{
+		ft_putendl("Champion name too long (Max length 128)");
+		free(dst);
+		return (NULL);
+	}
+	if (arg == 8 && len >= COMMENT_LENGTH)
+	{
+		ft_putendl("Champion comment too long (Max length 2048)");
+		free(dst);
+		return (NULL);
+	}
+	return (copy_n1(dst, src, i, len));
 }
 
 char		*get_name(t_lst **l, int arg, char *new)
@@ -82,6 +90,7 @@ char		*get_name(t_lst **l, int arg, char *new)
 	int		i;
 
 	i = arg;
+	// ft_printf("%s %d\n", (*l)->str, (*l)->n_str);
 	while (SPACES)
 		i++;
 	if (!(*l)->str[i] || (*l)->str[i] != '"')
@@ -96,10 +105,11 @@ char		*get_name(t_lst **l, int arg, char *new)
 	i++;
 	while (SPACES)
 		i++;
-	if ((*l)->str[i] && (*l)->str[i] != '#' && (*l)->str[i] != ';')
+	if ((*l)->str[i] > 31 && (*l)->str[i] != '#' && (*l)->str[i] != ';')
 	{
 		free(new);
 		return (NULL);
 	}
+	// ft_printf("%s %d\n", (*l)->str, (*l)->n_str);
 	return (new);
 }
