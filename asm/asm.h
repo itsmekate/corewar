@@ -104,7 +104,6 @@ int						digits_char(char *str);
 int						ft_pow(int n, int pow);
 int						sum_exec(t_cmnd *c);
 
-int						clean_arg(t_args *t, int j);
 void					arg_reg(t_args *t, int j, int *i, t_lst *l);
 void					arg_dir(t_args *t, int j, int *i, t_lst *l);
 void					arg_ind(t_args *t, int j, int *i, t_lst *l);

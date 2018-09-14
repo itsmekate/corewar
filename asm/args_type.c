@@ -12,34 +12,11 @@
 
 #include "asm.h"
 
-int			clean_arg(t_args *t, int j)
-{
-	int	i;
-
-	i = 0;
-	while (i < j)
-	{
-		t->arg_arr[i].size = 0;
-		t->arg_arr[i].type = 0;
-		t->arg_arr[i].value = 0;
-		if (t->arg_arr[i].text)
-			ft_strdel(&t->arg_arr[i].text);
-		i++;
-	}
-	return (0);
-}
-
 void		arg_reg(t_args *t, int j, int *i, t_lst *l)
 {
 	t->arg_arr[j].type = 1;
 	t->arg_arr[j].size = 1;
-	if (l->str[*i + 1] == ':')
-	{
-		*i += 2;
-		t->arg_arr[j].text = get_arg_label(l->str + *i);
-		t->arg_arr[j].value = 0;
-	}
-	else if ((l->str[*i + 1] >= 48 && l->str[*i + 1] <= 57) ||
+	if ((l->str[*i + 1] >= 48 && l->str[*i + 1] <= 57) ||
 		l->str[*i + 1] == '-')
 	{
 		t->arg_arr[j].text = NULL;
