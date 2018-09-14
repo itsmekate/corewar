@@ -73,7 +73,7 @@ int			main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		ft_putendl("Usage:./asm [file_name.s]");
+		ft_putendl("Usage:./asm [-a] [file_name.s]");
 		return (0);
 	}
 	list = NULL;

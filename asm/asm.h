@@ -108,6 +108,7 @@ void					arg_reg(t_args *t, int j, int *i, t_lst *l);
 void					arg_dir(t_args *t, int j, int *i, t_lst *l);
 void					arg_ind(t_args *t, int j, int *i, t_lst *l);
 void					arg_zero(t_args *t, int j);
+int						clean_arg(t_args *t, int j);
 
 char					*get_arg_label(char *str);
 int						count_codage(t_args t);

@@ -12,6 +12,23 @@
 
 #include "asm.h"
 
+int			clean_arg(t_args *t, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i < j)
+	{
+		t->arg_arr[i].size = 0;
+		t->arg_arr[i].type = 0;
+		t->arg_arr[i].value = 0;
+		if (t->arg_arr[i].text)
+			ft_strdel(&t->arg_arr[i].text);
+		i++;
+	}
+	return (0);
+}
+
 void		arg_reg(t_args *t, int j, int *i, t_lst *l)
 {
 	t->arg_arr[j].type = 1;
