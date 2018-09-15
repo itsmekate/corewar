@@ -23,5 +23,6 @@ typedef struct		s_lines
 }					t_lines;
 
 int					get_next_line(const int fd, char **line);
+int					check_line(char *str);
 
 #endif

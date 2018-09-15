@@ -33,6 +33,7 @@ ft_list_size.c ft_list_reverse.c ft_list_last.c ft_list_clear.c ft_swap.c get_ne
 		print_ou.c \
 		print_di.c \
 		print_px.c \
+		check_line.c \
 
 
 FLAGS = -Wall -Wextra -Werror

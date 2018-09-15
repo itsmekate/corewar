@@ -23,12 +23,11 @@ int					find_n(t_lines **lst, char **line, int k, int ret)
 	while ((*lst)->buf[++i] != '\0')
 		if ((*lst)->buf[i] == '\n')
 			break ;
-	// if (ret == 0 && !(*lst)->buf[i])
-	// {
-	// 	ft_putendl("Syntax error: no end of file");
-	// 	exit(0);
-	// }
-		ret = 0;
+	if (ret == 0 && !(*lst)->buf[i] && !check_line((*lst)->buf))
+	{
+		ft_putendl("Syntax error: no end of file");
+		exit(0);
+	}
 	if ((((*lst)->buf[i] == '\n') && k == 0) || (k == 1))
 	{
 		*line = ft_strsub((*lst)->buf, 0, i);
