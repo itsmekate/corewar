@@ -74,6 +74,7 @@ t_list		*obj_in_lst(void *obj)
 ////
 # define RED		"\x1B[31m"
 # define RESET		"\x1B[0m"
+# define GREEN		"\x1B[32m"
 
 void 				print_map(t_corewar *corewar)
 {
@@ -82,9 +83,12 @@ void 				print_map(t_corewar *corewar)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
+		if (corewar->map[i].is_new)
+			printf(GREEN);
 		if (corewar->map[i].process)
 			printf(RED);
 		printf("%02x " RESET, corewar->map[i].value & 0xff);
+		corewar->map[i].is_new = 0;
 		i++;
 	}
 }

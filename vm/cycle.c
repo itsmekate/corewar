@@ -7,6 +7,12 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 	if (--process->cycle)
 		return ;
 	printf("position = %i, command = %02x\n", get_index(process->position), process->command & 0xff);
+	if (process->command < 1 || process->command > 16)
+	{
+		printf("oops\n");
+		move_process(1, process, corewar);
+		return ;
+	}
 	f = corewar->f[(process->command & 0xff) - 1];
 	f(corewar, process);
 }

@@ -19,7 +19,7 @@ static unsigned int		ind_load(t_corewar *corewar, t_process *process)
 	int				ind;
 	int				reg;
 
-	ind = get_arg(2, process->position + 2, corewar);
+	ind = get_arg(2, process->position + 2, corewar) % IDX_MOD;
 	dir = get_arg(4, process->position + ind, corewar);
 	reg = get_arg(1, process->position + 3, corewar);
 	if (reg >= 0 && reg < REG_NUMBER)

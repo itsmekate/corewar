@@ -19,12 +19,14 @@ t_process	*create_process(int position, t_player *player, t_corewar *corewar)
 		res->command = corewar->map[get_index(position)].value;
 		corewar->map[get_index(position)].process = res;
 		res->cycle = get_cycles(res->command);
+		res->reg[1] = 0xffffffff - player->number + 1;
 	}
 	return (res);
 }
 
 void		move_process(int index, t_process *process, t_corewar *corewar)
 {
+	printf("move on %i\n", index);
 	corewar->map[process->position].process = NULL;
 	process->position = get_index(process->position + index);
 	corewar->map[process->position].process = process;

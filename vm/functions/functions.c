@@ -13,3 +13,18 @@ unsigned int	get_arg(int size, int start_index, t_corewar *corewar)
 	arg = *(unsigned int *)res;
 	return (arg);
 }
+
+void			set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar, t_player *player)
+{
+	int i;
+
+	i = 0;
+
+	while (i < 4)
+	{
+		set_point(&corewar->map[get_index(start_index)], value >> 24, player);
+		value = value << 8;
+		start_index++;
+		i++;
+	}
+}

@@ -112,7 +112,7 @@ int					get_color_new(int num);
 void				set_point(t_point *point, char value, t_player *player);
 int					get_color(int num);
 int					get_color_new(int num);
-int					get_index(int index);
+unsigned int					get_index(unsigned int index);
 
 /*
 ** number.c
@@ -162,5 +162,11 @@ void				long_load_index(t_corewar *corewar, t_process *process);
 void				long_fork(t_corewar *corewar, t_process *process);
 void				aff(t_corewar *corewar, t_process *process);
 unsigned int		get_arg(int size, int start_index, t_corewar *corewar);
+void				set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar, t_player *player);
+
+
+
+
+void 				print_map(t_corewar *corewar);
 
 #endif

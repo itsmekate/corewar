@@ -17,7 +17,7 @@ int			get_color(int num)
 	return (ctab[num]);
 }
 
-int			get_index(int index)
+unsigned int			get_index(unsigned int index)
 {
 	while (index >= MEM_SIZE)
 		index -= MEM_SIZE;
