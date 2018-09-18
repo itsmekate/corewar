@@ -18,7 +18,8 @@ SRC = 	main.c \
 		functions/load_index.c functions/long_fork.c \
 		functions/long_load.c functions/long_load_index.c \
 		functions/store.c functions/store_index.c \
-		functions/substraction.c functions/zjump.c
+		functions/substraction.c functions/zjump.c \
+		functions/functions.c
 		##op.c
 VISUAL_FLAG = -lncurses
 VISUAL_SRC =  ncurses.c ncurses2.c

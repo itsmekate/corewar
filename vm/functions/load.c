@@ -2,48 +2,30 @@
 
 static unsigned int		dir_load(t_corewar *corewar, t_process *process)
 {
-	char			res[4];
-	unsigned int	load;
-	int				i;
+	unsigned int	dir;
+	int				reg;
 
-	ft_memset(res, '\0', 4);
-	i = -1;
-	while (++i < 4)
-		res[3 - i] = corewar->map[get_index(process->position + i)].value & 0xff;
-	load = *(unsigned int *)res;
-	i = corewar->map[get_index(process->position + 4)].value & 0xff;
-	if (i >= 0 && i < REG_NUMBER)
-		process->reg[i] = load;
-	move_process(5, process, corewar);
-	return (load);
+	dir = get_arg(4, process->position + 2, corewar);
+	reg = get_arg(1, process->position + 6, corewar);
+	if (reg >= 0 && reg < REG_NUMBER)
+		process->reg[reg] = dir;
+	move_process(7, process, corewar);
+	return (dir);
 }
 
 static unsigned int		ind_load(t_corewar *corewar, t_process *process)
 {
-	char			res[4];
-	unsigned int	load;
+	unsigned int	dir;
 	int				ind;
-	int				i;
+	int				reg;
 
-	ft_memset(res, '\0', 4);
-	ind = 0;
-	i = -1;
-	while (++i < 2)
-	{
-		ind += corewar->map[get_index(process->position + i)].value & 0xff;
-		ind = ind << (8 * (1 - i));
-	}
-	ind = ind % IDX_MOD;
-	i = -1;
-	while (++i < 4)
-		res[3 - i] = corewar->map[get_index(process->position + i + ind + 2)].value & 0xff;
-	load = *(unsigned int *)res;
-	printf("%u\n", load);
-	i = corewar->map[get_index(process->position + 3)].value & 0xff;
-	if (i >= 0 && i < REG_NUMBER)
-		process->reg[i] = load;
-	move_process(3, process, corewar);
-	return (load);
+	ind = get_arg(2, process->position + 2, corewar);
+	dir = get_arg(4, process->position + ind, corewar);
+	reg = get_arg(1, process->position + 3, corewar);
+	if (reg >= 0 && reg < REG_NUMBER)
+		process->reg[reg] = dir;
+	move_process(5, process, corewar);
+	return (dir);
 }
 
 void					load(t_corewar *corewar, t_process *process)
@@ -54,9 +36,7 @@ void					load(t_corewar *corewar, t_process *process)
 	//
 	printf("load\n");
 	//
-	codage = corewar->map[get_index(process->position + 1)].value & 0xff;
-	printf("arg = %x\n", codage & 0xff);
-	move_process(2, process, corewar);
+	codage = get_arg(1, process->position + 1, corewar);
 	load = 0;
 	if (((codage & 0xff) >> 6) == DIR_CODE)
 		load = dir_load(corewar, process);

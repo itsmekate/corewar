@@ -142,7 +142,9 @@ void				init_commands(t_corewar *corewar);
 */
 void				grand_cycle(t_corewar *corewar);
 
-
+/*
+**functions
+*/
 void				live(t_corewar *corewar, t_process *process);
 void				load(t_corewar *corewar, t_process *process);
 void				store(t_corewar *corewar, t_process *process);
@@ -159,5 +161,6 @@ void				long_load(t_corewar *corewar, t_process *process);
 void				long_load_index(t_corewar *corewar, t_process *process);
 void				long_fork(t_corewar *corewar, t_process *process);
 void				aff(t_corewar *corewar, t_process *process);
+unsigned int		get_arg(int size, int start_index, t_corewar *corewar);
 
 #endif
