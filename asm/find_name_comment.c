@@ -24,20 +24,21 @@ int			find_lapki(t_lst **list, int *i, char **new, int arg)
 		{
 			if (!(*new = copy_n(*new, (*list)->str + tmp, *i - tmp, arg)))
 			{
-				free(new);
-				return (-1);
+				system("leaks asm");
+				exit(0);
+				// free(new);
+				// return (-1);
 			}
 			tmp = 0;
 			*i = 0;
 			lst_next(list);
 			if (!(*list))
 			{
-				free(new);
-				return (-1);
+				ft_printf("Error: no end of name/comment\n");
+				exit(0);
 			}
 		}
 	}
-	// printf("lapki %c %d\n", (*list)->str[*i], (*list)->n_str);
 	return (tmp);
 }
 
@@ -64,18 +65,18 @@ char		*copy_n(char *dst, const char *src, int len, int arg)
 	i = ft_strlen(dst);
 	if (!dst)
 	{
-		dst = (arg == 5) ? ft_memalloc(PROG_NAME_LENGTH) :
+		dst = (arg == 1) ? ft_memalloc(PROG_NAME_LENGTH) :
 		ft_memalloc(COMMENT_LENGTH);
 		dst = copy_n(dst, src, len, arg);
 		return (dst);
 	}
-	if (arg == 5 && len >= PROG_NAME_LENGTH)
+	if (arg == 1 && len >= PROG_NAME_LENGTH)
 	{
 		ft_putendl("Champion name too long (Max length 128)");
 		free(dst);
 		return (NULL);
 	}
-	if (arg == 8 && len >= COMMENT_LENGTH)
+	if (arg == 2 && len >= COMMENT_LENGTH)
 	{
 		ft_putendl("Champion comment too long (Max length 2048)");
 		free(dst);
@@ -84,20 +85,19 @@ char		*copy_n(char *dst, const char *src, int len, int arg)
 	return (copy_n1(dst, src, i, len));
 }
 
-char		*get_name(t_lst **l, int arg, char *new)
+char		*get_name(t_lst **l, int arg, char *new, int p)
 {
 	int		tmp;
 	int		i;
 
 	i = arg;
-	// ft_printf("%s %d\n", (*l)->str, (*l)->n_str);
 	while (SPACES)
 		i++;
 	if (!(*l)->str[i] || (*l)->str[i] != '"')
 		return (NULL);
-	if ((tmp = find_lapki(l, &i, &new, arg)) == -1)
+	if ((tmp = find_lapki(l, &i, &new, p)) == -1)
 		return (NULL);
-	if (!(new = copy_n(new, (*l)->str + tmp, i - tmp, arg)))
+	if (!(new = copy_n(new, (*l)->str + tmp, i - tmp, p)))
 	{
 		free(new);
 		return (NULL);
@@ -110,6 +110,5 @@ char		*get_name(t_lst **l, int arg, char *new)
 		free(new);
 		return (NULL);
 	}
-	// ft_printf("%s %d\n", (*l)->str, (*l)->n_str);
 	return (new);
 }

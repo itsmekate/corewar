@@ -101,14 +101,14 @@ int			name_comment(t_lst **list, t_asm *a, int n_name, int n_comment)
 		if ((*list)->str[0] != '#' && (*list)->str[0] != ';'
 			&& (arg = str_name((*list)->str)))
 		{
-			tmp_buf_name = get_name(list, arg, NULL);
+			tmp_buf_name = get_name(list, arg, NULL, 1);
 			if (!set_bot_name(a, tmp_buf_name, &n_name))
 				return (0);
 		}
 		else if ((*list)->str[0] != '#' && (*list)->str[0] != ';'
 			&& (arg = str_comment((*list)->str)))
 		{
-			tmp_buf_comment = get_name(list, arg, NULL);
+			tmp_buf_comment = get_name(list, arg, NULL, 2);
 			if (!set_bot_comment(a, tmp_buf_comment, &n_comment))
 				return (0);
 		}

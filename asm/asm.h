@@ -89,7 +89,7 @@ int						str_name(char *str);
 int						find_lapki(t_lst **list, int *i, char **new, int arg);
 char					*copy_n(char *dst, const char *src, int len, int arg);
 char					*copy_n1(char *dst, const char *src, int i, int len);
-char					*get_name(t_lst **l, int arg, char *new);
+char					*get_name(t_lst **l, int arg, char *new, int p);
 
 void					create_file(t_asm a, char *name);
 
