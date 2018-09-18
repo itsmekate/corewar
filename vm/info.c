@@ -8,7 +8,7 @@ int			get_cycles(char	value)
 
 	value -= 1;
 	if (value < 0 || value > 15)
-		return (0);
+		return (1);
 	return (values[(int)(value & 0xff)]);
 }
 

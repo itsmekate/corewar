@@ -29,6 +29,7 @@ void		move_process(int index, t_process *process, t_corewar *corewar)
 	process->position = get_index(process->position + index);
 	corewar->map[process->position].process = process;
 	process->command = corewar->map[process->position].value;
+	process->cycle = get_cycles(process->command);
 }
 
 void		clear_process(t_process **process, size_t size)

@@ -6,6 +6,7 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 
 	if (--process->cycle)
 		return ;
+	printf("position = %i, command = %02x\n", get_index(process->position), process->command & 0xff);
 	f = corewar->f[(process->command & 0xff) - 1];
 	f(corewar, process);
 }
@@ -69,6 +70,6 @@ void			grand_cycle(t_corewar *corewar)
 			process_cycle(corewar, pr);
 			lst = lst->next;
 		}
-		printf("%ji\n", corewar->cycle);
+		//printf("%ji\n", corewar->cycle);
 	}
 }
