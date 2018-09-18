@@ -35,7 +35,10 @@ void			store_index(t_corewar *corewar, t_process *process)
 		printf("error\n");
 		return ;
 	}
-	arg1 = process->reg[arg1];//get_arg(1, process->position + 2, corewar);
+	arg1 = get_arg(1, process->position + 2, corewar);
+	printf("index registry %i\n", arg1);
+	arg1 = process->reg[arg1];
+	printf("arg1 = %08x\n", arg1);
 	// else if (arg2 == REG_CODE && arg3 == REG_CODE)
 	// 	reg_reg_reg(corewar, process);
 	if (arg2 == DIR_CODE && arg3 == DIR_CODE)

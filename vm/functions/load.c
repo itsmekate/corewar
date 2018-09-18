@@ -7,6 +7,8 @@ static unsigned int		dir_load(t_corewar *corewar, t_process *process)
 
 	dir = get_arg(4, process->position + 2, corewar);
 	reg = get_arg(1, process->position + 6, corewar);
+	printf("reg index = %i\n", reg);
+	printf("%08x\n", dir);
 	if (reg >= 0 && reg < REG_NUMBER)
 		process->reg[reg] = dir;
 	move_process(7, process, corewar);
