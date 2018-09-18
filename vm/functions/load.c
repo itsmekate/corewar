@@ -20,12 +20,12 @@ static unsigned int		dir_load(t_corewar *corewar, t_process *process)
 
 static unsigned int		ind_load(t_corewar *corewar, t_process *process)
 {
-	//char			res[4];
+	char			res[4];
 	unsigned int	load;
 	int				ind;
 	int				i;
 
-	//ft_memset(res, '\0', 4);
+	ft_memset(res, '\0', 4);
 	ind = 0;
 	i = -1;
 	while (++i < 2)
@@ -34,8 +34,15 @@ static unsigned int		ind_load(t_corewar *corewar, t_process *process)
 		ind = ind << (8 * (1 - i));
 	}
 	ind = ind % IDX_MOD;
-	move_process(ind, process, corewar);
-	load = dir_load(corewar, process);
+	i = -1;
+	while (++i < 4)
+		res[3 - i] = corewar->map[get_index(process->position + i + ind + 2)].value & 0xff;
+	load = *(unsigned int *)res;
+	printf("%u\n", load);
+	i = corewar->map[get_index(process->position + 3)].value & 0xff;
+	if (i >= 0 && i < REG_NUMBER)
+		process->reg[i] = load;
+	move_process(3, process, corewar);
 	return (load);
 }
 
