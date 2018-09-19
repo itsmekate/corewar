@@ -1,32 +1,5 @@
 #include "../vm.h"
 
-unsigned int	get_value(unsigned int arg, t_process *process,
-	t_corewar *corewar, int *move)
-{
-	if (arg == REG_CODE)
-	{
-		printf("REG_CODE\n");
-		arg = get_arg(1, process->position + *move, corewar);
-		*move = *move + 1;
-		if (arg < REG_NUMBER)
-			arg = process->reg[arg];
-	}
-	else if (arg == DIR_CODE)
-	{
-		printf("DIR_CODE\n");
-		arg = get_arg(2, process->position + *move, corewar);
-		*move = *move + 2;
-	}
-	else if (arg == IND_CODE)
-	{
-		printf("IND_CODE\n");
-		arg = get_arg(2, process->position + *move, corewar);
-		*move = *move + 2;
-		arg = get_arg(4, process->position + arg % IDX_MOD, corewar);
-	}
-	return (arg);
-}
-
 unsigned int	ldi(unsigned int arg1, unsigned int arg2, t_process *process,
 	t_corewar *corewar)
 {
@@ -36,7 +9,7 @@ unsigned int	ldi(unsigned int arg1, unsigned int arg2, t_process *process,
 	move = 2;
 	arg1 = get_value(arg1, process, corewar, &move);
 	arg2 = get_value(arg2, process, corewar, &move);
-	res = get_arg(4, process->position + (arg1 + arg2) % IDX_MOD, corewar);
+	res = get_arg(4, process->position + (arg1 + arg2), corewar);
 	printf("move %i\n", move);
 	move_process(move, process, corewar);
 	return (res);
@@ -44,30 +17,24 @@ unsigned int	ldi(unsigned int arg1, unsigned int arg2, t_process *process,
 
 void			load_index(t_corewar *corewar, t_process *process)
 {
-	char			codage;
-	unsigned int	arg1;
-	unsigned int	arg2;
-	unsigned int	arg3;
+	unsigned int	arg[3];
 
-	print_map(corewar);
 	printf("load_index\n");
-	codage = get_arg(1, process->position + 1, corewar);
-	arg1 = (codage & 0xff) >> 6;
-	codage = codage << 2;
-	arg2 = (codage & 0xff) >> 6;
-	codage = codage << 2;
-	arg3 = (codage & 0xff) >> 6;
-	printf("%i;%i;%i\n", arg1, arg2, arg3);
-	if (arg1 > IND_CODE || arg2 > DIR_CODE || arg3 > REG_CODE)
+	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
+	get_types(&arg[0], process, corewar);
+	printf("%i;%i;%i\n", arg[0], arg[1], arg[2]);
+	if (arg[0] > IND_CODE || arg[1] > DIR_CODE || arg[2] > REG_CODE ||
+		!arg[0] || !arg[1] || !arg[2])
 	{
 		printf("error\n");
 		return ;
 	}
-	arg1 = ldi(arg1, arg2, process, corewar);
-	arg3 = get_arg(1, process->position, corewar);
-	if (arg3 < REG_NUMBER)
-		process->reg[arg3] = arg1;
+	arg[0] = ldi(arg[0], arg[1], process, corewar);
+	arg[2] = get_arg(1, process->position, corewar);
+	printf("regystry index %i\n", arg[2]);
+	printf("%08x\n", arg[0]);
+	if (arg[2] < REG_NUMBER)
+		process->reg[arg[2]] = arg[0];
 	move_process(1, process, corewar);
-	print_map(corewar);
 	sleep(1);
 }

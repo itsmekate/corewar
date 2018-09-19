@@ -2,7 +2,6 @@
 
 void			substraction(t_corewar *corewar, t_process *process)
 {
-	print_map(corewar);
 	printf("substruction\n");
 
 

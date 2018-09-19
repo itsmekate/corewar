@@ -26,7 +26,6 @@ t_process	*create_process(int position, t_player *player, t_corewar *corewar)
 
 void		move_process(int index, t_process *process, t_corewar *corewar)
 {
-	printf("move on %i\n", index);
 	corewar->map[process->position].process = NULL;
 	process->position = get_index(process->position + index);
 	corewar->map[process->position].process = process;

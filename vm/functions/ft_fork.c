@@ -24,10 +24,14 @@ void			ft_fork(t_corewar *corewar, t_process *process)
 	t_process	*res;
 
 	printf("ft_fork\n");
+	print_map(corewar);
 	arg1 = get_arg(2, process->position + 1, corewar);
 	res = copy_process(process);
 	ft_lstadd(&corewar->processes, obj_in_lst(res));
-	move_process(arg1 % IDX_MOD, res, corewar);
+	move_process(arg1, res, corewar);
 	move_process(3, process, corewar);
-	sleep(1);
+	//print_map(corewar);
+	sleep(2);
+	// if (!res->command)
+	//exit(0);
 }

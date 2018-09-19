@@ -1,51 +1,50 @@
 #include "../vm.h"
 
-static void		reg_dir_dir(unsigned int arg1, t_corewar *corewar, t_process *process)
-{
-	unsigned int	arg2;
-	unsigned int	arg3;
+// static void		reg_dir_dir(unsigned int arg1, t_corewar *corewar, t_process *process)
+// {
+// 	unsigned int	arg2;
+// 	unsigned int	arg3;
 
-	printf("reg_dir_dir\n");
-	arg2 = get_arg(2, process->position + 3, corewar);
-	arg3 = get_arg(2, process->position + 5, corewar);
-	set_unsigned_int(arg1, get_index(process->position + (arg2 + arg3)), corewar, process->player);
+// 	printf("reg_dir_dir\n");
+// 	arg2 = get_arg(2, process->position + 3, corewar);
+// 	arg3 = get_arg(2, process->position + 5, corewar);
+// 	set_unsigned_int(arg1, get_index(process->position + (arg2 + arg3)), corewar, process->player);
 
-	//set_point(&corewar->map[get_index(process->position + (arg2 + arg3))], arg1, process->player);
-	print_map(corewar);
-	move_process(7, process, corewar);
-}
+// 	//set_point(&corewar->map[get_index(process->position + (arg2 + arg3))], arg1, process->player);
+// 	move_process(7, process, corewar);
+// }
 
 void			store_index(t_corewar *corewar, t_process *process)
 {
-	char			codage;
-	unsigned int	arg1;
-	int				arg2;
-	int				arg3;
+	unsigned int	arg[3];
+	int				move;
 
+	print_map(corewar);
 	printf("store_index\n");
-	codage = get_arg(1, process->position + 1, corewar);
-	arg1 = (codage & 0xff) >> 6;
-	codage = codage << 2;
-	arg2 = (codage & 0xff) >> 6;
-	codage = codage << 2;
-	arg3 = (codage & 0xff) >> 6;
-	printf("1 %i, 2 %i, 3 %i\n", arg1, arg2, arg3);
-	if (arg1 != REG_CODE || (arg3 != REG_CODE && arg3 != DIR_CODE))
+	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
+	get_types(&arg[0], process, corewar);
+	printf("%i;%i;%i\n", arg[0], arg[1], arg[2]);
+	if (arg[0] != REG_CODE || (arg[2] != REG_CODE && arg[2] != DIR_CODE) || !arg[1]
+		|| arg[1] > IND_CODE)
 	{
 		printf("error\n");
 		return ;
 	}
-	arg1 = get_arg(1, process->position + 2, corewar);
-	printf("index registry %i\n", arg1);
-	if (arg1 < REG_NUMBER)
-		arg1 = process->reg[arg1];
-	else
-		return ;
-	printf("arg1 = %08x\n", arg1);
-
-	if (arg2 == DIR_CODE && arg3 == DIR_CODE)
-	 	reg_dir_dir(arg1, corewar, process);
-	 else
-	 	printf("I DONT KNOW WHAT TO DO!!!!\n");
-	sleep(1);
+	move = 2;
+	arg[0] = get_value(arg[0], process, corewar, &move);
+	printf("value is %08x\n", arg[0]);
+	arg[1] = get_value(arg[1], process, corewar, &move);
+	arg[2] = get_value(arg[2], process, corewar, &move);
+	set_unsigned_int(arg[0], get_index(process->position + (arg[1] + arg[2]) ), corewar, process->player);
+	// if (arg2 == DIR_CODE && arg3 == DIR_CODE)
+	//  	reg_dir_dir(arg1, corewar, process);
+	//  else
+	//  	printf("I DONT KNOW WHAT TO DO!!!!\n");
+	int i = -1;
+	while (++i < 16)
+	{
+		printf("%08x\n", process->reg[i]);
+	}
+	move_process(move, process, corewar);
+	sleep(3);
 }

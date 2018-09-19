@@ -6,7 +6,7 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 
 	if (--process->cycle)
 		return ;
-	printf("position = %i, command = %02x\n", get_index(process->position), process->command & 0xff);
+	//printf("position = %i, command = %02x\n", get_index(process->position), process->command & 0xff);
 	if (process->command < 1 || process->command > 16)
 	{
 		//printf("oops\n");
@@ -44,6 +44,8 @@ static void		cycle_to_die(t_corewar *corewar)
 {
 	t_list		*lst;
 	t_process	*pr;
+
+	printf("cycle_to_die!! %ju\n", corewar->cycle);
 
 	lst = corewar->processes;
 	while (lst)

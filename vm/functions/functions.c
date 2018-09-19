@@ -28,3 +28,43 @@ void			set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar,
 		i++;
 	}
 }
+
+unsigned int	get_value(unsigned int arg, t_process *process,
+	t_corewar *corewar, int *move)
+{
+	if (arg == REG_CODE)
+	{
+		printf("REG_CODE\n");
+		arg = get_arg(1, process->position + *move, corewar);
+		printf("%u\n", arg);
+		*move = *move + 1;
+		if (arg < REG_NUMBER)
+			arg = process->reg[arg];
+	}
+	else if (arg == DIR_CODE)
+	{
+		printf("DIR_CODE\n");
+		arg = get_arg(2, process->position + *move, corewar);
+		*move = *move + 2;
+	}
+	else if (arg == IND_CODE)
+	{
+		printf("IND_CODE\n");
+		arg = get_arg(2, process->position + *move, corewar);
+		*move = *move + 2;
+		arg = get_arg(4, process->position + arg % IDX_MOD, corewar);
+	}
+	return (arg);
+}
+
+void			get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
+{
+	char			codage;
+
+	codage = get_arg(1, process->position + 1, corewar);
+	arg[0] = (codage & 0xff) >> 6;
+	codage = codage << 2;
+	arg[1] = (codage & 0xff) >> 6;
+	codage = codage << 2;
+	arg[2] = (codage & 0xff) >> 6;
+}

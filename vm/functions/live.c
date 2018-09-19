@@ -20,7 +20,6 @@ void			live(t_corewar *corewar, t_process *process)
 {
 	unsigned int	dir;
 
-	print_map(corewar);
 	printf("live\n");
 	process->alive = 1;
 	dir = get_arg(4, process->position + 1, corewar);
