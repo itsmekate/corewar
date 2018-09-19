@@ -24,7 +24,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 
 	printf("store_index\n");
 	codage = get_arg(1, process->position + 1, corewar);
-	arg1 = codage >> 6;
+	arg1 = (codage & 0xff) >> 6;
 	codage = codage << 2;
 	arg2 = (codage & 0xff) >> 6;
 	codage = codage << 2;
@@ -37,15 +37,15 @@ void			store_index(t_corewar *corewar, t_process *process)
 	}
 	arg1 = get_arg(1, process->position + 2, corewar);
 	printf("index registry %i\n", arg1);
-	arg1 = process->reg[arg1];
+	if (arg1 < REG_NUMBER)
+		arg1 = process->reg[arg1];
+	else
+		return ;
 	printf("arg1 = %08x\n", arg1);
-	// else if (arg2 == REG_CODE && arg3 == REG_CODE)
-	// 	reg_reg_reg(corewar, process);
+
 	if (arg2 == DIR_CODE && arg3 == DIR_CODE)
 	 	reg_dir_dir(arg1, corewar, process);
-	// else if (arg2 == IND_CODE && arg3 == REG_CODE)
-	// 	reg_ind_reg(corewar, process);
-	// else if (arg2 == REG_CODE && arg3 == DIR_CODE)
-	// 	reg_red_dir(corewar, process);
+	 else
+	 	printf("I DONT KNOW WHAT TO DO!!!!\n");
 	sleep(1);
 }

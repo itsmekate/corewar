@@ -9,7 +9,7 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 	printf("position = %i, command = %02x\n", get_index(process->position), process->command & 0xff);
 	if (process->command < 1 || process->command > 16)
 	{
-		printf("oops\n");
+		//printf("oops\n");
 		move_process(1, process, corewar);
 		return ;
 	}
@@ -76,6 +76,7 @@ void			grand_cycle(t_corewar *corewar)
 			process_cycle(corewar, pr);
 			lst = lst->next;
 		}
-		//printf("%ji\n", corewar->cycle);
+		//visualize(corewar);
+		//printf("%ju\n", corewar->cycle);
 	}
 }
