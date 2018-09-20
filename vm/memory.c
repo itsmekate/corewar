@@ -79,10 +79,18 @@ t_list		*obj_in_lst(void *obj)
 void 				print_map(t_corewar *corewar)
 {
 	int i;
+	int n;
 
 	i = 0;
+	n = 0;
 	while (i < MEM_SIZE)
 	{
+		if (n == 64)
+		{
+			printf("\n");
+			n = 0;
+		}
+		n++;
 		if (corewar->map[i].is_new)
 			printf(GREEN);
 		if (corewar->map[i].process)
@@ -91,6 +99,7 @@ void 				print_map(t_corewar *corewar)
 		corewar->map[i].is_new = 0;
 		i++;
 	}
+	printf("\n");
 }
 
 void				print_processes(t_corewar *corewar)

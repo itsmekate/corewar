@@ -34,22 +34,22 @@ unsigned int	get_value(unsigned int arg, t_process *process,
 {
 	if (arg == REG_CODE)
 	{
-		printf("REG_CODE\n");
+		//printf("REG_CODE\n");
 		arg = get_arg(1, process->position + *move, corewar);
-		printf("%u\n", arg);
+		//printf("%u\n", arg);
 		*move = *move + 1;
 		if (arg < REG_NUMBER)
 			arg = process->reg[arg];
 	}
 	else if (arg == DIR_CODE)
 	{
-		printf("DIR_CODE\n");
+		//printf("DIR_CODE\n");
 		arg = get_arg(2, process->position + *move, corewar);
 		*move = *move + get_label(process->command);
 	}
 	else if (arg == IND_CODE)
 	{
-		printf("IND_CODE\n");
+		//printf("IND_CODE\n");
 		arg = get_arg(2, process->position + *move, corewar);
 		*move = *move + 2;
 		arg = get_arg(4, process->position + (short)arg % IDX_MOD, corewar);

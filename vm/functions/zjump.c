@@ -2,21 +2,21 @@
 
 void			zjump(t_corewar *corewar, t_process *process)
 {
-	int		dir;
+	short		dir;
 
 	//
-	printf("zjump\n");
+	//printf("zjump\n");
 	//				
 	if (!process->carry)
 	{
-		printf("carry is absent\n");
+		//printf("carry is absent\n");
 		move_process(3, process, corewar);
 		return;
 	}
 	dir = get_arg(2, process->position + 1, corewar);
 	move_process(dir % IDX_MOD, process, corewar);
-	sleep(2);
-	print_map(corewar);
-	sleep(4);
+	//sleep(2);
+	//print_map(corewar);
+	//sleep(4);
 
 }

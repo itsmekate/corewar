@@ -45,8 +45,10 @@ static void		cycle_to_die(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
-	printf("cycle_to_die!! %ju\n", corewar->cycle);
-
+	//printf("cycle_to_die!! %ju\n", corewar->cycle);
+	// print_map(corewar);
+	// printf("\n");
+	// sleep(1);
 	lst = corewar->processes;
 	while (lst)
 	{
