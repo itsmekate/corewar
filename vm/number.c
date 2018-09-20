@@ -1,15 +1,18 @@
 #include "vm.h"
 
-int				is_number(t_corewar *corewar, char *s)
+int				is_number(char *s)
 {
+	int		len;
+
+	if (!s)
+		return (0);
+	len = ft_strlen(s);
+	if ((len == 10 && *s != '2') || len > 10)
+		return (0);
 	while (*s)
 	{
 		if (!ft_isdigit(*s))
-		{
-			ft_putendl_fd("ERROR: Wrong value", 2);
-			clear_corewar(&corewar);
-			exit(0);
-		}
+			return (0);
 		s++;
 	}
 	return (1);
@@ -33,26 +36,26 @@ int				get_number(t_corewar *corewar, int num)
 {
 	int ret;
 
-	if (num < 0)
+	if (!num)
 	{
 		if (!corewar->players_num)
 			ret = 1;
 		else
 		{
 			ret = corewar->players[corewar->players_num - 1]->number + 1;
-			while (is_exist(corewar, ret))
+			while (ret <= 0 || is_exist(corewar, ret))
 				ret++;
 		}
+		return (ret);
 	}
-	else
+	ret = num;
+	if (is_exist(corewar, ret))
 	{
-		ret = num;
-		if (is_exist(corewar, ret))
-		{
-			ft_putendl_fd("ERROR: Wrong champion number", 2);
-			clear_corewar(&corewar);
-			exit(0);
-		}
+		ft_putstr_fd("ERROR: Wrong champion number: ", 2);
+		ft_putnbr_fd(num, 2);
+		ft_putstr_fd("\n", 2);
+		clear_corewar(&corewar);
+		exit(0);
 	}
 	return (ret);
 }

@@ -8,7 +8,9 @@ t_corewar	*new_corewar(void)
 	if ((res = (t_corewar *)malloc(sizeof(t_corewar))))
 	{
 		res->visual_mode = 0;
-		res->dump = 0;
+		res->dump = -1;
+		res->start = 0;
+		res->verbal = 0;
 		res->cycle_to_die = CYCLE_TO_DIE;
 		i = -1;
 		while (++i <= MAX_PLAYERS)
@@ -153,6 +155,7 @@ void				print_processes(t_corewar *corewar)
 void				print_corewar(t_corewar *corewar)
 {
 	print_map(corewar);
+	printf("verbal %i, start %i\n", corewar->verbal, corewar->start);
 	printf("visual %i, dump %i\ncycle to die %i\n", corewar->visual_mode,
 		corewar->dump, corewar->cycle_to_die);
 	int i = -1;

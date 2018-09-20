@@ -6,6 +6,12 @@ static int			is_flag(char *arg)
 		return (1);
 	if (ft_strequ(arg, "-d"))
 		return (2);
+	if (ft_strequ(arg, "-l"))
+		return (3);
+	if (ft_strequ(arg, "-s"))
+		return (4);
+	if (ft_strequ(arg, "-v"))
+		return (5);
 	return (0);
 }
 
@@ -20,6 +26,8 @@ static void			add_player(char *name, t_corewar *corewar, int num)
 	corewar->players[corewar->players_num] = new_player(name);
 	if (!parse_player(corewar->players[corewar->players_num]))
 	{
+		ft_putstr_fd("ERROR: Broken champion: ", 2);
+		ft_putendl_fd(name, 2);
 		clear_corewar(&corewar);
 		exit(0);
 	}
@@ -58,6 +66,38 @@ static void			get_starts(t_corewar *corewar)
 	}
 }
 
+static int			flag_value_handler(char ***argv)
+{
+	char	**buf;
+	int		res;
+
+	buf = *argv;
+	if (is_number(*(buf + 1)))
+	{
+		res = ft_atoi(*(buf + 1));
+		if (res > 0)
+		{
+			*argv = *argv + 1;
+			return (res);
+		}
+		else
+			return (0);
+	}
+	return (0);
+}
+
+static void			flag_handler(int flag, char ***agrv, t_corewar *res)
+{
+	if (flag == 2)
+		res->dump = flag_value_handler(agrv);
+	else if (flag == 3)
+		res->verbal = flag_value_handler(agrv);
+	else if (flag == 4)
+		res->start = flag_value_handler(agrv);
+	else if (flag == 5)
+		res->visual_mode = 1;
+}
+
 t_corewar			*create_corewar(char **agrv)
 {
 	t_corewar	*res;
@@ -66,21 +106,23 @@ t_corewar			*create_corewar(char **agrv)
 
 	if ((res = new_corewar()))
 	{
-		num = -1;
+		num = 0;
 		while (*agrv)
 		{
-			if (!(flag = is_flag(*agrv)))
+			if (num || !(flag = is_flag(*agrv)))
 			{
 				add_player(*agrv, res, num);
-				num = -1;
+				num = 0;
 			}
 			else if (flag == 1)
-				num = is_number(res, *(++agrv)) ? ft_atoi(*agrv) : 0;
-			else if (flag == 2)
-				res->dump = is_number(res, *(++agrv)) ? ft_atoi(*agrv) : 0;
+				num = flag_value_handler(&agrv);
+			else
+				flag_handler(flag, &agrv, res);
 			agrv++;
 		}
 	}
+	// res = NULL;
+	// (void)agrv;
 	get_starts(res);
 	init_commands(res);
 	return (res);

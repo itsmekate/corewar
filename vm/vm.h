@@ -8,7 +8,6 @@
 
 # include <stdio.h>
 
-# define T_
 
 typedef struct		s_player
 {
@@ -44,6 +43,8 @@ typedef struct 		s_point
 typedef struct 		s_corewar
 {
 	int				visual_mode;
+	int				verbal;
+	int				start;
 	int				dump;
 	int				cycle_to_die;
 	t_player		*players[MAX_PLAYERS];
@@ -118,7 +119,7 @@ unsigned int					get_index(unsigned int index);
 ** number.c
 */
 int					get_number(t_corewar *corewar, int num);
-int					is_number(t_corewar *corewar, char *s);
+int					is_number(char *s);
 
 /*
 **ncurses.c
