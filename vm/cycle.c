@@ -80,6 +80,10 @@ void			grand_cycle(t_corewar *corewar)
 			process_cycle(corewar, pr);
 			lst = lst->next;
 		}
+		if (corewar->cycle == 15376)
+			print_map(corewar) ;
+		if (corewar->cycle == 15377)
+			return ;
 		//visualize(corewar);
 		//printf("%ju\n", corewar->cycle);
 	}

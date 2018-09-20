@@ -15,10 +15,10 @@ int			main(int argc, char **argv)
 		usage(argv[0]);
 	if ((corewar = create_corewar(++argv)))
 	{
-		print_corewar(corewar);
+		//print_corewar(corewar);
 		//visualize(corewar);
 		grand_cycle(corewar);
-		printf("%ju\n", corewar->cycle);
+		//printf("%ju\n", corewar->cycle);
 		print_map(corewar);
 		clear_corewar(&corewar);
 	}
