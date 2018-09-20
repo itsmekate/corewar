@@ -31,3 +31,15 @@ void		init_commands(t_corewar *corewar)
 		corewar->f[14] = &long_fork;
 		corewar->f[15] = &aff;
 }
+
+int			get_label(char	value)
+{
+	static int	values[16] = {4, 4, 4, 4,
+		4, 4, 4, 4, 2, 2, 2, 2,
+		4, 2, 2, 4};
+
+	value -= 1;
+	if (value < 0 || value > 15)
+		return (0);
+	return (values[(int)(value & 0xff)]);
+}

@@ -18,8 +18,8 @@ void			store_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
+	short 			index;
 
-	print_map(corewar);
 	printf("store_index\n");
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
@@ -35,12 +35,10 @@ void			store_index(t_corewar *corewar, t_process *process)
 	printf("value is %08x\n", arg[0]);
 	arg[1] = get_value(arg[1], process, corewar, &move);
 	arg[2] = get_value(arg[2], process, corewar, &move);
-	set_unsigned_int(arg[0], get_index(process->position + (arg[1] + arg[2]) ), corewar, process->player);
-	// if (arg2 == DIR_CODE && arg3 == DIR_CODE)
-	//  	reg_dir_dir(arg1, corewar, process);
-	//  else
-	//  	printf("I DONT KNOW WHAT TO DO!!!!\n");
+	index = (short)arg[1] + (short)arg[2];
+	set_unsigned_int(arg[0], get_index(process->position + index % IDX_MOD), corewar, process->player);
 	int i = -1;
+
 	while (++i < 16)
 	{
 		printf("%08x\n", process->reg[i]);

@@ -2,7 +2,7 @@
 
 void			zjump(t_corewar *corewar, t_process *process)
 {
-	unsigned int		dir;
+	int		dir;
 
 	//
 	printf("zjump\n");
@@ -14,7 +14,7 @@ void			zjump(t_corewar *corewar, t_process *process)
 		return;
 	}
 	dir = get_arg(2, process->position + 1, corewar);
-	move_process(dir, process, corewar);
+	move_process(dir % IDX_MOD, process, corewar);
 	sleep(2);
 	print_map(corewar);
 	sleep(4);

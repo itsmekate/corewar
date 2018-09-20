@@ -136,6 +136,7 @@ int					print_players(t_corewar *c, t_window win);
 */
 int					get_cycles(char	value);
 void				init_commands(t_corewar *corewar);
+int					get_label(char	value);
 
 /*
 **cycle.c

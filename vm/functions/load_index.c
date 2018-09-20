@@ -1,6 +1,6 @@
 #include "../vm.h"
 
-unsigned int	ldi(unsigned int arg1, unsigned int arg2, t_process *process,
+unsigned int	ldi(int arg1, int arg2, t_process *process,
 	t_corewar *corewar)
 {
 	int				move;
@@ -9,7 +9,7 @@ unsigned int	ldi(unsigned int arg1, unsigned int arg2, t_process *process,
 	move = 2;
 	arg1 = get_value(arg1, process, corewar, &move);
 	arg2 = get_value(arg2, process, corewar, &move);
-	res = get_arg(4, process->position + (arg1 + arg2), corewar);
+	res = get_arg(4, process->position + (arg1 + arg2) % IDX_MOD, corewar);
 	printf("move %i\n", move);
 	move_process(move, process, corewar);
 	return (res);

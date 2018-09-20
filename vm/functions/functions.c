@@ -45,14 +45,14 @@ unsigned int	get_value(unsigned int arg, t_process *process,
 	{
 		printf("DIR_CODE\n");
 		arg = get_arg(2, process->position + *move, corewar);
-		*move = *move + 2;
+		*move = *move + get_label(process->command);
 	}
 	else if (arg == IND_CODE)
 	{
 		printf("IND_CODE\n");
 		arg = get_arg(2, process->position + *move, corewar);
 		*move = *move + 2;
-		arg = get_arg(4, process->position + arg % IDX_MOD, corewar);
+		arg = get_arg(4, process->position + (short)arg % IDX_MOD, corewar);
 	}
 	return (arg);
 }
