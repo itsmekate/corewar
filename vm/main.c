@@ -19,7 +19,7 @@ int			main(int argc, char **argv)
 		//visualize(corewar);
 		grand_cycle(corewar);
 		//printf("%ju\n", corewar->cycle);
-		print_map(corewar);
+		dump_map(corewar);
 		clear_corewar(&corewar);
 	}
 	return 0;

@@ -170,5 +170,6 @@ void				get_types(unsigned int *arg, t_process *process, t_corewar *corewar);
 
 
 void 				print_map(t_corewar *corewar);
+void 				dump_map(t_corewar *corewar);
 
 #endif
