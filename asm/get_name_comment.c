@@ -72,11 +72,6 @@ int			set_bot_comment(t_asm *a, char *buf_comment, int *comment_exists)
 
 int			errors(t_lst **list, int name_exists, int comment_exists)
 {
-	if (!*list)
-	{
-		ft_putendl("Syntax error: no commands");
-		return (0);
-	}
 	if (!name_exists)
 	{
 		ft_putendl("Syntax error: no name ");
@@ -85,6 +80,11 @@ int			errors(t_lst **list, int name_exists, int comment_exists)
 	if (!comment_exists)
 	{
 		ft_putendl("Syntax error: no comment ");
+		return (0);
+	}
+	if (!*list)
+	{
+		ft_putendl("Syntax error: no commands");
 		return (0);
 	}
 	return (1);

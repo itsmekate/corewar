@@ -24,7 +24,7 @@ void		find_more_args(t_lst **list, int *i)
 			(*i)++;
 		else
 		{
-			ft_printf("Incorrect line: line %d\n", (*list)->n_str);
+			ft_printf("Incorrect arg: line %d\n", (*list)->n_str);
 			system("leaks asm");
 			exit(0);
 		}
@@ -39,7 +39,6 @@ int			add_i(t_lst **list, t_args *t, int *i, int *j)
 	tmp = find_comma((*list)->str + *i);
 	if (tmp > 0 && *j > 1)
 	{
-		ft_printf("%d %d\n", tmp, *j);
 		ft_printf("Too much args: line %d\n", (*list)->n_str);
 		system("leaks asm");
 		exit(0);
