@@ -57,6 +57,26 @@ unsigned int	get_value(unsigned int arg, t_process *process,
 	return (arg);
 }
 
+void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
+{
+	int		move;
+	int		i;
+
+	move = 2;
+		i = -1;
+		while (++i < 3)
+		{
+			if (arg[i] == REG_CODE)
+				move++;
+			else if (arg[i] == IND_CODE)
+				move += 2;
+			else if (arg[i] == DIR_CODE)
+				move += get_label(process->command);
+		}
+		log_move(corewar, process, move);
+		move_process(move, process, corewar);
+}
+
 void			get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
 {
 	char			codage;

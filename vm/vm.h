@@ -183,7 +183,7 @@ unsigned int		get_arg(int size, int start_index, t_corewar *corewar);
 void				set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar, t_player *player);
 unsigned int		get_value(unsigned int arg, t_process *process, t_corewar *corewar, int *move);
 void				get_types(unsigned int *arg, t_process *process, t_corewar *corewar);
-
+void				error_codage(unsigned int *arg, t_process *process, t_corewar *corewar);
 
 
 void 				print_map(t_corewar *corewar);

@@ -9,12 +9,11 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 	if (arg[2] != REG_CODE || !arg[1] || arg[1] > IND_CODE || arg[1] > DIR_CODE ||
 		!arg[0] || arg[0] > IND_CODE)
 	{
-		//printf("error %ju\n", corewar->cycle);
-		log_move(corewar, process, 4);
-		move_process(4, process, corewar);
+		//printf("codage %i\n", get_arg(1, process->position + 1, corewar));
+		error_codage(&arg[0], process, corewar);
 		return ;
 	}
-	print_map(corewar);
+	//print_map(corewar);
 	// 	printf("long_load_index\n");
 	// 	printf("position %i\n", process->position);
 	// 	printf("error\n");

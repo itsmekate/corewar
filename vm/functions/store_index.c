@@ -13,17 +13,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 	if (arg[0] != REG_CODE || (arg[2] != REG_CODE && arg[2] != DIR_CODE) || !arg[1]
 		|| arg[1] > IND_CODE)
 	{
-		// print_map(corewar);
-		// printf("store_index\n");
-		// printf("position %i\n", process->position);
-		// printf("error\n");
-		// printf("%i;%i;%i\n", arg[0], arg[1], arg[2]);
-		// printf("%ju\n", corewar->cycle);
-		// sleep(2);
-		log_move(corewar, process, 8);
-		move_process(8, process, corewar);
-		//print_map(corewar);
-		//exit(1);
+		error_codage(&arg[0], process, corewar);
 		return ;
 	}
 	move = 2;
