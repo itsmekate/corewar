@@ -184,6 +184,7 @@ void				set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar
 unsigned int		get_value(unsigned int arg, t_process *process, t_corewar *corewar, int *move);
 void				get_types(unsigned int *arg, t_process *process, t_corewar *corewar);
 void				error_codage(unsigned int *arg, t_process *process, t_corewar *corewar);
+t_process			*copy_process(t_process *process);
 
 
 void 				print_map(t_corewar *corewar);
