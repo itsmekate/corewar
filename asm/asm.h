@@ -80,9 +80,12 @@ int						name_comment(t_lst **list, t_asm *a,
 int						name_comment(t_lst **list, t_asm *a,
 						int n_name, int n_comment);
 int						is_command(char *str);
-int						errors(t_lst **list, int name_exists, int comment_exists);
-int						set_bot_name(t_asm *a, char *tmp_buf_name, int *name_exists);
-int						set_bot_comment(t_asm *a, char *buf_comment, int *comment_exists);
+int						errors(t_lst **list, int name_exists,
+						int comment_exists);
+int						set_bot_name(t_asm *a, char *tmp_buf_name,
+						int *name_exists);
+int						set_bot_comment(t_asm *a, char *buf_comment,
+						int *comment_exists);
 
 int						str_comment(char *str);
 int						str_name(char *str);

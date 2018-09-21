@@ -70,7 +70,9 @@ void		print_types(t_cmnd *c)
 			ft_printf("r");
 		else if (c->arg.arg_arr[i].type == 2)
 			ft_printf("%%");
-		if (c->arg.arg_arr[i].text)
+		if (c->arg.arg_arr[i].text && c->arg.arg_arr[i].type == 2)
+			ft_printf(":%-14s", c->arg.arg_arr[i].text);
+		else if (c->arg.arg_arr[i].text && c->arg.arg_arr[i].type == 3)
 			ft_printf(":%-15s", c->arg.arg_arr[i].text);
 		else
 			(c->arg.arg_arr[i].type == 3) ?

@@ -24,13 +24,6 @@ int			find_lapki(t_lst **list, int *i, char **new, int arg)
 		if (!(*list)->str[*i] || (*list)->str[*i] == 10)
 		{
 			*new = copy_n(*new, (*list)->str + tmp, *i - tmp, arg);
-			// if (!(*new = copy_n(*new, (*list)->str + tmp, *i - tmp, arg)))
-			// {
-				// system("leaks asm");
-				// exit(0);
-				// free(new);
-				// return (-1);
-			// }
 			tmp = 0;
 			*i = 0;
 			lst_next(list);
@@ -76,15 +69,11 @@ char		*copy_n(char *dst, const char *src, int len, int arg)
 	{
 		ft_putendl("Champion name too long (Max length 128)");
 		exit(0);
-		// free(dst);
-		// return (NULL);
 	}
 	if (arg == 2 && (len >= COMMENT_LENGTH || i >= COMMENT_LENGTH))
 	{
 		ft_putendl("Champion comment too long (Max length 2048)");
 		exit(0);
-		// free(dst);
-		// return (NULL);
 	}
 	return (copy_n1(dst, src, i, len));
 }
@@ -102,11 +91,6 @@ char		*get_name(t_lst **l, int arg, char *new, int p)
 	if ((tmp = find_lapki(l, &i, &new, p)) == -1)
 		return (NULL);
 	new = copy_n(new, (*l)->str + tmp, i - tmp, p);
-	// if (!(new = copy_n(new, (*l)->str + tmp, i - tmp, p)))
-	// {
-	// 	free(new);
-	// 	return (NULL);
-	// }
 	i++;
 	while (SPACES)
 		i++;
