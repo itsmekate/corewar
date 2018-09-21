@@ -43,7 +43,6 @@ t_lst		*ft_read(char *f, t_lst *list, int i)
 	}
 	while (get_next_line(fd, &tmp) > 0)
 	{
-		// printf("line %d:%s\n", i + 1, tmp);
 		add_to_list(tmp, list, ++i);
 		free(tmp);
 	}

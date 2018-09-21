@@ -58,7 +58,11 @@ void		arg_dir(t_args *t, int j, int *i, t_lst *l)
 	if (l->str[*i + 1] == ':')
 	{
 		*i += 2;
-		t->arg_arr[j].text = get_arg_label(l->str + *i);
+		if (!(t->arg_arr[j].text = get_arg_label(l->str + *i)))
+		{
+			ft_printf("Bad T_DIR arg: line %d\n", l->n_str);
+			exit(0);
+		}
 		t->arg_arr[j].value = 0;
 	}
 	else if ((l->str[*i + 1] >= 48 && l->str[*i + 1] <= 57) ||
@@ -82,7 +86,11 @@ void		arg_ind(t_args *t, int j, int *i, t_lst *l)
 	if (l->str[*i] == ':')
 	{
 		(*i)++;
-		t->arg_arr[j].text = get_arg_label(l->str + *i);
+		if (!(t->arg_arr[j].text = get_arg_label(l->str + *i)))
+		{
+			ft_printf("Bad T_IND arg: line %d\n", l->n_str);
+			exit(0);
+		}
 		t->arg_arr[j].value = 0;
 	}
 	else if ((l->str[*i] >= 48 && l->str[*i] <= 57) ||
