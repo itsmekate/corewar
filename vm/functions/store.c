@@ -9,6 +9,7 @@ void			store(t_corewar *corewar, t_process *process)
 	if (arg[0] != REG_CODE || !arg[1] || arg[1] > IND_CODE || arg[1] == DIR_CODE || arg[2])
 	{
 		//printf("error %ju\n", corewar->cycle);
+		log_move(corewar, process, 2);
 		move_process(2, process, corewar);
 		return ;
 	}

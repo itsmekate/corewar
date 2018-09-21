@@ -19,6 +19,8 @@ int			main(int argc, char **argv)
 		//visualize(corewar);
 		grand_cycle(corewar);
 		//printf("%ju\n", corewar->cycle);
+		//print_contestants(corewar);
+		print_log(corewar->log);
 		dump_map(corewar);
 		clear_corewar(&corewar);
 	}

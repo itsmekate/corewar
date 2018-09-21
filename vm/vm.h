@@ -8,6 +8,11 @@
 
 # include <stdio.h>
 
+# define L_LIVE			1
+# define L_CYCLE		2
+# define L_FUNC			4
+# define L_DEATH		8
+# define L_MOVE			16
 
 typedef struct		s_player
 {
@@ -50,10 +55,11 @@ typedef struct 		s_corewar
 	t_player		*players[MAX_PLAYERS];
 	int				players_num;
 	t_point			map[MEM_SIZE];
-	uintmax_t		cycle;
+	int				cycle;
 	t_list			*processes;
 	int				pause;
 	void			(*f[16]) (struct s_corewar *, t_process *);
+	t_list			*log;
 }					t_corewar;
 
 /*
@@ -143,6 +149,16 @@ int					get_label(char	value);
 **cycle.c
 */
 void				grand_cycle(t_corewar *corewar);
+
+/*
+**log.c
+*/
+void				print_log(t_list *log);
+void				log_cycle(t_corewar *corewar);
+void				log_move(t_corewar *corewar, t_process *process, int move);
+void				print_contestants(t_corewar *corewar);
+void				log_cycle_to_die(t_corewar *corewar);
+
 
 /*
 **functions

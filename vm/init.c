@@ -6,11 +6,11 @@ static int			is_flag(char *arg)
 		return (1);
 	if (ft_strequ(arg, "-d"))
 		return (2);
-	if (ft_strequ(arg, "-l"))
+	if (ft_strequ(arg, "-v"))
 		return (3);
 	if (ft_strequ(arg, "-s"))
 		return (4);
-	if (ft_strequ(arg, "-v"))
+	if (ft_strequ(arg, "-visual"))
 		return (5);
 	return (0);
 }

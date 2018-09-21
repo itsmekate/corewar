@@ -137,5 +137,6 @@ char				*itoa_base(uintmax_t n, int base, int k);
 size_t				len(const char *s);
 int					padding(int r, t_printf f);
 int					presicions(int n);
+char				*ft_itoa_base(uintmax_t n, int base, int size);
 
 #endif

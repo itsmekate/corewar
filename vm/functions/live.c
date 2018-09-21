@@ -24,6 +24,7 @@ void			live(t_corewar *corewar, t_process *process)
 	process->alive = 1;
 	dir = get_arg(4, process->position + 1, corewar);
 	player_alive(dir, corewar);
+	log_move(corewar, process, 5);
 	move_process(5, process, corewar);
 	//sleep(1);
 }

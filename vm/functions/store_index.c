@@ -20,6 +20,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 		// printf("%i;%i;%i\n", arg[0], arg[1], arg[2]);
 		// printf("%ju\n", corewar->cycle);
 		// sleep(2);
+		log_move(corewar, process, 8);
 		move_process(8, process, corewar);
 		//print_map(corewar);
 		//exit(1);
@@ -46,6 +47,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 	// {
 	// 	printf("%08x\n", process->reg[i]);
 	// }
+	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 	//sleep(3);
 }

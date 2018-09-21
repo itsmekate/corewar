@@ -10,6 +10,7 @@ void			zjump(t_corewar *corewar, t_process *process)
 	if (!process->carry)
 	{
 		//printf("carry is absent\n");
+		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
 		return;
 	}

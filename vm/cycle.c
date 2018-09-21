@@ -21,21 +21,34 @@ static void		nbr_live(t_corewar *corewar)
 {
 	static int	n = 0;
 	int			i;
+	int			k;
 
 	i = -1;
+	k = 0;
+	printf("cycle_to_die %i, cycle %i\n", corewar->cycle_to_die, corewar->cycle);
 	while (++i < corewar->players_num)
 	{
 		if (corewar->players[i]->process_num >= NBR_LIVE)
 		{
 			n = 0;
-			corewar->cycle_to_die -= CYCLE_DELTA;
-			return;
+			k = 1;
 		}
+		printf("%i\n", corewar->players[i]->process_num);
+		corewar->players[i]->process_num = 0;
+		printf("%i\n", corewar->players[i]->process_num);
+
+	}
+	if (k)
+	{
+		corewar->cycle_to_die -= CYCLE_DELTA;
+		log_cycle_to_die(corewar);
+		return ;
 	}
 	n++;
 	if (n >= MAX_CHECKS)
 	{
 		corewar->cycle_to_die -= CYCLE_DELTA;
+		log_cycle_to_die(corewar);
 		n = 0;
 	}
 }
@@ -69,9 +82,12 @@ void			grand_cycle(t_corewar *corewar)
 
 	while (42)
 	{
-		if (++corewar->cycle && !(corewar->cycle % corewar->cycle_to_die))
+		if (corewar->start <= ++corewar->cycle && corewar->visual_mode)
+			visualize(corewar);
+		log_cycle(corewar);
+		if (!(corewar->cycle % corewar->cycle_to_die))
 			cycle_to_die(corewar);
-		if (corewar->cycle_to_die <= 0 || !corewar->processes)
+		if (corewar->cycle_to_die <= 0 || !corewar->processes || corewar->cycle < 0)
 			return ;
 		lst = corewar->processes;
 		while (lst)
@@ -81,8 +97,9 @@ void			grand_cycle(t_corewar *corewar)
 			lst = lst->next;
 		}
 		if ((int)corewar->cycle == corewar->dump)
+		{
+			//print_map(corewar);
 			return ;
-		//visualize(corewar);
-		//printf("%ju\n", corewar->cycle);
+		}
 	}
 }

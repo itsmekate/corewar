@@ -11,6 +11,7 @@ SRC = 	main.c \
 		number.c \
 		info.c \
 		cycle.c \
+		log.c \
 		functions/addition.c functions/aff.c \
 		functions/ft_and.c functions/ft_fork.c \
 		functions/ft_or.c functions/ft_xor.c \

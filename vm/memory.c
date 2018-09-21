@@ -18,6 +18,7 @@ t_corewar	*new_corewar(void)
 		res->players_num = 0;
 		ft_memset(res->map, '\0', MEM_SIZE * sizeof(t_point));
 		res->cycle = 0;
+		res->log = NULL;
 	}
 	return (res);
 }
@@ -52,12 +53,23 @@ void			clear_player(t_player **player)
 void				clear_corewar(t_corewar **corewar)
 {
 	int		i;
+	t_list	*lst;
+	t_list	*next;
 
 	i = 0;
 	while (i < (*corewar)->players_num)
 	{
 		clear_player(&((*corewar)->players[i]));
 		i++;
+	}
+	lst = (*corewar)->log;
+	while (lst)
+	{
+		next = lst->next;
+		if (lst->content)
+			free(lst->content);
+		free(lst);
+		lst = next;
 	}
 	free(*corewar);
 	*corewar = NULL;
@@ -114,8 +126,6 @@ void 				dump_map(t_corewar *corewar)
 	i = 0;
 	n = 0;
 	x = 0;
-	printf("Introducing contestants...\n");
-	printf("* Player 1, weighing 325 bytes, \"Celebration Funebre v0.99pl42\" (\"Jour J\") !\n");
 
 	while (i < MEM_SIZE)
 	{

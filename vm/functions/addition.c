@@ -37,6 +37,7 @@ void			addition(t_corewar *corewar, t_process *process)
 	else
 		process->carry = 1;
 	//printf("res = %u\n", process->reg[arg3]);
+	log_move(corewar, process, 5);
 	move_process(5, process, corewar);
 	//sleep(1);
 }

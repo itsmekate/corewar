@@ -30,6 +30,7 @@ void			ft_fork(t_corewar *corewar, t_process *process)
 	res = copy_process(process);
 	ft_lstadd(&corewar->processes, obj_in_lst(res));
 	move_process(arg1 % IDX_MOD, res, corewar);
+	log_move(corewar, process, 3);
 	move_process(3, process, corewar);
 	//print_map(corewar);
 	//sleep(2);

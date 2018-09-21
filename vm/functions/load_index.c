@@ -1,19 +1,19 @@
 #include "../vm.h"
 
-unsigned int	ldi(short arg1, short arg2, t_process *process,
-	t_corewar *corewar)
-{
-	int				move;
-	unsigned int	res;
+// unsigned int	ldi(short arg1, short arg2, t_process *process,
+// 	t_corewar *corewar)
+// {
+// 	int				move;
+// 	unsigned int	res;
 
-	move = 2;
-	arg1 = get_value(arg1, process, corewar, &move);
-	arg2 = get_value(arg2, process, corewar, &move);
-	res = get_arg(4, process->position + (arg1 + arg2) % IDX_MOD, corewar);
-	//printf("move %i\n", move);
-	move_process(move, process, corewar);
-	return (res);
-}
+// 	move = 2;
+// 	arg1 = get_value(arg1, process, corewar, &move);
+// 	arg2 = get_value(arg2, process, corewar, &move);
+// 	res = get_arg(4, process->position + (arg1 + arg2) % IDX_MOD, corewar);
+// 	//printf("move %i\n", move);
+// 	move_process(move, process, corewar);
+// 	return (res);
+// }
 
 void			load_index(t_corewar *corewar, t_process *process)
 {
@@ -32,12 +32,21 @@ void			load_index(t_corewar *corewar, t_process *process)
 		printf("error\n");
 		exit(1);
 	}
-	arg[0] = ldi(arg[0], arg[1], process, corewar);
-	arg[2] = get_arg(1, process->position, corewar);
-	//printf("regystry index %i\n", arg[2]);
-	//printf("%08x\n", arg[0]);
+	//arg[0] = ldi(arg[0], arg[1], process, corewar);
+
+	int				move;
+	short 			arg1;
+	short			arg2;
+
+	move = 2;
+	arg1 = arg[0];
+	arg2 = arg[1];
+	arg1 = get_value(arg1, process, corewar, &move);
+	arg2 = get_value(arg2, process, corewar, &move);
+	arg[0] = get_arg(4, process->position + (arg1 + arg2) % IDX_MOD, corewar);
+	arg[2] = get_arg(1, process->position + move, corewar);
 	if (arg[2] < REG_NUMBER)
 		process->reg[arg[2]] = arg[0];
-	move_process(1, process, corewar);
-	//sleep(1);
+	log_move(corewar, process, ++move);
+	move_process(move, process, corewar);
 }
