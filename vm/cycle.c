@@ -25,7 +25,7 @@ static void		nbr_live(t_corewar *corewar)
 
 	i = -1;
 	k = 0;
-	printf("cycle_to_die %i, cycle %i\n", corewar->cycle_to_die, corewar->cycle);
+	//printf("cycle_to_die %i, cycle %i\n", corewar->cycle_to_die, corewar->cycle);
 	while (++i < corewar->players_num)
 	{
 		if (corewar->players[i]->process_num >= NBR_LIVE)
@@ -33,9 +33,9 @@ static void		nbr_live(t_corewar *corewar)
 			n = 0;
 			k = 1;
 		}
-		printf("%i\n", corewar->players[i]->process_num);
+		//printf("%i\n", corewar->players[i]->process_num);
 		corewar->players[i]->process_num = 0;
-		printf("%i\n", corewar->players[i]->process_num);
+		//printf("%i\n", corewar->players[i]->process_num);
 
 	}
 	if (k)
@@ -79,14 +79,19 @@ void			grand_cycle(t_corewar *corewar)
 {
 	t_list		*lst;
 	t_process	*pr;
+	int			ctd;
 
+	ctd = 0;
 	while (42)
 	{
 		if (corewar->start <= ++corewar->cycle && corewar->visual_mode)
 			visualize(corewar);
 		log_cycle(corewar);
-		if (!(corewar->cycle % corewar->cycle_to_die))
+		if (++ctd >= corewar->cycle_to_die)
+		{
 			cycle_to_die(corewar);
+			ctd = 0;
+		}
 		if (corewar->cycle_to_die <= 0 || !corewar->processes || corewar->cycle < 0)
 			return ;
 		lst = corewar->processes;

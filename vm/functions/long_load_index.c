@@ -10,8 +10,8 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 		!arg[0] || arg[0] > IND_CODE)
 	{
 		//printf("error %ju\n", corewar->cycle);
-		log_move(corewar, process, 2);
-		move_process(2, process, corewar);
+		log_move(corewar, process, 4);
+		move_process(4, process, corewar);
 		return ;
 	}
 	print_map(corewar);

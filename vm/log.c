@@ -81,7 +81,7 @@ void		log_move(t_corewar *corewar, t_process *process, int move)
 		buf[1] = ft_strjoin(buf[2], buf[0]);
 		free(buf[0]);
 		free(buf[2]);
-		buf[0] = ft_itoa_base(get_index(process->position + move), 16, 4);
+		buf[0] = ft_itoa_base(process->position + move, 16, 4);
 		buf[2] = ft_strjoin(buf[1], " -> 0x");
 		free(buf[1]);
 		buf[1] = ft_strjoin(buf[2], buf[0]);
