@@ -48,13 +48,23 @@ int		digits(int n)
 	return (size);
 }
 
-int		digits_char(char *str)
+int		digits_char(char *str, t_args t, int j)
 {
 	int		i;
 
 	i = 0;
-	while (ft_strchr(LABEL_CHARS, str[i]) || str[i] == '-')
-		i++;
+	if (t.arg_arr[j].text)
+	{
+		while (ft_strchr(LABEL_CHARS, str[i]))
+			i++;
+	}
+	else
+	{
+		if (str[i] == '-')
+			i++;
+		while (ft_isdigit(str[i]))
+			i++;
+	}
 	return (i);
 }
 

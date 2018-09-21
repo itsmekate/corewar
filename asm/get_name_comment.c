@@ -72,14 +72,9 @@ int			set_bot_comment(t_asm *a, char *buf_comment, int *comment_exists)
 
 int			errors(t_lst **list, int name_exists, int comment_exists)
 {
-	if (!name_exists)
+	if (!name_exists || !comment_exists)
 	{
-		ft_putendl("Syntax error: no name ");
-		return (0);
-	}
-	if (!comment_exists)
-	{
-		ft_putendl("Syntax error: no comment ");
+		ft_putendl("Syntax error: no name/comment");
 		return (0);
 	}
 	if (!*list)

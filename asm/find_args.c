@@ -35,7 +35,7 @@ int			add_i(t_lst **list, t_args *t, int *i, int *j)
 {
 	int		tmp;
 
-	*i += digits_char((*list)->str + *i);
+	*i += digits_char((*list)->str + *i, *t, *j);
 	tmp = find_comma((*list)->str + *i);
 	if (tmp > 0 && *j > 1)
 	{

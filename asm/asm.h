@@ -110,7 +110,7 @@ int						validation_args(t_cmnd *c, t_asm *a, int i, int j);
 void					lst_next(t_lst **list);
 void					print_cmnds(t_cmnd	*new);
 int						digits(int n);
-int						digits_char(char *str);
+int						digits_char(char *str, t_args t, int j);
 int						ft_pow(int n, int pow);
 int						sum_exec(t_cmnd *c);
 
