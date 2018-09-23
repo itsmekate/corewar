@@ -14,12 +14,20 @@ void			store(t_corewar *corewar, t_process *process)
 	}
 	move = 2;
 	arg[0] = get_value(arg[0], process, corewar, &move);
+	printf("%08x\n", arg[0]);
 	arg[2] = get_value(arg[1], process, corewar, &move);
+	printf("%i, %hi, %u\n", arg[2], (short)arg[2], (unsigned)arg[2]);
 	if (arg[1] == REG_CODE && arg[2] < REG_NUMBER)
+	{
+		printf("registry\n");
 		process->reg[arg[2]] = arg[0];
+	}
 	else if (arg[1] == IND_CODE)
+	{
+		printf("map\n");
 		set_unsigned_int(arg[0], get_index(process->position + (short)arg[2] % IDX_MOD),
 			corewar, process->player);
+	}
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 }

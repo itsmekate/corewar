@@ -24,7 +24,10 @@ void		log_cycle_to_die(t_corewar *corewar)
 	{
 		number = ft_itoa(corewar->cycle_to_die);
 		buf = ft_strjoin("Cycle to die is now ", number);
-		ft_lstadd(&corewar->log, ft_lstnew(buf, ft_strlen(buf) + 1));
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(buf, ft_strlen(buf) + 1));
+		else
+			ft_putendl_fd(buf, 1);
 		free(buf);
 		free(number);
 	}
@@ -39,7 +42,10 @@ void		log_cycle(t_corewar *corewar)
 	{
 		number = ft_itoa(corewar->cycle);
 		buf = ft_strjoin("It is now cycle ", number);
-		ft_lstadd(&corewar->log, ft_lstnew(buf, ft_strlen(buf) + 1));
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(buf, ft_strlen(buf) + 1));
+		else
+			ft_putendl_fd(buf, 1);
 		free(buf);
 		free(number);
 	}
@@ -90,7 +96,10 @@ void		log_move(t_corewar *corewar, t_process *process, int move)
 		buf[2] = ft_strjoin(buf[1], ") ");
 		free(buf[1]);
 		buf[1] = add_value(buf[2], corewar, process, move);
-		ft_lstadd(&corewar->log, ft_lstnew(buf[1], ft_strlen(buf[1]) + 1));
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(buf[1], ft_strlen(buf[1]) + 1));
+		else
+			ft_putendl_fd(buf[1], 1);
 		free(buf[1]);
 	}
 }
