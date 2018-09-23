@@ -18,6 +18,11 @@ void			ft_xor(t_corewar *corewar, t_process *process)
 	arg[2] = get_arg(1, process->position + move, corewar);
 	if (arg[2] < REG_NUMBER)
 		process->reg[arg[2]] = arg[0] ^ arg[1];
+	{
+		log_move(corewar, process, move + 1);
+		move_process(move + 1, process, corewar);
+		return ;
+	}
 	if (!process->reg[arg[2]])
 		process->carry = 1;
 	else

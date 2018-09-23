@@ -23,7 +23,7 @@ void			load_index(t_corewar *corewar, t_process *process)
 	arg2 = get_value(arg2, process, corewar, &move);
 	arg[0] = get_arg(4, process->position + (arg1 + arg2) % IDX_MOD, corewar);
 	arg[2] = get_arg(1, process->position + move, corewar);
-	if (arg[2] < REG_NUMBER)
+	if (arg[2] < REG_NUMBER && !process->error)
 		process->reg[arg[2]] = arg[0];
 	// printf("registry %i, value %08x\n", arg[2], arg[0]);
 	log_move(corewar, process, ++move);

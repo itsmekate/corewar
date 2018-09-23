@@ -40,6 +40,8 @@ unsigned int	get_value(unsigned int arg, t_process *process,
 		*move = *move + 1;
 		if (arg < REG_NUMBER)
 			arg = process->reg[arg];
+		else
+			process->error = 1;
 	}
 	else if (arg == DIR_CODE)
 	{
@@ -75,6 +77,18 @@ void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
 		}
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
+}
+
+int			error_arg(t_process *process, t_corewar *corewar, int move)
+{
+	if (process->error)
+	{
+		log_move(corewar, process, move);
+		move_process(move, process, corewar);
+		process->error = 0;
+		return (1);
+	}
+	return (0);
 }
 
 void			get_types(unsigned int *arg, t_process *process, t_corewar *corewar)

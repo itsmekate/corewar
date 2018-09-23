@@ -15,7 +15,11 @@ void			addition(t_corewar *corewar, t_process *process)
 	arg[1] = get_arg(1, process->position + 3, corewar);
 	arg[2] = get_arg(1, process->position + 4, corewar);
 	if (arg[0] >= REG_NUMBER || arg[1] >= REG_NUMBER || arg[2] >= REG_NUMBER)
+	{
+		log_move(corewar, process, 5);
+		move_process(5, process, corewar);
 		return;
+	}
 	arg[0] = process->reg[arg[0]];
 	arg[1] = process->reg[arg[1]];
 	process->reg[arg[2]] = arg[0] + arg[1];

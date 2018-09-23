@@ -35,6 +35,7 @@ typedef struct 		s_process
 	char			command;
 	int				cycle;
 	int				reg[REG_NUMBER];
+	int				error;
 }					t_process;
 
 typedef struct 		s_point
@@ -185,6 +186,7 @@ unsigned int		get_value(unsigned int arg, t_process *process, t_corewar *corewar
 void				get_types(unsigned int *arg, t_process *process, t_corewar *corewar);
 void				error_codage(unsigned int *arg, t_process *process, t_corewar *corewar);
 t_process			*copy_process(t_process *process);
+int					error_arg(t_process *process, t_corewar *corewar, int move);
 
 
 void 				print_map(t_corewar *corewar);
