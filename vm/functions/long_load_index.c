@@ -7,6 +7,7 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 	short 			arg1;
 	short			arg2;
 
+	// printf("long_load_index\n");
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
 	if (arg[2] != REG_CODE || !arg[1] || arg[1] > IND_CODE || arg[1] > DIR_CODE ||

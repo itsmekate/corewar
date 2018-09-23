@@ -22,7 +22,7 @@ static unsigned int		ind_load(t_corewar *corewar, t_process *process)
 
 	ind = get_arg(2, process->position + 2, corewar);
 	dir = get_arg(4, process->position + ind, corewar);
-	reg = get_arg(1, process->position + 3, corewar);
+	reg = get_arg(1, process->position + 4, corewar);
 	if (reg >= 0 && reg < REG_NUMBER)
 		process->reg[reg] = dir;
 	log_move(corewar, process, 5);
@@ -35,6 +35,7 @@ void					long_load(t_corewar *corewar, t_process *process)
 	char			codage;
 	unsigned int	load;
 
+	// printf("long_load\n");
 	codage = get_arg(1, process->position + 1, corewar);
 	load = 0;
 	if (((codage & 0xff) >> 6) == DIR_CODE)

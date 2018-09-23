@@ -87,6 +87,8 @@ void			grand_cycle(t_corewar *corewar)
 	ctd = 0;
 	while (42)
 	{
+		if (!corewar->processes)
+			return ;
 		if (corewar->start <= ++corewar->cycle && corewar->visual_mode)
 			visualize(corewar);
 		log_cycle(corewar);
