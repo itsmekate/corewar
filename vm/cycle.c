@@ -33,7 +33,7 @@ static int		process_lives(t_corewar *corewar, t_player *player)
 		process = lst->content;
 		if (process->player == player)
 		{
-			printf("*%i\n", process->alive);
+			//printf("*%i\n", process->alive);
 			res += process->alive;
 		}
 		lst = lst->next;
@@ -43,37 +43,21 @@ static int		process_lives(t_corewar *corewar, t_player *player)
 
 static void 	players_lives(t_corewar *corewar)
 {
-	int i;
-	t_player *player;
+	int			i;
+	t_player	*player;
+	static int	n = 0;
+	int			k;
 
+	k = 0;
 	i = -1;
 	while (++i < corewar->players_num)
 	{
 		player = corewar->players[i];
-		printf("%i: %i\n", i, process_lives(corewar, player));
-	}
-}
-
-static void		nbr_live(t_corewar *corewar)
-{
-	static int	n = 0;
-	int			i;
-	int			k;
-
-	i = -1;
-	k = 0;
-	//printf("cycle_to_die %i, cycle %i\n", corewar->cycle_to_die, corewar->cycle);
-	while (++i < corewar->players_num)
-	{
-		if (corewar->players[i]->process_num >= NBR_LIVE)
+		if (process_lives(corewar, player) >= NBR_LIVE)
 		{
 			n = 0;
 			k = 1;
 		}
-		printf("%i\n", corewar->players[i]->process_num);
-		corewar->players[i]->process_num = 0;
-		//printf("%i\n", corewar->players[i]->process_num);
-
 	}
 	if (k)
 	{
@@ -82,7 +66,7 @@ static void		nbr_live(t_corewar *corewar)
 		return ;
 	}
 	n++;
-	printf("checks %i\n", n);
+	//printf("checks %i\n", n);
 	if (n >= MAX_CHECKS)
 	{
 		corewar->cycle_to_die -= CYCLE_DELTA;
@@ -91,12 +75,49 @@ static void		nbr_live(t_corewar *corewar)
 	}
 }
 
+// static void		nbr_live(t_corewar *corewar)
+// {
+// 	static int	n = 0;
+// 	int			i;
+// 	int			k;
+
+// 	i = -1;
+// 	k = 0;
+// 	//printf("cycle_to_die %i, cycle %i\n", corewar->cycle_to_die, corewar->cycle);
+// 	while (++i < corewar->players_num)
+// 	{
+// 		if (corewar->players[i]->process_num >= NBR_LIVE)
+// 		{
+// 			n = 0;
+// 			k = 1;
+// 		}
+// 		printf("%i\n", corewar->players[i]->process_num);
+// 		corewar->players[i]->process_num = 0;
+// 		//printf("%i\n", corewar->players[i]->process_num);
+
+// 	}
+// 	if (k)
+// 	{
+// 		corewar->cycle_to_die -= CYCLE_DELTA;
+// 		log_cycle_to_die(corewar);
+// 		return ;
+// 	}
+// 	n++;
+// 	//printf("checks %i\n", n);
+// 	if (n >= MAX_CHECKS)
+// 	{
+// 		corewar->cycle_to_die -= CYCLE_DELTA;
+// 		log_cycle_to_die(corewar);
+// 		n = 0;
+// 	}
+// }
+
 static void		cycle_to_die(t_corewar *corewar)
 {
 	t_list		*lst;
 	t_process	*pr;
 
-	printf("cycle_to_die!! %i\n", corewar->cycle);
+	//printf("cycle_to_die!! %i\n", corewar->cycle);
 	// print_map(corewar);
 	// printf("\n");
 	// sleep(1);
@@ -111,7 +132,7 @@ static void		cycle_to_die(t_corewar *corewar)
 			pr->alive = 0;
 		lst = lst->next;
 	}
-	nbr_live(corewar);
+	//nbr_live(corewar);
 }
 
 void			grand_cycle(t_corewar *corewar)

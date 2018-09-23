@@ -38,7 +38,7 @@ typedef struct 		s_process
 	int				error;
 }					t_process;
 
-typedef struct 		s_point
+typedef struct		s_point
 {
 	char			value;
 	t_player		*player;
