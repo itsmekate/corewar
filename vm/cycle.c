@@ -15,6 +15,9 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 	}
 	f = corewar->f[(process->command & 0xff) - 1];
 	f(corewar, process);
+	// printf("%i\n", corewar->cycle);
+	// print_map(corewar);
+	// sleep(1);
 }
 
 static void		nbr_live(t_corewar *corewar)
@@ -106,5 +109,7 @@ void			grand_cycle(t_corewar *corewar)
 			//print_map(corewar);
 			return ;
 		}
+		//printf("%i\n", corewar->cycle);
+
 	}
 }

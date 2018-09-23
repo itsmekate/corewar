@@ -7,8 +7,6 @@ static unsigned int		dir_load(t_corewar *corewar, t_process *process)
 
 	dir = get_arg(4, process->position + 2, corewar);
 	reg = get_arg(1, process->position + 6, corewar);
-	//printf("reg index = %i\n", reg);
-	//printf("%08x\n", dir);
 	if (reg >= 0 && reg < REG_NUMBER)
 		process->reg[reg] = dir;
 	log_move(corewar, process, 7);
@@ -37,9 +35,6 @@ void					load(t_corewar *corewar, t_process *process)
 	char			codage;
 	unsigned int	load;
 
-	//
-	//printf("load\n");
-	//
 	codage = get_arg(1, process->position + 1, corewar);
 	load = 0;
 	if (((codage & 0xff) >> 6) == DIR_CODE)
@@ -48,11 +43,6 @@ void					load(t_corewar *corewar, t_process *process)
 		load = ind_load(corewar, process);
 	else
 	{
-		//print_map(corewar);
-		//printf("load\n");
-		//printf("position %i, cycle %ju\n", process->position, corewar->cycle);
-		//printf("error\n");
-		//exit(1);
 		log_move(corewar, process, 2);
 		move_process(2, process, corewar);
 		return ;
@@ -61,5 +51,4 @@ void					load(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
-	//sleep(2);
 }

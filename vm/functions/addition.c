@@ -2,42 +2,27 @@
 
 void			addition(t_corewar *corewar, t_process *process)
 {
-	//printf("addition\n");
+	unsigned int	arg[3];
 
-
-	char			codage;
-	unsigned int	arg1;
-	unsigned int	arg2;
-	unsigned int	arg3;
-
-	codage = get_arg(1, process->position + 1, corewar);
-	arg1 = (codage & 0xff) >> 6;
-	codage = codage << 2;
-	arg2 = (codage & 0xff) >> 6;
-	codage = codage << 2;
-	arg3 = (codage & 0xff) >> 6;
-	if (arg1 != REG_CODE || arg2 != REG_CODE || arg3 != REG_CODE)
+	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
+	get_types(&arg[0], process, corewar);
+	if (arg[0] != REG_CODE || arg[1] != REG_CODE || arg[2] != REG_CODE)
 	{
-		print_map(corewar);
-		printf("addition\n");
-		printf("position %i\n", process->position);
-		printf("error\n");
-		exit(1);
+		error_codage(&arg[0], process, corewar);
+		return ;
 	}
-	arg1 = get_arg(1, process->position + 2, corewar);
-	arg2 = get_arg(1, process->position + 3, corewar);
-	arg3 = get_arg(1, process->position + 4, corewar);
-	if (arg1 >= REG_NUMBER || arg2 >= REG_NUMBER || arg3 >= REG_NUMBER)
+	arg[0] = get_arg(1, process->position + 2, corewar);
+	arg[1] = get_arg(1, process->position + 3, corewar);
+	arg[2] = get_arg(1, process->position + 4, corewar);
+	if (arg[0] >= REG_NUMBER || arg[1] >= REG_NUMBER || arg[2] >= REG_NUMBER)
 		return;
-	arg1 = process->reg[arg1];
-	arg2 = process->reg[arg2];
-	process->reg[arg3] = arg1 + arg2;
-	if (process->reg[arg3])
+	arg[0] = process->reg[arg[0]];
+	arg[1] = process->reg[arg[1]];
+	process->reg[arg[2]] = arg[0] + arg[1];
+	if (process->reg[arg[2]])
 		process->carry = 0;
 	else
 		process->carry = 1;
-	//printf("res = %u\n", process->reg[arg3]);
 	log_move(corewar, process, 5);
 	move_process(5, process, corewar);
-	//sleep(1);
 }

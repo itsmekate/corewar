@@ -22,6 +22,6 @@ void			ft_and(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
-	log_move(corewar, process, move);
+	log_move(corewar, process, ++move);
 	move_process(move, process, corewar);
 }
