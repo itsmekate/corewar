@@ -97,17 +97,18 @@ void			grand_cycle(t_corewar *corewar)
 			process_cycle(corewar, pr);
 			lst = lst->next;
 		}
-		if (++ctd >= corewar->cycle_to_die)
-		{
-			cycle_to_die(corewar);
-			ctd = 0;
-		}
+		
 		if (corewar->cycle_to_die <= 0 || !corewar->processes || corewar->cycle < 0)
 			return ;
 		if ((int)corewar->cycle == corewar->dump)
 		{
 			//print_map(corewar);
 			return ;
+		}
+		if (++ctd >= corewar->cycle_to_die)
+		{
+			cycle_to_die(corewar);
+			ctd = 0;
 		}
 		//printf("%i\n", corewar->cycle);
 
