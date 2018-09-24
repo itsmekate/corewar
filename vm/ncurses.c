@@ -75,7 +75,6 @@ int				visualize(t_corewar *c)
 {
 	t_window win;
 
-	c->pause = 1;
 	create_win(&win);
 	draw_borders(win);
 	print_sidebar(c, win);
