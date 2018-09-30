@@ -14,8 +14,28 @@
 
 void			aff(t_corewar *corewar, t_process *process)
 {
-	printf("aff\n");
-	sleep(1);
-	(void)corewar;
-	(void)process;
+	int				codage;
+	unsigned int 	arg;
+	char			str[2];
+
+	codage = get_arg(1, process->position + 1, corewar);
+	if (codage == 0x20)
+	{
+		arg = get_arg(1, process->position + 2, corewar);
+		if (arg < REG_NUMBER)
+		{
+			arg = process->reg[arg] % 256;
+			str[0] = arg;
+			str[1] = '\0';
+			if (corewar->verbal)
+				ft_lstadd(&corewar->log, ft_lstnew(str, 3));
+			else
+				ft_putstr_fd(str, 1);
+		}
+		log_move(corewar, process, 3);
+		move_process(3, process, corewar);
+		return ;
+	}
+	log_move(corewar, process, 2);
+	move_process(2, process, corewar);
 }

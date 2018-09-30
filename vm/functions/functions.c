@@ -50,7 +50,12 @@ int				get_value(unsigned int *arg, t_process *process,
 		*arg = get_arg(1, process->position + *move, corewar);
 		//printf("%i\n", *arg);
 		*move = *move + 1;
-		if (*arg < REG_NUMBER)
+		// if (!*arg && process->command == 0xb)
+		// {
+		// 	//printf("error\n");
+		// 	return (0);
+		// }
+		if (*arg < REG_NUMBER && *arg)
 		{
 			*arg = process->reg[*arg];
 			//printf("%08x\n", *arg);
