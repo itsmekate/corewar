@@ -12,56 +12,54 @@
 
 #include "../vm.h"
 
-static unsigned int		dir_load(t_corewar *corewar, t_process *process)
+static void			get_value_long(unsigned int *arg, t_process *process,
+	t_corewar *corewar, int *move)
 {
-	unsigned int	dir;
-	int				reg;
-
-	dir = get_arg(4, process->position + 2, corewar);
-	reg = get_arg(1, process->position + 6, corewar);
-	if (reg >= 0 && reg < REG_NUMBER)
-		process->reg[reg] = dir;
-	log_move(corewar, process, 7);
-	move_process(7, process, corewar);
-	return (dir);
+	*arg = get_arg(2, process->position + *move, corewar);
+	*move = *move + 2;
+	*arg = get_arg(4, process->position + (short)*arg, corewar);
 }
 
-static unsigned int		ind_load(t_corewar *corewar, t_process *process)
+static int			initialize(unsigned int *arg, t_corewar *corewar,
+	t_process *process)
 {
-	unsigned int	dir;
-	short			ind;
-	int				reg;
+	int move;
 
-	ind = get_arg(2, process->position + 2, corewar);
-	dir = get_arg(4, process->position + ind, corewar);
-	reg = get_arg(1, process->position + 4, corewar);
-	if (reg >= 0 && reg < REG_NUMBER)
-		process->reg[reg] = dir;
-	log_move(corewar, process, 5);
-	move_process(5, process, corewar);
-	return (dir);
-}
-
-void					long_load(t_corewar *corewar, t_process *process)
-{
-	char			codage;
-	unsigned int	load;
-
-	// printf("long_load\n");
-	codage = get_arg(1, process->position + 1, corewar);
-	load = 0;
-	if (((codage & 0xff) >> 6) == DIR_CODE)
-		load = dir_load(corewar, process);
-	else if (((codage & 0xff) >> 6) == IND_CODE)
-		load = ind_load(corewar, process);
-	else
+	move = 2;
+	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
+	get_types(arg, process, corewar);
+	if (arg[0] == REG_CODE || arg[0] > IND_CODE || arg[1] != REG_CODE || arg[2])
 	{
-		log_move(corewar, process, 2);
-		move_process(2, process, corewar);
-		return ;
+		log_move(corewar, process, move);
+		move_process(move, process, corewar);
+		return (0);
 	}
-	if (!load)
+	if (arg[0] == IND_CODE)
+		get_value_long(&arg[0], process, corewar, &move);
+	else
+		get_value(&arg[0], process, corewar, &move);
+	arg[1] = get_arg(1, process->position + move++, corewar);
+	if (arg[1] >= REG_NUMBER)
+	{
+		log_move(corewar, process, move);
+		move_process(move, process, corewar);
+		return (0);
+	}
+	return (move);
+}
+
+void				long_load(t_corewar *corewar, t_process *process)
+{
+	unsigned int	arg[3];
+	int 			move;
+
+	if (!(move = initialize(&arg[0], corewar, process)))
+		return ;
+	process->reg[arg[1]] = arg[0];
+	if (!arg[0])
 		process->carry = 1;
 	else
 		process->carry = 0;
+	log_move(corewar, process, move);
+	move_process(move, process, corewar);
 }
