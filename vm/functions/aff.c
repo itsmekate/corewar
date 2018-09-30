@@ -19,7 +19,7 @@ void			aff(t_corewar *corewar, t_process *process)
 	char			str[2];
 
 	codage = get_arg(1, process->position + 1, corewar);
-	if (codage == 0x20)
+	if (codage == 0x40)
 	{
 		arg = get_arg(1, process->position + 2, corewar);
 		if (arg < REG_NUMBER)

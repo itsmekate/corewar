@@ -38,9 +38,9 @@ void			store_index(t_corewar *corewar, t_process *process)
 	move = 2;
 	status = get_value(&arg[0], process, corewar, &move);
 	//printf("value is %08x\n", arg[0]);
-	status = !status ? 0 : get_value(&arg[1], process, corewar, &move);
+	status = status & get_value(&arg[1], process, corewar, &move);
 	//printf("sec arg %hi\n", (short)arg[1]);
-	status = !status ? 0 : get_value(&arg[2], process, corewar, &move);
+	status = status & get_value(&arg[2], process, corewar, &move);
 	//printf("%i\n", status);
 	if (status)
 	{
@@ -50,7 +50,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 	//printf("1 = %hhi, 2 = %hhi\n", (char)arg[1], (char)arg[2]);
 	//printf("1 = %hi, 2 = %hi\n", (short)arg[1], (short)arg[2]);
 	//printf("1 = %u, 2 = %u\n", arg[1], arg[2]);
-		index = (short)arg[1] + (short)arg[2];
+			index = (short)arg[1] + (short)arg[2];
 	//printf("%hhi; %i\n", (char)index, (char )index % IDX_MOD);
 	
 		// if (index)
