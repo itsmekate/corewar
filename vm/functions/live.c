@@ -24,6 +24,7 @@ void			player_alive(unsigned int number, t_corewar *corewar)
 		{
 			//printf("alive\n");
 			corewar->players[i]->process_num++;
+			corewar->last_alive = corewar->players[i]->number;
 		}
 	}
 }

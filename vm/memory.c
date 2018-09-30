@@ -20,6 +20,7 @@ t_corewar	*new_corewar(void)
 		ft_memset(res->map, '\0', MEM_SIZE * sizeof(t_point));
 		res->cycle = 0;
 		res->log = NULL;
+		res->last_alive = 0;
 	}
 	return (res);
 }

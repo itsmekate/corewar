@@ -15,13 +15,11 @@ int			main(int argc, char **argv)
 		usage(argv[0]);
 	if ((corewar = create_corewar(++argv)))
 	{
-		//print_corewar(corewar);
-		//visualize(corewar);
+		print_contestants(corewar);
 		grand_cycle(corewar);
-		//printf("%ju\n", corewar->cycle);
-		//print_contestants(corewar);
-		print_log(corewar->log);
-		dump_map(corewar);
+		// print_log(corewar->log);
+		// dump_map(corewar);
+		// print_winner(get_winner(corewar));
 		clear_corewar(&corewar);
 	}
 	return 0;

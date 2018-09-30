@@ -39,7 +39,10 @@ void			grand_cycle(t_corewar *corewar)
 	while (42)
 	{
 		if (!corewar->processes)
+		{
+			print_winner(get_winner(corewar));
 			return ;
+		}
 		if (corewar->start <= ++corewar->cycle && corewar->visual_mode)
 			visualize(corewar);
 		log_cycle(corewar);
@@ -52,10 +55,13 @@ void			grand_cycle(t_corewar *corewar)
 		}
 		
 		if (corewar->cycle_to_die <= 0 || !corewar->processes || corewar->cycle < 0)
+		{
+			print_winner(get_winner(corewar));
 			return ;
+		}
 		if ((int)corewar->cycle == corewar->dump)
 		{
-			//print_map(corewar);
+			dump_map(corewar);
 			return ;
 		}
 		if (++ctd >= corewar->cycle_to_die)

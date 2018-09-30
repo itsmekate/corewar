@@ -77,7 +77,7 @@ void 		dump_map(t_corewar *corewar)
 		if (!n)
 			x += print_row_num(x);
 		n++;
-		str = ft_itoa_base(corewar->map[i].value & 0xff, 16, 2)
+		str = ft_itoa_base(corewar->map[i].value & 0xff, 16, 2);
 		ft_putstr(str);
 		ft_putstr(" ");
 		free(str);
@@ -92,7 +92,7 @@ void			print_contestants(t_corewar *corewar)
 	int			i;
 	t_player	*player;
 
-	printf("Introducing contestants...\n");
+	ft_putstr("Introducing contestants...\n");
 	i = 0;
 	while (corewar->players[i])
 	{
@@ -104,7 +104,7 @@ void			print_contestants(t_corewar *corewar)
 		ft_putstr(" bytes, \"");
 		ft_putstr(player->name);
 		ft_putstr("\" (\"");
-		ft_putstr(player->commnet);
+		ft_putstr(player->comment);
 		ft_putstr("\") !\n");
 		i++;
 	}
@@ -115,11 +115,11 @@ void			print_winner(t_player *winner)
 	ft_putstr("Contestant ");
 	ft_putnbr(winner->number);
 	ft_putstr(", \"");
-	ft_putstr(player->name);
+	ft_putstr(winner->name);
 	ft_putstr("\", has won !\n");
 }
 
-t_player		get_winner(t_corewar *corewar)
+t_player		*get_winner(t_corewar *corewar)
 {
 	int			i;
 	t_player	*player;
@@ -127,9 +127,9 @@ t_player		get_winner(t_corewar *corewar)
 	i = 0;
 	while (corewar->players[i])
 	{
-		player = players[i];
+		player = corewar->players[i];
 		if (player->number == corewar->last_alive)
-			return (players[i]);
+			return (corewar->players[i]);
 		i++;
 	}
 	return (NULL);

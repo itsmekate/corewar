@@ -60,6 +60,7 @@ typedef struct 		s_corewar
 	int				pause;
 	void			(*f[16]) (struct s_corewar *, t_process *);
 	t_list			*log;
+	int				last_alive;
 }					t_corewar;
 
 /*
@@ -205,4 +206,5 @@ void 				print_map(t_corewar *corewar);
 void 				dump_map(t_corewar *corewar);
 void				print_contestants(t_corewar *corewar);
 void				print_winner(t_player *winner);
+t_player			*get_winner(t_corewar *corewar);
 #endif
