@@ -36,16 +36,16 @@ void			store(t_corewar *corewar, t_process *process)
 		return ;
 	}
 	// printf("reg %i\n", get_arg(1, process->position + move, corewar));
-	arg[0] = get_value(arg[0], process, corewar, &move);
+	get_value(&arg[0], process, corewar, &move);
 	if (arg[1] == REG_CODE && arg[2] < REG_NUMBER)
 	{
-		arg[2] = get_value(arg[1], process, corewar, &move);
+		get_value(&arg[1], process, corewar, &move);
 		process->reg[arg[2]] = arg[0];
 	}
 	else if (arg[1] == IND_CODE)
 	{
 		// printf("%08x\n", arg[0]);
-		arg[2] = get_arg(2, process->position + move, corewar);
+		get_arg(2, process->position + move, corewar);
 		move += 2;
 		// printf("%hi\n", (short)arg[2]);
 		set_unsigned_int(arg[0], get_index(process->position + (short)arg[2] % IDX_MOD),

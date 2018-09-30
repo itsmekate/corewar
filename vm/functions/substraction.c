@@ -12,29 +12,44 @@
 
 #include "../vm.h"
 
-void			substraction(t_corewar *corewar, t_process *process)
+static int		initialize(unsigned int *arg, t_corewar *corewar, t_process *process)
 {
-	unsigned int	arg[3];
-
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
-	get_types(&arg[0], process, corewar);
+	get_types(arg, process, corewar);
 	if (arg[0] != REG_CODE || arg[1] != REG_CODE || arg[2] != REG_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
-		return ;
+		return (0);
 	}
 	arg[0] = get_arg(1, process->position + 2, corewar);
 	arg[1] = get_arg(1, process->position + 3, corewar);
 	arg[2] = get_arg(1, process->position + 4, corewar);
+	//printf("%i, %i, %i\n", arg[0], arg[1], arg[2]);
 	if (arg[0] >= REG_NUMBER || arg[1] >= REG_NUMBER || arg[2] >= REG_NUMBER)
-		return;
+	{
+		log_move(corewar, process, 5);
+		move_process(5, process, corewar);
+		return (0);
+	}
+	return (5);
+}
+
+void			substraction(t_corewar *corewar, t_process *process)
+{
+	unsigned int	arg[3];
+	int 			move;
+
+	if (!(move = initialize(&arg[0], corewar, process)))
+		return ;
 	arg[0] = process->reg[arg[0]];
 	arg[1] = process->reg[arg[1]];
+	//printf("%08x - %08x\n", arg[0], arg[1]);
 	process->reg[arg[2]] = arg[0] - arg[1];
+
 	if (process->reg[arg[2]])
 		process->carry = 0;
 	else
 		process->carry = 1;
-	log_move(corewar, process, 5);
-	move_process(5, process, corewar);
+	log_move(corewar, process, move);
+	move_process(move, process, corewar);
 }

@@ -16,9 +16,9 @@ void			zjump(t_corewar *corewar, t_process *process)
 {
 	short		dir;
 
-	//
-	//printf("zjump\n");
-	//				
+	
+	// printf("zjump\n");
+					
 	if (!process->carry)
 	{
 		//printf("carry is absent\n");

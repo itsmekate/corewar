@@ -12,34 +12,45 @@
 
 #include "../vm.h"
 
+static int		initialize(unsigned int *arg, t_corewar *corewar,
+	t_process *process)
+{
+	int move;
+
+	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
+	get_types(&arg[0], process, corewar);
+	if (arg[2] != REG_CODE || !arg[0] || arg[0] > IND_CODE || !arg[1] ||
+		arg[1] > IND_CODE)
+	{
+		error_codage(&arg[0], process, corewar);
+		return (0);
+	}
+	move = 2;
+	get_value(&arg[0], process, corewar, &move);
+	get_value(&arg[1], process, corewar, &move);
+	arg[2] = get_arg(1, process->position + move, corewar);
+	move++;
+	if (arg[2] >= REG_NUMBER)
+	{
+		log_move(corewar, process, move);
+		move_process(move, process, corewar);
+		return (0);
+	}
+	return (move);
+}
+
 void			ft_and(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
 
-	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
-	get_types(&arg[0], process, corewar);
-	if (arg[2] != REG_CODE || !arg[0] || arg[0] > IND_CODE || !arg[1] || arg[1] > IND_CODE)
-	{
-		error_codage(&arg[0], process, corewar);
+	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
-	}
-	move = 2;
-	arg[0] = get_value(arg[0], process, corewar, &move);
-	arg[1] = get_value(arg[1], process, corewar, &move);
-	arg[2] = get_arg(1, process->position + move, corewar);
-	if (arg[2] < REG_NUMBER)
-		process->reg[arg[2]] = arg[0] & arg[1];
-	else
-	{
-		log_move(corewar, process, move + 1);
-		move_process(move + 1, process, corewar);
-		return ;
-	}
+	process->reg[arg[2]] = arg[0] & arg[1];
 	if (!process->reg[arg[2]])
 		process->carry = 1;
 	else
 		process->carry = 0;
-	log_move(corewar, process, ++move);
+	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 }

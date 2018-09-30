@@ -16,8 +16,8 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
-	short 			arg1;
-	short			arg2;
+	// short 			arg1;
+	// short			arg2;
 
 	//printf("long_load_index\n");
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
@@ -30,13 +30,14 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 		return ;
 	}
 	move = 2;
-	arg1 = arg[0];
-	arg2 = arg[1];
-	arg1 = get_value(arg1, process, corewar, &move);
-	arg2 = get_value(arg2, process, corewar, &move);
-	if (error_arg(process, corewar, move + 1))
-		return ;
-	arg[0] = get_arg(4, process->position + (arg1 + arg2), corewar);
+	// arg1 = arg[0];
+	// arg2 = arg[1];
+	get_value(&arg[0], process, corewar, &move);
+	get_value(&arg[1], process, corewar, &move);
+	// if (error_arg(process, corewar, move + 1))
+	// 	return ;
+	arg[0] = get_arg(4, process->position + (short)arg[0] +
+		(short)arg[1], corewar);
 	arg[2] = get_arg(1, process->position + move, corewar);
 	//printf("regustry %i, value %08x\n", arg[2], arg[0]);
 	if (arg[2] < REG_NUMBER)

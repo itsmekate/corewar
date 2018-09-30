@@ -41,34 +41,37 @@ void			set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar,
 	}
 }
 
-unsigned int	get_value(unsigned int arg, t_process *process,
+int				get_value(unsigned int *arg, t_process *process,
 	t_corewar *corewar, int *move)
 {
-	if (arg == REG_CODE)
+	if (*arg == REG_CODE)
 	{
 		//printf("REG_CODE\n");
-		arg = get_arg(1, process->position + *move, corewar);
-		//printf("%u\n", arg);
+		*arg = get_arg(1, process->position + *move, corewar);
+		//printf("%i\n", *arg);
 		*move = *move + 1;
-		if (arg < REG_NUMBER)
-			arg = process->reg[arg];
+		if (*arg < REG_NUMBER)
+		{
+			*arg = process->reg[*arg];
+			//printf("%08x\n", *arg);
+		}
 		else
-			process->error = 1;
+			return (0);
 	}
-	else if (arg == DIR_CODE)
+	else if (*arg == DIR_CODE)
 	{
 		//printf("DIR_CODE\n");
-		arg = get_arg(2, process->position + *move, corewar);
+		*arg = get_arg(get_label(process->command), process->position + *move, corewar);
 		*move = *move + get_label(process->command);
 	}
-	else if (arg == IND_CODE)
+	else if (*arg == IND_CODE)
 	{
 		//printf("IND_CODE\n");
-		arg = get_arg(2, process->position + *move, corewar);
+		*arg = get_arg(2, process->position + *move, corewar);
 		*move = *move + 2;
-		arg = get_arg(4, process->position + (short)arg % IDX_MOD, corewar);
+		*arg = get_arg(4, process->position + (short)*arg % IDX_MOD, corewar);
 	}
-	return (arg);
+	return (1);
 }
 
 void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
@@ -89,18 +92,6 @@ void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
 		}
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
-}
-
-int			error_arg(t_process *process, t_corewar *corewar, int move)
-{
-	if (process->error)
-	{
-		log_move(corewar, process, move);
-		move_process(move, process, corewar);
-		process->error = 0;
-		return (1);
-	}
-	return (0);
 }
 
 void			get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
