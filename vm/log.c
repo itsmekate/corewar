@@ -1,12 +1,5 @@
 #include "vm.h"
 
-void		print_contestants(t_corewar *corewar)
-{
-	(void)corewar;
-	printf("Introducing contestants...\n");
-	printf("* Player 1, weighing 325 bytes, \"Celebration Funebre v0.99pl42\" (\"Jour J\") !\n");
-}
-
 void		print_log(t_list *log)
 {
 	if (!log)

@@ -117,37 +117,6 @@ void 				print_map(t_corewar *corewar)
 	printf("\n\n");
 }
 
-
-void 				dump_map(t_corewar *corewar)
-{
-	int i;
-	int n;
-	int x;
-
-	i = 0;
-	n = 0;
-	x = 0;
-
-	while (i < MEM_SIZE)
-	{
-		if (n == 64)
-		{
-			printf("\n");
-			n = 0;
-		}
-		if (!n)
-		{
-			printf("0x%04x : ", x);
-			x += 64;
-		}
-		n++;
-		printf("%02x ", corewar->map[i].value & 0xff);
-		corewar->map[i].is_new = 0;
-		i++;
-	}
-	printf("\n");
-}
-
 void				print_processes(t_corewar *corewar)
 {
 	t_list *lst;
