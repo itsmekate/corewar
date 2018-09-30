@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzabrots <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/23 22:24:53 by dzabrots          #+#    #+#             */
+/*   Updated: 2018/09/23 22:24:55 by dzabrots         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static int			is_flag(char *arg)
@@ -66,38 +78,6 @@ static void			get_starts(t_corewar *corewar)
 	}
 }
 
-static int			flag_value_handler(char ***argv)
-{
-	char	**buf;
-	int		res;
-
-	buf = *argv;
-	if (is_number(*(buf + 1)))
-	{
-		res = ft_atoi(*(buf + 1));
-		if (res > 0)
-		{
-			*argv = *argv + 1;
-			return (res);
-		}
-		else
-			return (0);
-	}
-	return (0);
-}
-
-static void			flag_handler(int flag, char ***agrv, t_corewar *res)
-{
-	if (flag == 2)
-		res->dump = flag_value_handler(agrv);
-	else if (flag == 3)
-		res->verbal = flag_value_handler(agrv);
-	else if (flag == 4)
-		res->start = flag_value_handler(agrv);
-	else if (flag == 5)
-		res->visual_mode = 1;
-}
-
 t_corewar			*create_corewar(char **agrv)
 {
 	t_corewar	*res;
@@ -121,8 +101,6 @@ t_corewar			*create_corewar(char **agrv)
 			agrv++;
 		}
 	}
-	// res = NULL;
-	// (void)agrv;
 	get_starts(res);
 	init_commands(res);
 	return (res);

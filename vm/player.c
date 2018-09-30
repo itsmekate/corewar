@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzabrots <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/23 22:13:51 by dzabrots          #+#    #+#             */
+/*   Updated: 2018/09/23 22:13:52 by dzabrots         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static int	check_header(int fd)
@@ -8,7 +20,7 @@ static int	check_header(int fd)
 	i = 0;
 	while (i < 4)
 	{
-		read (fd, &s, 1);
+		read(fd, &s, 1);
 		if ((COREWAR_EXEC_MAGIC << (8 * i) >> 24) != s)
 			return (0);
 		i++;
@@ -43,9 +55,9 @@ static int	add_info(int fd, char *dest, int size, int mode)
 
 static int	add_size(int fd, t_player *player)
 {
-	int i;
-	char c;
-	int res;
+	int		i;
+	char	c;
+	int		res;
 
 	i = 0;
 	res = 0;
