@@ -8,6 +8,7 @@ t_corewar	*new_corewar(void)
 	if ((res = (t_corewar *)malloc(sizeof(t_corewar))))
 	{
 		res->visual_mode = 0;
+		res->pause = 1;
 		res->dump = -1;
 		res->start = 0;
 		res->verbal = 0;

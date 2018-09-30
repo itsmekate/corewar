@@ -38,7 +38,7 @@ typedef struct 		s_process
 	int				error;
 }					t_process;
 
-typedef struct 		s_point
+typedef struct		s_point
 {
 	char			value;
 	t_player		*player;
@@ -160,6 +160,10 @@ void				log_move(t_corewar *corewar, t_process *process, int move);
 void				print_contestants(t_corewar *corewar);
 void				log_cycle_to_die(t_corewar *corewar);
 
+/*
+**log.c
+*/
+void				cycle_to_die(t_corewar *corewar);
 
 /*
 **functions
