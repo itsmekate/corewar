@@ -163,7 +163,6 @@ void				grand_cycle(t_corewar *corewar);
 void				print_log(t_list *log);
 void				log_cycle(t_corewar *corewar);
 void				log_move(t_corewar *corewar, t_process *process, int move);
-void				print_contestants(t_corewar *corewar);
 void				log_cycle_to_die(t_corewar *corewar);
 
 /*
@@ -200,6 +199,11 @@ int					error_arg(t_process *process, t_corewar *corewar, int move);
 
 
 void 				print_map(t_corewar *corewar);
-void 				dump_map(t_corewar *corewar);
 
+/*
+** output.c
+*/
+void 				dump_map(t_corewar *corewar);
+void				print_contestants(t_corewar *corewar);
+void				print_winner(t_player *winner);
 #endif
