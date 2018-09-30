@@ -78,7 +78,9 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	get_types(arg, process, corewar);
 	if (arg[0] == REG_CODE || arg[0] > IND_CODE || arg[1] != REG_CODE || arg[2])
 	{
-		error_codage(&arg[0], process, corewar);
+		log_move(corewar, process, move);
+		move_process(move, process, corewar);
+		//error_codage(&arg[0], process, corewar);
 		return (0);
 	}
 	get_value(&arg[0], process, corewar, &move);
@@ -86,7 +88,11 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	arg[1] = get_arg(1, process->position + move++, corewar);
 	//printf("%i\n", arg[1]);
 	if (arg[1] >= REG_NUMBER)
+	{
+		log_move(corewar, process, move);
+		move_process(move, process, corewar);
 		return (0);
+	}
 	return (move);
 }
 

@@ -112,7 +112,6 @@ t_corewar			*create_corewar(char **agrv);
 void				flag_handler(int flag, char ***agrv, t_corewar *res);
 int					flag_value_handler(char ***argv);
 
-
 /*
 ** player.c
 */
@@ -126,7 +125,7 @@ int					get_color_new(int num);
 void				set_point(t_point *point, char value, t_player *player);
 int					get_color(int num);
 int					get_color_new(int num);
-unsigned int					get_index(unsigned int index);
+unsigned int		get_index(unsigned int index);
 
 /*
 ** number.c
