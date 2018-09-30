@@ -94,7 +94,7 @@ void			print_contestants(t_corewar *corewar)
 
 	ft_putstr("Introducing contestants...\n");
 	i = 0;
-	while (corewar->players[i])
+	while (i < corewar->players_num)
 	{
 		player = corewar->players[i];
 		ft_putstr("* Player ");
@@ -125,7 +125,7 @@ t_player		*get_winner(t_corewar *corewar)
 	t_player	*player;
 
 	i = 0;
-	while (corewar->players[i])
+	while (i < corewar->players_num)
 	{
 		player = corewar->players[i];
 		if (player->number == corewar->last_alive)
