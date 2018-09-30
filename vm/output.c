@@ -119,6 +119,22 @@ void			print_winner(t_player *winner)
 	ft_putstr("\", has won !\n");
 }
 
+t_player		get_winner(t_corewar *corewar)
+{
+	int			i;
+	t_player	*player;
+
+	i = 0;
+	while (corewar->players[i])
+	{
+		player = players[i];
+		if (player->number == corewar->last_alive)
+			return (players[i]);
+		i++;
+	}
+	return (NULL);
+}
+
 
 
 
