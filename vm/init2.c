@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-int			flag_value_handler(char ***argv)
+int				flag_value_handler(char ***argv)
 {
 	char	**buf;
 	int		res;
@@ -32,7 +32,7 @@ int			flag_value_handler(char ***argv)
 	return (0);
 }
 
-void		flag_handler(int flag, char ***agrv, t_corewar *res)
+void			flag_handler(int flag, char ***agrv, t_corewar *res)
 {
 	if (flag == 2)
 		res->dump = flag_value_handler(agrv);

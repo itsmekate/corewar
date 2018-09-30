@@ -6,6 +6,7 @@ SRC = 	main.c \
 		memory.c \
 		memory2.c \
 		init.c \
+		init2.c \
 		player.c \
 		point.c \
 		number.c \

@@ -107,6 +107,13 @@ t_process			*create_process(int position, t_player *player, t_corewar *corewar);
 t_corewar			*create_corewar(char **agrv);
 
 /*
+** init2.c
+*/
+void				flag_handler(int flag, char ***agrv, t_corewar *res);
+int					flag_value_handler(char ***argv);
+
+
+/*
 ** player.c
 */
 int					parse_player(t_player *player);
