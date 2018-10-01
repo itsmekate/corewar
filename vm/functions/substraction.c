@@ -25,7 +25,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar, t_process *process
 	arg[1] = get_arg(1, process->position + 3, corewar);
 	arg[2] = get_arg(1, process->position + 4, corewar);
 	//printf("%i, %i, %i\n", arg[0], arg[1], arg[2]);
-	if (arg[0] >= REG_NUMBER || arg[1] >= REG_NUMBER || arg[2] >= REG_NUMBER)
+	if (arg[0] > REG_NUMBER || arg[1] > REG_NUMBER || arg[2] > REG_NUMBER)
 	{
 		log_move(corewar, process, 5);
 		move_process(5, process, corewar);
@@ -41,12 +41,12 @@ void			substraction(t_corewar *corewar, t_process *process)
 
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
-	arg[0] = process->reg[arg[0]];
-	arg[1] = process->reg[arg[1]];
+	arg[0] = process->reg[arg[0] - 1];
+	arg[1] = process->reg[arg[1] - 1];
 	//printf("%08x - %08x\n", arg[0], arg[1]);
-	process->reg[arg[2]] = arg[0] - arg[1];
+	process->reg[arg[2] - 1] = arg[0] - arg[1];
 
-	if (process->reg[arg[2]])
+	if (process->reg[arg[2] - 1])
 		process->carry = 0;
 	else
 		process->carry = 1;

@@ -47,6 +47,7 @@ void			grand_cycle(t_corewar *corewar)
 			visualize(corewar);
 		log_cycle(corewar);
 		lst = corewar->processes;
+		printf("going to process cycle\n");
 		while (lst)
 		{
 			pr = lst->content;
@@ -69,7 +70,6 @@ void			grand_cycle(t_corewar *corewar)
 			cycle_to_die(corewar);
 			ctd = 0;
 		}
-		//printf("%i\n", corewar->cycle);
-
+		printf("end cycle\n");
 	}
 }

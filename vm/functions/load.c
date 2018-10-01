@@ -87,7 +87,7 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	//printf("%08x\n", arg[0]);
 	arg[1] = get_arg(1, process->position + move++, corewar);
 	//printf("%i\n", arg[1]);
-	if (arg[1] >= REG_NUMBER)
+	if (arg[1] > REG_NUMBER)
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
@@ -111,7 +111,7 @@ void				load(t_corewar *corewar, t_process *process)
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	//printf("%i\n", arg[1]);
-	process->reg[arg[1]] = arg[0];
+	process->reg[arg[1] - 1] = arg[0];
 	if (!arg[0])
 		process->carry = 1;
 	else

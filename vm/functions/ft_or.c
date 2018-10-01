@@ -30,7 +30,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	get_value(&arg[1], process, corewar, &move);
 	arg[2] = get_arg(1, process->position + move, corewar);
 	move++;
-	if (arg[2] >= REG_NUMBER)
+	if (arg[2] > REG_NUMBER)
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
@@ -46,8 +46,8 @@ void			ft_or(t_corewar *corewar, t_process *process)
 
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
-	process->reg[arg[2]] = arg[0] | arg[1];
-	if (!process->reg[arg[2]])
+	process->reg[arg[2] - 1] = arg[0] | arg[1];
+	if (!process->reg[arg[2] - 1])
 		process->carry = 1;
 	else
 		process->carry = 0;

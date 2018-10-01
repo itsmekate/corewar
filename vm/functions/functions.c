@@ -55,9 +55,9 @@ int				get_value(unsigned int *arg, t_process *process,
 		// 	//printf("error\n");
 		// 	return (0);
 		// }
-		if (*arg < REG_NUMBER && *arg)
+		if (*arg <= REG_NUMBER && *arg)
 		{
-			*arg = process->reg[*arg];
+			*arg = process->reg[*arg - 1];
 			//printf("%08x\n", *arg);
 		}
 		else

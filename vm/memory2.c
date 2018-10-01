@@ -19,7 +19,7 @@ t_process	*create_process(int position, t_player *player, t_corewar *corewar)
 		res->command = corewar->map[get_index(position)].value;
 		corewar->map[get_index(position)].process = res;
 		res->cycle = get_cycles(res->command);
-		res->reg[1] = 0xffffffff - player->number + 1;
+		res->reg[0] = 0xffffffff - player->number + 1;
 	}
 	return (res);
 }

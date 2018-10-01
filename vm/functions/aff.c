@@ -22,9 +22,9 @@ void			aff(t_corewar *corewar, t_process *process)
 	if (codage == 0x40)
 	{
 		arg = get_arg(1, process->position + 2, corewar);
-		if (arg < REG_NUMBER)
+		if (arg <= REG_NUMBER)
 		{
-			arg = process->reg[arg] % 256;
+			arg = process->reg[arg - 1] % 256;
 			str[0] = arg;
 			str[1] = '\0';
 			if (corewar->verbal)
