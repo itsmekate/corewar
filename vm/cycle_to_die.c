@@ -66,17 +66,25 @@ void			cycle_to_die(t_corewar *corewar)
 	// sleep(1);
 	players_lives(corewar);
 	lst = corewar->processes;
-	printf("\n");
 	while (lst)
 	{
 		pr = lst->content;
 		if (!pr->alive)
 		{
 			kill_process(corewar, pr);
-			//lst = corewar->processes;
+			lst = corewar->processes;
 		}
 		else
-			pr->alive = 0;
+		{
+			//pr->alive = 0;
+			lst = lst->next;
+		}
+	}
+	lst = corewar->processes;
+	while (lst)
+	{
+		pr = lst->content;
+		pr->alive = 0;
 		lst = lst->next;
 	}
 }
