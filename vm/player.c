@@ -83,17 +83,27 @@ int			parse_player(t_player *player)
 	if ((fd = open(player->file, O_RDONLY)) > 0)
 	{
 		status = check_header(fd);
+		//printf(" check_header %i\n", status);
 		if (status)
 			status = add_info(fd, player->name, PROG_NAME_LENGTH, 1);
+		//printf(" add_info %i\n", status);
+
 		if (status)
 			status = add_size(fd, player);
+		//printf(" add_size %i\n", status);
+
 		if (status)
 			status = add_info(fd, player->comment, COMMENT_LENGTH, 1);
+		//printf(" add_info %i\n", status);
+
 		player->exec = (char *)malloc(sizeof(char) * (player->size + 1));
 		if (status)
 			status = add_info(fd, player->exec, player->size, 0);
+		//printf(" add_info %i\n", status);
+
 		if (read(fd, &n, 1) == 1)
 			status = 0;
+		//printf(" add_info %i\n", status);
 		close(fd);
 	}
 	return (status);

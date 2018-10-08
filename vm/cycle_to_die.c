@@ -44,7 +44,7 @@ void			cycle_to_die(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
-	// printf("cycle_to_die!! %i\n", corewar->cycle);
+	//printf("cycle_to_die!! %i\n", corewar->cycle);
 	// print_map(corewar);
 	// printf("\n");
 	// sleep(1);
@@ -52,24 +52,29 @@ void			cycle_to_die(t_corewar *corewar)
 	lst = corewar->processes;
 	while (lst)
 	{
+		//printf("procc\n");
 		pr = lst->content;
 		if (!pr->alive)
 		{
-			// printf("kill\n");
+			//printf("kill\n");
 			kill_process(corewar, pr);
 			lst = corewar->processes;
+			//printf("fgfgfdg\n");
 		}
 		else
 		{
 			//pr->alive = 0;
 			lst = lst->next;
 		}
+		//printf("lol\n");
 	}
 	lst = corewar->processes;
+	//printf("fgd\n");
 	while (lst)
 	{
 		pr = lst->content;
 		pr->alive = 0;
 		lst = lst->next;
 	}
+	//printf("all good\n");
 }

@@ -47,25 +47,33 @@ void		kill_process(t_corewar *corewar, t_process *process)
 	t_list		*lst0;
 	t_process	*pr;
 
+	//printf("kill_process\n");
 	lst = corewar->processes;
 	lst0 = NULL;
 	while (lst)
 	{
+		//printf("lol\n");
 		lst1 = lst->next;
 		pr = lst->content;
 		if (pr == process)
 		{
+			//printf("equal\n");
 			if (!lst0)
 				corewar->processes = lst1;
 			else
 				lst0->next = lst1;
+			//printf("==\n");
 			corewar->map[get_index(pr->position)].process = NULL;
+			//printf("map\n");
 			clear_process(&pr, sizeof(t_process));
+			//printf("clear\n");
 			free(lst);
 			lst = NULL;
+			//printf("process killed\n");
 			return ;
 		}
 		lst0 = lst;
 		lst = lst1;
 	}
+	//printf("no process_killed\n");
 }
