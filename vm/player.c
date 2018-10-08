@@ -64,7 +64,7 @@ static int	add_size(int fd, t_player *player)
 	while (i < 4)
 	{
 		read(fd, &c, 1);
-		res += c << (24 - (8 * i));
+		res += (c & 0xff) << (24 - (8 * i));
 		i++;
 	}
 	if (res > CHAMP_MAX_SIZE || res < 1)
