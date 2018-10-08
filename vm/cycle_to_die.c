@@ -1,6 +1,6 @@
 #include "vm.h"
 
-static int		process_lives(t_corewar *corewar, t_player *player)
+static int		process_lives(t_corewar *corewar)
 {
 	int 	res;
 	t_list	*lst;
@@ -11,11 +11,7 @@ static int		process_lives(t_corewar *corewar, t_player *player)
 	while(lst)
 	{
 		process = lst->content;
-		if (process->player == player)
-		{
-			//printf("*%i\n", process->alive);
-			res += process->alive;
-		}
+		res += process->alive;
 		lst = lst->next;
 	}
 	return (res);
@@ -24,29 +20,17 @@ static int		process_lives(t_corewar *corewar, t_player *player)
 static void 	players_lives(t_corewar *corewar)
 {
 	int			i;
-	t_player	*player;
 	static int	n = 0;
-	int			k;
 
-	k = 0;
 	i = -1;
-	while (++i < corewar->players_num)
-	{
-		player = corewar->players[i];
-		if (process_lives(corewar, player) >= NBR_LIVE)
-		{
-			n = 0;
-			k = 1;
-		}
-	}
-	if (k)
-	{
+	if (process_lives(corewar) >= NBR_LIVE)
+	{	
+		n = 0;
 		corewar->cycle_to_die -= CYCLE_DELTA;
 		log_cycle_to_die(corewar);
 		return ;
 	}
 	n++;
-	//printf("checks %i\n", n);
 	if (n >= MAX_CHECKS)
 	{
 		corewar->cycle_to_die -= CYCLE_DELTA;
@@ -60,7 +44,7 @@ void			cycle_to_die(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
-	//printf("cycle_to_die!! %i\n", corewar->cycle);
+	// printf("cycle_to_die!! %i\n", corewar->cycle);
 	// print_map(corewar);
 	// printf("\n");
 	// sleep(1);
@@ -71,6 +55,7 @@ void			cycle_to_die(t_corewar *corewar)
 		pr = lst->content;
 		if (!pr->alive)
 		{
+			// printf("kill\n");
 			kill_process(corewar, pr);
 			lst = corewar->processes;
 		}
