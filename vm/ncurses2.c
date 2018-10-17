@@ -35,11 +35,9 @@ static	void	print_carriage(t_corewar *c, t_window win, int i, t_field f)
 
 static	void	print_carriage_empty(t_corewar *c, t_window win, int i, t_field f)
 {
-	init_pair(c->map[i].player->number + 15, COLOR_BLACK,
-		COLOR_WHITE);
-	wattron(win.field, COLOR_PAIR(c->map[i].player->number + 15));
+	wattron(win.field, COLOR_PAIR(3));
 	mvwprintw(win.field, f.row, f.col, "%02x", c->map[i].value & 0xff);
-	wattroff(win.field, COLOR_PAIR(c->map[i].player->number + 15));
+	wattroff(win.field, COLOR_PAIR(3));
 	mvwprintw(win.field, f.row, f.col + 2, " ");
 }
 

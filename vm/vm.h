@@ -45,6 +45,14 @@ typedef struct		s_point
 	t_process		*process;
 }					t_point;
 
+typedef struct		s_window
+{
+	WINDOW			*field;
+	WINDOW			*score;
+	int				h;
+	int				score_row;
+}					t_window;
+
 typedef struct 		s_corewar
 {
 	int				visual_mode;
@@ -61,18 +69,12 @@ typedef struct 		s_corewar
 	void			(*f[16]) (struct s_corewar *, t_process *);
 	t_list			*log;
 	int				last_alive;
+	t_window		win;
 }					t_corewar;
 
 /*
 ** ncurses
 */
-typedef struct		s_window
-{
-	WINDOW			*field;
-	WINDOW			*score;
-	int				h;
-	int				score_row;
-}					t_window;
 
 typedef struct		s_field
 {
@@ -144,6 +146,7 @@ int					visualize(t_corewar *c);
 */
 void				print_field(t_corewar *c, t_window win);
 int					print_players(t_corewar *c, t_window win);
+void				print_visual_log(t_corewar *c, t_window win);
 
 /*
 **info.c
