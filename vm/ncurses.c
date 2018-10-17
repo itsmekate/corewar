@@ -50,11 +50,21 @@ void			print_sidebar(t_corewar *c, t_window win)
 
 void	print_visual_log(t_corewar *c, t_window win)
 {
-	if (c->log != NULL)
+	int i;
+	t_list	*tmp;
+
+	i = 0;
+	tmp = c->log;
+	if (tmp != NULL)
 	{
-		mvwprintw(win.score, win.score_row += 2, 3, "yyes");
+		while (tmp->next && i++ < 10)
+		{
+			mvwprintw(win.score, win.score_row += 2, 3, tmp->content);
+			tmp = tmp->next;
+		}
 	}
-	mvwprintw(win.score, win.score_row += 2, 3, "NO LOG AVALIABLE");
+	else
+		mvwprintw(win.score, win.score_row += 2, 3, "NO LOG AVALIABLE");
 }
 
 static	void	draw_borders(t_window win)
