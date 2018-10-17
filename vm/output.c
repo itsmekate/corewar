@@ -112,11 +112,14 @@ void			print_contestants(t_corewar *corewar)
 
 void			print_winner(t_player *winner)
 {
-	ft_putstr("Contestant ");
-	ft_putnbr(winner->number);
-	ft_putstr(", \"");
-	ft_putstr(winner->name);
-	ft_putstr("\", has won !\n");
+	if (winner)
+	{
+		ft_putstr("Contestant ");
+		ft_putnbr(winner->number);
+		ft_putstr(", \"");
+		ft_putstr(winner->name);
+		ft_putstr("\", has won !\n");
+	}
 }
 
 t_player		*get_winner(t_corewar *corewar)

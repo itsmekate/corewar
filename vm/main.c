@@ -21,6 +21,10 @@ int			main(int argc, char **argv)
 		// dump_map(corewar);
 		// print_winner(get_winner(corewar));
 		clear_corewar(&corewar);
+		// while (42)
+		// {
+		// 	;
+		// }
 	}
 	return 0;
 }

@@ -169,6 +169,7 @@ void				log_cycle_to_die(t_corewar *corewar);
 **log.c
 */
 void				cycle_to_die(t_corewar *corewar);
+void				log_lives(t_corewar *corewar, t_player *player);
 
 /*
 **functions
