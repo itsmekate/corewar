@@ -12,59 +12,49 @@
 
 #include "vm.h"
 
-void			print_sidebar(t_corewar *c, t_window win)
+void			print_sidebar(t_corewar *c)
 {
 	if (c->pause == 1)
-		mvwprintw(win.score, 1, 3, "%s", "** PAUSED  **");
+		mvwprintw(c->win.score, 1, 3, "%s", "** PAUSED  **");
 	else
-		mvwprintw(win.score, 1, 3, "%s", "** RUNNING **");
-	mvwprintw(win.score, 4, 3, "%s", "Cycles/seconds limit:");
-	mvwprintw(win.score, 6, 3, "Cycle: %d", c->cycle);
-	mvwprintw(win.score, 8, 3, "%s", "Processes:");
-	win.score_row = print_players(c, win);
-	// mvwprintw(win.score, win.score_row += 2, 3, "%s",
-	// 	"Live breakdown for current period :");
-	// mvwprintw(win.score, win.score_row += 2, 3, "%s",
-	// 	"[---------------------------------------------]");
-	// mvwprintw(win.score, win.score_row += 2, 3, "%s",
-	// 	"Live breakdown for last period :");
-	// mvwprintw(win.score, win.score_row += 2, 3, "%s",
-	// 	"[---------------------------------------------]");
-	mvwprintw(win.score, win.score_row += 2, 3,
+		mvwprintw(c->win.score, 1, 3, "%s", "** RUNNING **");
+	mvwprintw(c->win.score, 4, 3, "%s", "Cycles/seconds limit:");
+	mvwprintw(c->win.score, 6, 3, "Cycle: %d", c->cycle);
+	mvwprintw(c->win.score, 8, 3, "%s", "Processes:");
+	c->win.score_row = print_players(c);
+	mvwprintw(c->win.score, c->win.score_row += 2, 3,
 		"CYCLE_TO_DIE : %d", c->cycle_to_die);
-	wattron(win.score, COLOR_PAIR(3));
-	mvwprintw(win.score, win.score_row += 2, 0, "%s",
+	wattron(c->win.score, COLOR_PAIR(3));
+	mvwprintw(c->win.score, c->win.h - 32, 0, "%s",
 		"                                 LOG                                  ");
-	wattroff(win.score, COLOR_PAIR(3));
-	print_visual_log(c, win);
-	// mvwprintw(win.score, win.score_row += 2, 3, "%s", "CYCLE_DELTA :");
-	// mvwprintw(win.score, win.score_row += 2, 3, "%s", "NBR_LIVE :");
-	// mvwprintw(win.score, win.score_row += 2, 3, "%s", "MAX_CHECKS :");
-	wattron(win.score, COLOR_PAIR(3));
-	mvwprintw(win.score, win.h - 7, 0, "%s",
+	wattroff(c->win.score, COLOR_PAIR(3));
+	print_visual_log(c);
+	wattron(c->win.score, COLOR_PAIR(3));
+	mvwprintw(c->win.score, c->win.h - 7, 0, "%s",
 		"                                                                      ");
-	wattroff(win.score, COLOR_PAIR(3));
-	mvwprintw(win.score, win.h - 5, 3, "%s", "USE Q TO EXIT");
-	mvwprintw(win.score, win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
+	wattroff(c->win.score, COLOR_PAIR(3));
+	mvwprintw(c->win.score, c->win.h - 5, 3, "%s", "USE Q TO EXIT");
+	mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
 }
 
-void	print_visual_log(t_corewar *c, t_window win)
+void	print_visual_log(t_corewar *c)
 {
 	int i;
 	t_list	*tmp;
 
 	i = 0;
 	tmp = c->log;
+	c->win.score_row = c->win.h - 31;
 	if (tmp != NULL)
 	{
 		while (tmp->next && i++ < 10)
 		{
-			mvwprintw(win.score, win.score_row += 2, 3, tmp->content);
+			mvwprintw(c->win.score, c->win.score_row += 2, 3, tmp->content);
 			tmp = tmp->next;
 		}
 	}
 	else
-		mvwprintw(win.score, win.score_row += 2, 3, "NO LOG AVALIABLE");
+		mvwprintw(c->win.score, c->win.score_row += 2, 3, "NO LOG AVALIABLE");
 }
 
 static	void	draw_borders(t_window win)
@@ -102,14 +92,14 @@ void			create_win(t_window *win)
 	nodelay(win->score, true);
 }
 
-int				exit_visual(t_corewar *c, t_window win)
+int				exit_visual(t_corewar *c)
 {
 	int i;
 
-	i = wgetch(win.field);
+	i = wgetch(c->win.field);
 	if (i == 32 && c->pause == 0)
 	{
-		mvwprintw(win.score, 1, 3, "%s", "** PAUSED  **");
+		mvwprintw(c->win.score, 1, 3, "%s", "** PAUSED  **");
 		wrefresh(c->win.score);
 		c->pause = 1;
 	}
@@ -117,7 +107,7 @@ int				exit_visual(t_corewar *c, t_window win)
 		c->pause = 0;
 	else if (i == 113)
 	{
-		del_all(win);
+		del_all(c->win);
 		exit (0);
 	}
 	return (c->pause);
@@ -125,16 +115,15 @@ int				exit_visual(t_corewar *c, t_window win)
 
 int				visualize(t_corewar *c)
 {
-	create_win(&c->win);
 	draw_borders(c->win);
-	print_sidebar(c, c->win);
-	print_field(c, c->win);
+	print_sidebar(c);
+	print_field(c);
 	wrefresh(c->win.field);
 	wrefresh(c->win.score);
-	c->pause = exit_visual(c, c->win);
+	c->pause = exit_visual(c);
 	while (c->pause)
 	{
-		c->pause = exit_visual(c, c->win);
+		c->pause = exit_visual(c);
 	}
 	return (1);
 }

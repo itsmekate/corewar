@@ -140,13 +140,14 @@ int					is_number(char *s);
 **ncurses.c
 */
 int					visualize(t_corewar *c);
+void				create_win(t_window *win);
 
 /*
 **ncurses2.c
 */
-void				print_field(t_corewar *c, t_window win);
-int					print_players(t_corewar *c, t_window win);
-void				print_visual_log(t_corewar *c, t_window win);
+void				print_field(t_corewar *c);
+int					print_players(t_corewar *c);
+void				print_visual_log(t_corewar *c);
 
 /*
 **info.c

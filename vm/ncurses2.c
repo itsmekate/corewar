@@ -12,45 +12,45 @@
 
 #include "vm.h"
 
-static	void	print_new(t_corewar *c, t_window win, int i, t_field f)
+static	void	print_new(t_corewar *c, int i, t_field f)
 {
 	init_pair(c->map[i].player->number + 10,
 		get_color(c->map[i].player->number), COLOR_BLACK);
-	wattron(win.field, COLOR_PAIR(c->map[i].player->number + 10));
-	wattron(win.field, A_BOLD);
-	mvwprintw(win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
-	wattroff(win.field, A_BOLD);
-	wattroff(win.field, COLOR_PAIR(c->map[i].player->number + 10));
+	wattron(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
+	wattron(c->win.field, A_BOLD);
+	mvwprintw(c->win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
+	wattroff(c->win.field, A_BOLD);
+	wattroff(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
 }
 
-static	void	print_carriage(t_corewar *c, t_window win, int i, t_field f)
+static	void	print_carriage(t_corewar *c, int i, t_field f)
 {
 	init_pair(c->map[i].player->number + 15, COLOR_BLACK,
 		get_color(c->map[i].player->number));
-	wattron(win.field, COLOR_PAIR(c->map[i].player->number + 15));
-	mvwprintw(win.field, f.row, f.col, "%02x", c->map[i].value & 0xff);
-	wattroff(win.field, COLOR_PAIR(c->map[i].player->number + 15));
-	mvwprintw(win.field, f.row, f.col + 2, " ");
+	wattron(c->win.field, COLOR_PAIR(c->map[i].player->number + 15));
+	mvwprintw(c->win.field, f.row, f.col, "%02x", c->map[i].value & 0xff);
+	wattroff(c->win.field, COLOR_PAIR(c->map[i].player->number + 15));
+	mvwprintw(c->win.field, f.row, f.col + 2, " ");
 }
 
-static	void	print_carriage_empty(t_corewar *c, t_window win, int i, t_field f)
+static	void	print_carriage_empty(t_corewar *c, int i, t_field f)
 {
-	wattron(win.field, COLOR_PAIR(3));
-	mvwprintw(win.field, f.row, f.col, "%02x", c->map[i].value & 0xff);
-	wattroff(win.field, COLOR_PAIR(3));
-	mvwprintw(win.field, f.row, f.col + 2, " ");
+	wattron(c->win.field, COLOR_PAIR(3));
+	mvwprintw(c->win.field, f.row, f.col, "%02x", c->map[i].value & 0xff);
+	wattroff(c->win.field, COLOR_PAIR(3));
+	mvwprintw(c->win.field, f.row, f.col + 2, " ");
 }
 
-static	void	print_old(t_corewar *c, t_window win, int i, t_field f)
+static	void	print_old(t_corewar *c, int i, t_field f)
 {
 	init_pair(c->map[i].player->number + 10,
 		get_color(c->map[i].player->number), COLOR_BLACK);
-	wattron(win.field, COLOR_PAIR(c->map[i].player->number + 10));
-	mvwprintw(win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
-	wattroff(win.field, COLOR_PAIR(c->map[i].player->number + 10));
+	wattron(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
+	mvwprintw(c->win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
+	wattroff(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
 }
 
-void			print_field(t_corewar *c, t_window win)
+void			print_field(t_corewar *c)
 {
 	t_field f;
 	int		i;
@@ -67,21 +67,21 @@ void			print_field(t_corewar *c, t_window win)
 		}
 		if (c->map[i].player != NULL && c->map[i].is_new != 0
 			&& c->map[i].process == NULL)
-			print_new(c, win, i, f);
+			print_new(c, i, f);
 		else if (c->map[i].player != NULL && c->map[i].process != NULL)
-			print_carriage(c, win, i, f);
+			print_carriage(c, i, f);
 		else if (c->map[i].player == NULL && c->map[i].process != NULL)
-			print_carriage_empty(c, win, i, f);
+			print_carriage_empty(c, i, f);
 		else if (c->map[i].player != NULL)
-			print_old(c, win, i, f);
+			print_old(c, i, f);
 		else
-			mvwprintw(win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
+			mvwprintw(c->win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
 		i++;
 		f.col += 3;
 	}
 }
 
-int				print_players(t_corewar *c, t_window win)
+int				print_players(t_corewar *c)
 {
 	int i;
 	int row;
@@ -92,12 +92,12 @@ int				print_players(t_corewar *c, t_window win)
 	{
 		init_pair(c->players[i]->number + 10,
 			get_color(c->players[i]->number), COLOR_BLACK);
-		mvwprintw(win.score, row, 3, "Player -%d :", c->players[i]->number);
-		wattron(win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(win.score, row, 15, "%s", c->players[i]->name);
-		wattroff(win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(win.score, row + 1, 4, "%s", "Last live:");
-		mvwprintw(win.score, row + 2, 4, "%s", "Lives in current period :");
+		mvwprintw(c->win.score, row, 3, "Player -%d :", c->players[i]->number);
+		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
+		mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
+		wattroff(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
+		mvwprintw(c->win.score, row + 1, 4, "%s", "Last live:");
+		mvwprintw(c->win.score, row + 2, 4, "%s", "Lives in current period :");
 		row += 5;
 		i++;
 	}
