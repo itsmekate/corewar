@@ -26,7 +26,7 @@ SRC = 	main.c \
 		output.c
 		##op.c
 VISUAL_FLAG = -lncurses
-VISUAL_SRC =  ncurses.c ncurses2.c
+VISUAL_SRC =  ncurses.c ncurses2.c ncurses3.c
 OBJ = $(SRC:.c=.o)
 LIB = ../libft/libft.a
 

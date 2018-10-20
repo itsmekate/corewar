@@ -80,26 +80,3 @@ void			print_field(t_corewar *c)
 		f.col += 3;
 	}
 }
-
-int				print_players(t_corewar *c)
-{
-	int i;
-	int row;
-
-	i = 0;
-	row = 10;
-	while (i < c->players_num)
-	{
-		init_pair(c->players[i]->number + 10,
-			get_color(c->players[i]->number), COLOR_BLACK);
-		mvwprintw(c->win.score, row, 3, "Player -%d :", c->players[i]->number);
-		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
-		wattroff(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(c->win.score, row + 1, 4, "%s", "Last live:");
-		mvwprintw(c->win.score, row + 2, 4, "%s", "Lives in current period :");
-		row += 5;
-		i++;
-	}
-	return (row);
-}

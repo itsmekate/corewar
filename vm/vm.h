@@ -146,8 +146,13 @@ void				create_win(t_window *win);
 **ncurses2.c
 */
 void				print_field(t_corewar *c);
-int					print_players(t_corewar *c);
+
+/*
+**ncurses3.c
+*/
 void				print_visual_log(t_corewar *c);
+void				print_sidebar(t_corewar *c);
+int					print_players(t_corewar *c);
 
 /*
 **info.c
