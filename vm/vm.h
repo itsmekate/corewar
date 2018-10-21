@@ -56,6 +56,7 @@ typedef struct		s_window
 typedef struct 		s_corewar
 {
 	int				visual_mode;
+	int				debug;
 	int				verbal;
 	int				start;
 	int				dump;
@@ -178,7 +179,12 @@ void				log_cycle_to_die(t_corewar *corewar);
 **log.c
 */
 void				cycle_to_die(t_corewar *corewar);
+
+/*
+**log2.c
+*/
 void				log_lives(t_corewar *corewar, t_player *player);
+void				log_func(t_corewar *corewar, char *name, int status);
 
 /*
 **functions

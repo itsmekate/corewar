@@ -28,6 +28,7 @@ void			player_alive(unsigned int number, t_corewar *corewar)
 			log_lives(corewar, corewar->players[i]);
 		}
 	}
+	log_func(corewar, "live", 0);
 }
 
 void			live(t_corewar *corewar, t_process *process)
@@ -40,5 +41,6 @@ void			live(t_corewar *corewar, t_process *process)
 	player_alive(dir, corewar);
 	log_move(corewar, process, 5);
 	move_process(5, process, corewar);
+	log_func(corewar, "live", 1);
 	//sleep(1);
 }

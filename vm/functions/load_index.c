@@ -25,6 +25,7 @@ void			load_index(t_corewar *corewar, t_process *process)
 		!arg[0] || !arg[1] || !arg[2])
 	{
 		error_codage(&arg[0], process, corewar);
+		log_func(corewar, "load_index", 0);
 		return ;
 	}
 	move = 2;
@@ -41,4 +42,5 @@ void			load_index(t_corewar *corewar, t_process *process)
 	// printf("registry %i, value %08x\n", arg[2], arg[0]);
 	log_move(corewar, process, ++move);
 	move_process(move, process, corewar);
+	log_func(corewar, "load_index", 1);
 }

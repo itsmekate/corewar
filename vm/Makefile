@@ -13,6 +13,7 @@ SRC = 	main.c \
 		info.c \
 		cycle.c \
 		log.c \
+		log2.c \
 		cycle_to_die.c \
 		functions/addition.c functions/aff.c \
 		functions/ft_and.c functions/ft_fork.c \

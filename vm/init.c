@@ -24,6 +24,8 @@ static int			is_flag(char *arg)
 		return (4);
 	if (ft_strequ(arg, "-visual"))
 		return (5);
+	if (ft_strequ(arg, "-debug"))
+		return (6);
 	return (0);
 }
 

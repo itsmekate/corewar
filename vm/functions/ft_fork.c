@@ -44,6 +44,7 @@ void			ft_fork(t_corewar *corewar, t_process *process)
 	move_process(arg1 % IDX_MOD, res, corewar);
 	log_move(corewar, process, 3);
 	move_process(3, process, corewar);
+	log_func(corewar, "ft_fork", 1);
 	//print_map(corewar);
 	//sleep(2);
 	// if (!res->command)

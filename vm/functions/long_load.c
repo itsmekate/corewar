@@ -32,6 +32,7 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
+		log_func(corewar, "long_load", 0);
 		return (0);
 	}
 	if (arg[0] == IND_CODE)
@@ -43,6 +44,7 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
+		log_func(corewar, "long_load", 0);
 		return (0);
 	}
 	return (move);
@@ -62,4 +64,5 @@ void				long_load(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
+	log_func(corewar, "long_load", 1);
 }

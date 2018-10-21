@@ -16,7 +16,7 @@ void			set_point(t_point *point, char value, t_player *player)
 {
 	point->value = value;
 	point->player = player;
-	point->is_new = 1;
+	point->is_new = 100;
 }
 
 int				get_color(int num)

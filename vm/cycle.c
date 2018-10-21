@@ -22,7 +22,11 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 	f = corewar->f[(process->command & 0xff) - 1];
 	f(corewar, process);
 	
-
+	if (corewar->visual_mode && corewar->debug)
+	{
+		corewar->pause = 1;
+		visualize(corewar);
+	}
 
 	//printf("%i\n", process->carry);
 	// print_map(corewar);

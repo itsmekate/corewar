@@ -67,7 +67,10 @@ void			print_field(t_corewar *c)
 		}
 		if (c->map[i].player != NULL && c->map[i].is_new != 0
 			&& c->map[i].process == NULL)
+		{
 			print_new(c, i, f);
+			c->map[i].is_new--; // for 10 lastprints
+		}
 		else if (c->map[i].player != NULL && c->map[i].process != NULL)
 			print_carriage(c, i, f);
 		else if (c->map[i].player == NULL && c->map[i].process != NULL)

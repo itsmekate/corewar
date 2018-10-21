@@ -20,6 +20,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	if (arg[0] != REG_CODE || arg[1] != REG_CODE || arg[2] != REG_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
+		log_func(corewar, "addition", 0);
 		return (0);
 	}
 	arg[0] = get_arg(1, process->position + 2, corewar);
@@ -29,8 +30,10 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, 5);
 		move_process(5, process, corewar);
+		log_func(corewar, "addition", 0);
 		return (0);
 	}
+	log_func(corewar, "addition", 1);
 	return (5);
 }
 

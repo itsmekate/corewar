@@ -19,6 +19,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar, t_process *process
 	if (arg[0] != REG_CODE || arg[1] != REG_CODE || arg[2] != REG_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
+		log_func(corewar, "substraction", 0);
 		return (0);
 	}
 	arg[0] = get_arg(1, process->position + 2, corewar);
@@ -29,6 +30,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar, t_process *process
 	{
 		log_move(corewar, process, 5);
 		move_process(5, process, corewar);
+		log_func(corewar, "substraction", 0);
 		return (0);
 	}
 	return (5);
@@ -52,4 +54,5 @@ void			substraction(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
+	log_func(corewar, "substraction", 1);
 }
