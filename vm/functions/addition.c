@@ -26,7 +26,8 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	arg[0] = get_arg(1, process->position + 2, corewar);
 	arg[1] = get_arg(1, process->position + 3, corewar);
 	arg[2] = get_arg(1, process->position + 4, corewar);
-	if (arg[0] > REG_NUMBER || arg[1] > REG_NUMBER || arg[2] > REG_NUMBER)
+	if (arg[0] > REG_NUMBER || arg[1] > REG_NUMBER || arg[2] > REG_NUMBER
+		 || !arg[0]  || !arg[1]  || !arg[2])
 	{
 		log_move(corewar, process, 5);
 		move_process(5, process, corewar);
