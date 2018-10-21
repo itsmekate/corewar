@@ -103,6 +103,7 @@ t_corewar			*create_corewar(char **agrv)
 	}
 	get_starts(res);
 	init_commands(res);
-	create_win(&res->win);
+	if (res->visual_mode)
+		create_win(&res->win);
 	return (res);
 }
