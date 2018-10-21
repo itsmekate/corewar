@@ -40,7 +40,7 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	else
 		get_value(&arg[0], process, corewar, &move);
 	arg[1] = get_arg(1, process->position + move++, corewar);
-	if (arg[1] > REG_NUMBER)
+	if (arg[1] > REG_NUMBER || !arg[1])
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
