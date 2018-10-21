@@ -24,4 +24,5 @@ void			long_fork(t_corewar *corewar, t_process *process)
 	move_process(arg1, res, corewar);
 	log_move(corewar, process, 3);
 	move_process(3, process, corewar);
+	log_func(corewar, "long_fork", 1);
 }

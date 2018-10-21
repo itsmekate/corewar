@@ -23,6 +23,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 		arg[1] > IND_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
+		log_func(corewar, "ft_and", 0);
 		return (0);
 	}
 	move = 2;
@@ -34,8 +35,10 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
+		log_func(corewar, "ft_and", 0);
 		return (0);
 	}
+	log_func(corewar, "ft_and", 1);
 	return (move);
 }
 

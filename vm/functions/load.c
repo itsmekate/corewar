@@ -81,6 +81,7 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
 		//error_codage(&arg[0], process, corewar);
+		log_func(corewar, "load", 0);
 		return (0);
 	}
 	get_value(&arg[0], process, corewar, &move);
@@ -91,6 +92,7 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
+		log_func(corewar, "load", 0);
 		return (0);
 	}
 	return (move);
@@ -118,6 +120,7 @@ void				load(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
+	log_func(corewar, "load", 1);
 	// i = -1;
 	// while (++i < 16)
 	// {

@@ -34,8 +34,10 @@ void			aff(t_corewar *corewar, t_process *process)
 		}
 		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
+		//log_func(corewar, "addition", 0);
 		return ;
 	}
 	log_move(corewar, process, 2);
 	move_process(2, process, corewar);
+	//log_func(corewar, "addition", 0);
 }

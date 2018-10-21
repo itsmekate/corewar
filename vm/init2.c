@@ -42,4 +42,6 @@ void			flag_handler(int flag, char ***agrv, t_corewar *res)
 		res->start = flag_value_handler(agrv);
 	else if (flag == 5)
 		res->visual_mode = 1;
+	else if (flag == 6)
+		res->debug = 1;
 }

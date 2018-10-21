@@ -23,6 +23,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 		!arg[0] || arg[0] > IND_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
+		log_func(corewar, "long_load_index", 0);
 		return (0);
 	}
 	move = 2;
@@ -32,6 +33,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
+		log_func(corewar, "long_load_index", 0);
 		return (0);
 	}
 	return (move);
@@ -49,4 +51,5 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 	process->reg[arg[2] - 1] = arg[0];
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
+	log_func(corewar, "long_load_index", 1);
 }

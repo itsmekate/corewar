@@ -24,10 +24,12 @@ void			zjump(t_corewar *corewar, t_process *process)
 		//printf("carry is absent\n");
 		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
+		log_func(corewar, "zjump", 0);
 		return;
 	}
 	dir = get_arg(2, process->position + 1, corewar);
 	move_process(dir % IDX_MOD, process, corewar);
+	log_func(corewar, "zjump", 1);
 	//sleep(2);
 	//print_map(corewar);
 	//sleep(4);

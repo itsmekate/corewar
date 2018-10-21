@@ -31,8 +31,11 @@ int			main(int argc, char **argv)
 		usage(argv[0]);
 	if ((corewar = create_corewar(++argv)))
 	{
-		print_contestants(corewar);
-		grand_cycle(corewar);
+		if (corewar->players_num > 0)
+		{
+			print_contestants(corewar);
+			grand_cycle(corewar);
+		}
 		// print_log(corewar->log);
 		// dump_map(corewar);
 		// print_winner(get_winner(corewar));
