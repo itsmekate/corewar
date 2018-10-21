@@ -1,0 +1,9 @@
+						1					2					3					4					lld					aff
+
+jumper 					OK					OK					segfoult			segfoult			-					-
+													(on 4703 cycle)		(on 4337cycle)
+
+toto					OK					OK					OK					OK					-					-
+
+
+Octobre_Rouge_V4.2		OK					?(19800)			?(19000)			?(17500)			-					-				
