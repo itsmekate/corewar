@@ -24,6 +24,7 @@ typedef struct		s_player
 	char			comment[COMMENT_LENGTH + 1];
 	char			*exec;
 	int				process_num;
+	int 			lives;
 }					t_player;
 
 typedef struct 		s_process
@@ -70,6 +71,8 @@ typedef struct 		s_corewar
 	void			(*f[16]) (struct s_corewar *, t_process *);
 	t_list			*log;
 	int				last_alive;
+	int 			lives_ok;
+	int 			lives_all;
 	t_window		win;
 }					t_corewar;
 

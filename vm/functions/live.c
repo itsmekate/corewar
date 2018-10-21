@@ -25,6 +25,8 @@ void			player_alive(unsigned int number, t_corewar *corewar)
 			//printf("alive\n");
 			corewar->players[i]->process_num++;
 			corewar->last_alive = corewar->players[i]->number;
+			corewar->players[i]->lives++;
+			corewar->lives_ok++;
 			log_lives(corewar, corewar->players[i]);
 		}
 	}
@@ -37,6 +39,7 @@ void			live(t_corewar *corewar, t_process *process)
 
 	//printf("live\n");
 	process->alive++;
+	corewar->lives_all++;
 	dir = get_arg(4, process->position + 1, corewar);
 	player_alive(dir, corewar);
 	log_move(corewar, process, 5);
