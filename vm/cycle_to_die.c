@@ -58,11 +58,6 @@ void			cycle_to_die(t_corewar *corewar)
 	//printf("ok = %i; all = %i; ctd = %i\n", corewar->lives_ok, corewar->lives_all, corewar->cycle_to_die);
 	//corewar->lives_ok = 0;
 	corewar->lives_all = 0;
-	int i = -1;
-	while (++i < corewar->players_num)
-	{
-		corewar->players[i]->lives = 0;
-	}
 	lst = corewar->processes;
 	while (lst)
 	{

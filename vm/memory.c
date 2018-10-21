@@ -21,7 +21,7 @@ t_corewar	*new_corewar(void)
 		res->cycle = 0;
 		res->log = NULL;
 		res->last_alive = 0;
-		res->lives_ok = 0;
+		//res->lives_ok = 0;
 		res->lives_all = 0;
 	}
 	return (res);
@@ -41,7 +41,7 @@ t_player		*new_player(char *file)
 		ft_memset(res->comment, '\0', COMMENT_LENGTH + 1);
 		res->exec = NULL;
 		res->process_num = 0;
-		res->lives = 0;
+		//res->lives = 0;
 	}
 	return (res);
 }
