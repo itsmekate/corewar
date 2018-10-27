@@ -9,8 +9,13 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 // 	{
 // 		printf("%08x\n", process->reg[i]);
 // 	}
+
 	if (--process->cycle)
 		return ;
+	if (corewar->cycle == 5475)
+	{
+		printf("%i: %x\n", process->number, process->command);
+	}
 	//printf("position = %i, command = %02x\n", get_index(process->position), process->command & 0xff);
 	if (process->command < 1 || process->command > 16)
 	{
@@ -32,6 +37,7 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 		printf("here!!! %i\n", process->number);
 		sleep(3);
 	}
+
 	//printf("%i\n", process->carry);
 	// print_map(corewar);
 	// sleep(1);
