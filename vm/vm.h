@@ -29,6 +29,7 @@ typedef struct		s_player
 
 typedef struct 		s_process
 {
+	int 			number;
 	int				position;
 	int				carry;
 	t_player		*player;

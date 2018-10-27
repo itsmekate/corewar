@@ -18,7 +18,7 @@ void			load_index(t_corewar *corewar, t_process *process)
 	int				move;
 	int 			status;
 
-	// printf("load_index\n");
+	//printf("load_index\n");
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
 	if (arg[0] > IND_CODE || arg[1] > DIR_CODE || arg[2] > REG_CODE ||

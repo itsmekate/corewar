@@ -16,6 +16,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	t_process *process)
 {
 	int move;
+	int status = 1;
 
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
@@ -27,11 +28,13 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 		return (0);
 	}
 	move = 2;
-	get_value(&arg[0], process, corewar, &move);
-	get_value(&arg[1], process, corewar, &move);
+
+	status = get_value(&arg[0], process, corewar, &move);
+	if (status)
+		status = get_value(&arg[1], process, corewar, &move);
 	arg[2] = get_arg(1, process->position + move, corewar);
 	move++;
-	if (arg[2] > REG_NUMBER || !arg[2])
+	if (arg[2] > REG_NUMBER || !arg[2] || !status)
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);

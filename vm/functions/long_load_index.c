@@ -45,6 +45,7 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 	unsigned int	arg[3];
 	int				move;
 
+	//printf("lldi\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	arg[0] = get_arg(4, process->position + (short)arg[0] +

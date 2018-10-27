@@ -44,7 +44,7 @@ void			store(t_corewar *corewar, t_process *process)
 
 	// int i = -1;
 	// while (++i < 16)
-	// 	printf("%08x\n", process->reg[i]);
+	// printf("store\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 	{
 		log_func(corewar, "store", 0);
@@ -66,8 +66,13 @@ void			store(t_corewar *corewar, t_process *process)
 		move += 2;
 		// printf("%hi\n", (short)arg[2]);
 		if (status)
+		{
+			// printf("%08x\n", arg[0]);
+			// if (arg[0] == 0x64)
+			// 	sleep(3);
 			set_unsigned_int(arg[0], get_index(process->position + (short)arg[2] % IDX_MOD),
 				corewar, process->player);
+		}
 	}
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);

@@ -3,8 +3,13 @@
 t_process	*new_procces(void)
 {
 	t_process *res;
+	static int num = 0;
+
 	if ((res = (t_process *)malloc(sizeof(t_process))))
+	{
 		ft_memset(res, '\0', sizeof(t_process));
+		res->number = ++num;
+	}
 	return (res);
 }
 

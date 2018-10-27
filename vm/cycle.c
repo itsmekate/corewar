@@ -9,7 +9,6 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 // 	{
 // 		printf("%08x\n", process->reg[i]);
 // 	}
-// 	printf("\n\n");
 	if (--process->cycle)
 		return ;
 	//printf("position = %i, command = %02x\n", get_index(process->position), process->command & 0xff);
@@ -28,6 +27,11 @@ static void		process_cycle(t_corewar *corewar, t_process *process)
 		visualize(corewar);
 	}
 
+	if (process->reg[0] == 0x64)
+	{
+		printf("here!!! %i\n", process->number);
+		sleep(3);
+	}
 	//printf("%i\n", process->carry);
 	// print_map(corewar);
 	// sleep(1);

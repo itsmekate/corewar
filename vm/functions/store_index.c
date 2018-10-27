@@ -55,6 +55,9 @@ void			store_index(t_corewar *corewar, t_process *process)
 	//printf("%hhi; %i\n", (char)index, (char )index % IDX_MOD);
 	
 		// if (index)
+			// printf("%08x\n", arg[0]);
+			// if (arg[0] == 0x64)
+			// 	sleep(3);
 			set_unsigned_int(arg[0], get_index(process->position + index % IDX_MOD), corewar, process->player);
 	// if (arg2 == DIR_CODE && arg3 == DIR_CODE)
 	//  	reg_dir_dir(arg1, corewar, process);
