@@ -30,8 +30,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	move = 2;
 
 	status = get_value(&arg[0], process, corewar, &move);
-	if (status)
-		status = get_value(&arg[1], process, corewar, &move);
+	status = status & get_value(&arg[1], process, corewar, &move);
 	arg[2] = get_arg(1, process->position + move, corewar);
 	move++;
 	if (arg[2] > REG_NUMBER || !arg[2] || !status)

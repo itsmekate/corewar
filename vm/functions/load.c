@@ -115,11 +115,11 @@ void				load(t_corewar *corewar, t_process *process)
 	//printf("%i\n", arg[1]);
 	//printf(" inited \n");
 	//printf("%u\n", arg[1]);
-	if (process->number == 24)
-	{
-		printf("%i\n", arg[2]);
-		sleep (3);
-	}
+	// if (process->number == 24)
+	// {
+	// 	printf("%i\n", arg[2]);
+	// 	sleep (3);
+	// }
 	process->reg[arg[1] - 1] = arg[0];
 	if (!arg[0])
 		process->carry = 1;
