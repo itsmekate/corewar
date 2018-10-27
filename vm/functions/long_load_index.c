@@ -50,6 +50,11 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 		return ;
 	arg[0] = get_arg(4, process->position + (short)arg[0] +
 		(short)arg[1], corewar);
+	if (process->number == 24)
+	{
+		printf("%i\n", arg[2]);
+		sleep (3);
+	}
 	process->reg[arg[2] - 1] = arg[0];
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);

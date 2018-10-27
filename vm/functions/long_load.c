@@ -58,6 +58,11 @@ void				long_load(t_corewar *corewar, t_process *process)
 	//printf("lld\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
+	if (process->number == 24)
+	{
+		printf("%i\n", arg[2]);
+		sleep (3);
+	}
 	process->reg[arg[1] - 1] = arg[0];
 	if (!arg[0])
 		process->carry = 1;
