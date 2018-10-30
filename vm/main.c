@@ -31,6 +31,10 @@ int			main(int argc, char **argv)
 		usage(argv[0]);
 	if ((corewar = create_corewar(++argv)))
 	{
+		while (42)
+		{
+			
+		}
 		if (corewar->players_num > 0)
 		{
 			print_contestants(corewar);

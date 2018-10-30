@@ -47,7 +47,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 
 	status = status & get_value(&arg[2], process, corewar, &move);
 	//printf("thd arg %i\n", arg[2]);
-	printf("%i\n", status);
+	//printf("%i\n", status);
 	//if (status)
 	{
 	//printf("thrd arg %hi\n", (short)arg[2]);
