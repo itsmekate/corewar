@@ -109,7 +109,7 @@ void				load(t_corewar *corewar, t_process *process)
 	// 	printf("%08x\n", process->reg[i]);
 	// }
 	//printf("\n\n");
-	// printf(" load \n");
+	//printf("load \n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	//printf("%i\n", arg[1]);

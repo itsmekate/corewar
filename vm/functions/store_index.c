@@ -26,7 +26,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 	// {
 	// 	printf("%08x\n", process->reg[i]);
 	// }
-	 //printf("store_index\n");
+	//printf("store_index\n");
 	//print_map(corewar);
 	//printf("%i\n", process->number);
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);

@@ -48,6 +48,7 @@ void			ft_and(t_corewar *corewar, t_process *process)
 	unsigned int	arg[3];
 	int				move;
 
+//printf("and\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	process->reg[arg[2] - 1] = arg[0] & arg[1];

@@ -18,6 +18,7 @@ void			aff(t_corewar *corewar, t_process *process)
 	unsigned int 	arg;
 	char			str[2];
 
+//printf("aff\n");
 	codage = get_arg(1, process->position + 1, corewar);
 	if (codage == 0x40)
 	{

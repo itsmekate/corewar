@@ -54,7 +54,7 @@ void			load_index(t_corewar *corewar, t_process *process)
 	// 	//printf("%i\n", arg[2]);
 	// 	sleep (3);
 	// }
-		if (arg[2] <= REG_NUMBER)
+		if (arg[2] <= REG_NUMBER && arg[2])
 			process->reg[arg[2] - 1] = arg[0];
 		// else
 		// 	printf("ni!\n");
@@ -65,7 +65,7 @@ void			load_index(t_corewar *corewar, t_process *process)
 	// {
 	// 	printf("%08x\n", process->reg[i]);
 	// }
-	// printf("registry %i, value %08x\n", arg[2], arg[0]);
+	//printf("registry %i, value %08x\n", arg[2], arg[0]);
 	log_move(corewar, process, ++move);
 	move_process(move, process, corewar);
 	log_func(corewar, "load_index", 1);
