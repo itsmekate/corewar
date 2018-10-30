@@ -30,7 +30,6 @@ void			store_index(t_corewar *corewar, t_process *process)
 	//print_map(corewar);
 	//printf("%i\n", process->number);
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
-	get_types(&arg[0], process, corewar);
 	if (arg[0] != REG_CODE || (arg[2] != REG_CODE && arg[2] != DIR_CODE) || !arg[1]
 		|| arg[1] > IND_CODE)
 	{

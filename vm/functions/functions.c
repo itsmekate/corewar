@@ -100,14 +100,17 @@ void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
 		move_process(move, process, corewar);
 }
 
-void			get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
+int			get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
 {
 	char			codage;
 
 	codage = get_arg(1, process->position + 1, corewar);
+	if (!codage)
+		return (0);
 	arg[0] = (codage & 0xff) >> 6;
 	codage = codage << 2;
 	arg[1] = (codage & 0xff) >> 6;
 	codage = codage << 2;
 	arg[2] = (codage & 0xff) >> 6;
+	return (1);
 }
