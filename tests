@@ -1,3 +1,8 @@
+./corewar -v 3 vm_champs/champs/Gagnant.cor vm_champs/champs/Octobre_Rouge_V4.2.cor vm_champs/champs/jumper.cor  vm_champs/champs/toto.cor
+	
+	our winner - Contestant 3, "Jumper !", has won !
+	sample winner - Contestant 2, "Octobre Rouge V4.2", has won !
+
 						1					2					3					4					lld					aff
 
 jumper 					OK					OK					segfoult			segfoult			-					-
