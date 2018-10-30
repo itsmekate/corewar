@@ -26,12 +26,13 @@ void			store_index(t_corewar *corewar, t_process *process)
 	// {
 	// 	printf("%08x\n", process->reg[i]);
 	// }
-	// printf("store_index\n");
+	 //printf("store_index\n");
 	//print_map(corewar);
 	//printf("%i\n", process->number);
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
-	if (arg[0] != REG_CODE || (arg[2] != REG_CODE && arg[2] != DIR_CODE) || !arg[1]
-		|| arg[1] > IND_CODE)
+	get_types(&arg[0], process, corewar);
+	if (arg[0] != REG_CODE || !arg[1] || arg[1] > IND_CODE || !arg[2]
+		|| arg[1] > DIR_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
 		log_func(corewar, "store_index", 0);
@@ -45,9 +46,9 @@ void			store_index(t_corewar *corewar, t_process *process)
 	// printf("sec arg %hi\n", (short)arg[1]);
 
 	status = status & get_value(&arg[2], process, corewar, &move);
-	// printf("thd arg %i\n", arg[2]);
-	//printf("%i\n", status);
-	if (status)
+	//printf("thd arg %i\n", arg[2]);
+	printf("%i\n", status);
+	//if (status)
 	{
 	//printf("thrd arg %hi\n", (short)arg[2]);
 	// if (error_arg(process, corewar, move))
@@ -60,7 +61,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 			int place = process->position + (short)arg[1] % IDX_MOD + (short)arg[2] % IDX_MOD;
 			if (buf == REG_CODE && (int)arg[2] > 0)
 			{
-				// printf("reg\n");
+			//	 printf("reg\n");
 				place = process->position + ((short)arg[1] + (int)arg[2]) % IDX_MOD;
 			}
 			// int real_place = process->position + index % IDX_MOD;
