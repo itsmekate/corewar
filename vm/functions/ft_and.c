@@ -36,10 +36,8 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
-		log_func(corewar, "ft_and", 0);
 		return (0);
 	}
-	log_func(corewar, "ft_and", 1);
 	return (move);
 }
 
@@ -47,6 +45,7 @@ void			ft_and(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
+	char			*log_res;
 
 //printf("and\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -56,6 +55,13 @@ void			ft_and(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
+
+	//log
+	// log_res = ft_itoa_base(arg[3], 8, 8);
+	// log_func(2, "and ", log_res);
+	// free(log_res);
+	//end log
+	
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 }

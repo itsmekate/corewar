@@ -27,20 +27,29 @@ void		log_lives(t_corewar *corewar, t_player *player)
 	}
 }
 
-void		log_func(t_corewar *corewar, char *name, int status)
+void		log_func(int quantity, ...)
 {
+	va_list	args;
 	char *buf;
+	char *res;
 
 	if (corewar->verbal & L_FUNC && corewar->cycle >= corewar->start)
 	{
-		if (status == 1)
-			buf = ft_strjoin(name, " OK");
-		else
-			buf = ft_strjoin(name, " FAILED");
+		va_start(args, quantity);
+		res = ft_strdup(va_arg(args, char *));
+		while (quantity != 1)
+		{
+			buf = ft_strdup(va_arg(args, char *));
+			ft_mleak(&res, ft_strjoin(res, buf));
+			free(buf);
+			quantity--;
+		}
+		va_end(args);
 		if (corewar->visual_mode)
-			ft_lstadd(&corewar->log, ft_lstnew(buf, ft_strlen(buf) + 1));
+			ft_lstadd(&corewar->log, ft_lstnew(res, ft_strlen(res) + 1));
 		else
-			ft_putendl_fd(buf, 1);
+			ft_putendl_fd(res, 1);
 		free(buf);
+		free(res);
 	}
 }

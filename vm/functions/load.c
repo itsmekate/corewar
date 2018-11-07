@@ -81,7 +81,6 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
 		//error_codage(&arg[0], process, corewar);
-		log_func(corewar, "load", 0);
 		return (0);
 	}
 	get_value(&arg[0], process, corewar, &move);
@@ -92,7 +91,6 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
-		log_func(corewar, "load", 0);
 		return (0);
 	}
 	return (move);
@@ -102,6 +100,7 @@ void				load(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
+	char			*log_res;
 
 	// int i = -1;
 	// while (++i < 16)
@@ -126,10 +125,16 @@ void				load(t_corewar *corewar, t_process *process)
 	else
 		process->carry = 0;
 	//printf(" made \n");
+
+	//log
+	// log_res = ft_itoa_base(arg[3], 8, 8);
+	// log_func(2, "load ", log_res);
+	// free(log_res);
+	//end log
+
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 	//printf(" moved \n");
-	log_func(corewar, "load", 1);
 	//printf(" logged f \n");
 	// i = -1;
 	// while (++i < 16)

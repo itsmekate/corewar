@@ -29,7 +29,7 @@ static int 		initialize(unsigned int *arg, t_corewar *corewar,
 		}
 		else
 			error_codage(&arg[0], process, corewar);
-		log_func(corewar, "store", 0);
+// log_func(corewar, "store", 0);
 		return (0);
 	}
 	return (move);
@@ -47,7 +47,7 @@ void			store(t_corewar *corewar, t_process *process)
 	// printf("store\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 	{
-		log_func(corewar, "store", 0);
+// log_func(corewar, "store", 0);
 		return ;
 	}
 	// printf("reg %i\n", get_arg(1, process->position + move, corewar));
@@ -76,5 +76,5 @@ void			store(t_corewar *corewar, t_process *process)
 	}
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
-	log_func(corewar, "store", 1);
+//log_func(corewar, "store", 1);
 }
