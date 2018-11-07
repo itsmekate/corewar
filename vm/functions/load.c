@@ -100,7 +100,7 @@ void				load(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
-	char			*log_res;
+	// char			*log_res;
 
 	// int i = -1;
 	// while (++i < 16)

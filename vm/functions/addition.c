@@ -39,7 +39,7 @@ void			addition(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
-	char			*log_res;
+	//char			*log_res;
 
 	// printf("addition\n");
 	if (!(move = initialize(&arg[0], corewar, process)))

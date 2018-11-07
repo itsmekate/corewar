@@ -56,6 +56,10 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 	// 	sleep (3);
 	// }
 	process->reg[arg[2] - 1] = arg[0];
+		if (!process->reg[arg[2] - 1])
+		process->carry = 1;
+	else
+		process->carry = 0;
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 // log_func(corewar, "long_load_index", 1);

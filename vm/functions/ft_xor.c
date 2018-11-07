@@ -45,7 +45,7 @@ void			ft_xor(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
-	char			*log_res;
+	//char			*log_res;
 
 //printf("xor\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -63,5 +63,5 @@ void			ft_xor(t_corewar *corewar, t_process *process)
 	//end log
 	
 	move_process(move, process, corewar);
-	log_func(corewar, "ft_or", 1);
+	//log_func(corewar, "ft_or", 1);
 }

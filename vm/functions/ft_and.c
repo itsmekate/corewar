@@ -24,7 +24,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 		arg[1] > IND_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
-		log_func(corewar, "ft_and", 0);
+		//log_func(corewar, "ft_and", 0);
 		return (0);
 	}
 	move = 2;
@@ -45,7 +45,7 @@ void			ft_and(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
-	char			*log_res;
+	//char			*log_res;
 
 //printf("and\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
