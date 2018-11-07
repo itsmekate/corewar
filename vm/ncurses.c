@@ -22,6 +22,7 @@ static	void	draw_borders(t_window win)
 	box(win.score, 0, 0);
 	wattroff(win.score, COLOR_PAIR(1));
 	init_pair(3, COLOR_BLACK, COLOR_WHITE);
+	init_pair(4, COLOR_BLACK, COLOR_BLACK);
 }
 
 void			del_all(t_window win)
@@ -55,6 +56,7 @@ int				exit_visual(t_corewar *c)
 	if (i == 32 && c->pause == 0)
 	{
 		mvwprintw(c->win.score, 1, 3, "%s", "** PAUSED  **");
+		mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
 		wrefresh(c->win.score);
 		c->pause = 1;
 	}

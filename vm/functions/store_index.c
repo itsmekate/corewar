@@ -35,7 +35,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 		|| arg[1] > DIR_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
-		log_func(corewar, "store_index", 0);
+//log_func(corewar, "store_index", 0);
 		return ;
 	}
 	buf = arg[2];
@@ -86,6 +86,6 @@ void			store_index(t_corewar *corewar, t_process *process)
 	}
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
-	log_func(corewar, "store_index", 1);
+// log_func(corewar, "store_index", 1);
 	//sleep(3);
 }
