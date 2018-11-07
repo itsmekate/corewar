@@ -26,7 +26,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 	// {
 	// 	printf("%08x\n", process->reg[i]);
 	// }
-	//printf("store_index\n");
+	// printf("store_index\n");
 	//print_map(corewar);
 	//printf("%i\n", process->number);
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
@@ -65,7 +65,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 				place = process->position + ((short)arg[1] + (int)arg[2]) % IDX_MOD;
 			}
 			// int real_place = process->position + index % IDX_MOD;
-			// printf("place %i, real_place %i\n", place, 0);
+			//printf("place %i\n", place);
 			// if (place != real_place)
 			// {
 			// 	printf(" cycle %i\n", corewar->cycle);
@@ -76,11 +76,11 @@ void			store_index(t_corewar *corewar, t_process *process)
 		// if (index)
 			// printf("%08x\n", arg[0]);
 			// if (arg[0] == 0x64)
-			// 	sleep(3);
 			set_unsigned_int(arg[0], get_index(place), corewar, process->player);
 	// if (arg2 == DIR_CODE && arg3 == DIR_CODE)
 	//  	reg_dir_dir(arg1, corewar, process);
-	//  else
+	 // else
+			// sleep(3);
 	//  	printf("I DONT KNOW WHAT TO DO!!!!\n");
 	
 	}
