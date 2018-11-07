@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   long_fork.c                                        :+:      :+:    :+:   */
+/*   ft_mleak.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dzabrots <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/23 22:01:06 by dzabrots          #+#    #+#             */
-/*   Updated: 2018/09/23 22:01:08 by dzabrots         ###   ########.fr       */
+/*   Created: 2018/04/06 14:57:11 by dzabrots          #+#    #+#             */
+/*   Updated: 2018/04/06 14:58:12 by dzabrots         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../vm.h"
+#include "libft.h"
 
-void			long_fork(t_corewar *corewar, t_process *process)
+int	ft_mleak(char **src, char *dst)
 {
-	short			arg1;
-	 t_process		*res;
-
-		//printf("long fork\n");
-	arg1 = get_arg(2, process->position + 1, corewar);
-	res = copy_process(process);
-	ft_lstadd(&corewar->processes, obj_in_lst(res));
-	move_process(arg1, res, corewar);
-	log_move(corewar, process, 3);
-	move_process(3, process, corewar);
-// log_func(corewar, "long_fork", 1);
+	if (!(*src) || !(dst))
+		return (0);
+	free(*src);
+	*src = dst;
+	return (1);
 }

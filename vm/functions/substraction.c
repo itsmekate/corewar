@@ -31,7 +31,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar, t_process *process
 	{
 		log_move(corewar, process, 5);
 		move_process(5, process, corewar);
-		log_func(corewar, "substraction", 0);
+// log_func(corewar, "substraction", 0);
 		return (0);
 	}
 	return (5);
@@ -56,5 +56,5 @@ void			substraction(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
-	log_func(corewar, "substraction", 1);
+// log_func(corewar, "substraction", 1);
 }

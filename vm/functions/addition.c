@@ -20,7 +20,6 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	if (arg[0] != REG_CODE || arg[1] != REG_CODE || arg[2] != REG_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
-		log_func(corewar, "addition", 0);
 		return (0);
 	}
 	arg[0] = get_arg(1, process->position + 2, corewar);
@@ -31,10 +30,8 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, 5);
 		move_process(5, process, corewar);
-		log_func(corewar, "addition", 0);
 		return (0);
 	}
-	log_func(corewar, "addition", 1);
 	return (5);
 }
 
@@ -42,6 +39,7 @@ void			addition(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
+	char			*log_res;
 
 	//printf("addition\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -53,6 +51,13 @@ void			addition(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 	else
 		process->carry = 1;
+
+	//log
+	// log_res = ft_itoa_base(arg[3], 8, 8);
+	// log_func(2, "addition", log_res);
+	// free(log_res);
+	//end log
+	
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 }

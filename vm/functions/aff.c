@@ -29,16 +29,15 @@ void			aff(t_corewar *corewar, t_process *process)
 			str[0] = arg;
 			str[1] = '\0';
 			if (corewar->verbal)
-				ft_lstadd(&corewar->log, ft_lstnew(str, 3));
+// log_func(2, "aff ", str);
+				// ft_lstadd(&corewar->log, ft_lstnew(str, 2));
 			else
 				ft_putstr_fd(str, 1);
 		}
 		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
-		//log_func(corewar, "addition", 0);
 		return ;
 	}
 	log_move(corewar, process, 2);
 	move_process(2, process, corewar);
-	//log_func(corewar, "addition", 0);
 }
