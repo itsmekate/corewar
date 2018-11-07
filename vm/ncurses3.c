@@ -12,6 +12,20 @@
 
 #include "vm.h"
 
+void			clear_row(WINDOW *win, int y)
+{
+	int x;
+
+	x = 1;
+	while(x < 60)
+	{
+		wattron(win, 4);
+		mvwprintw(win, y, x, " ");
+		wattroff(win, 4);
+		x++;
+	}
+}
+
 void			print_sidebar(t_corewar *c)
 {
 	if (c->pause == 1)
@@ -22,10 +36,10 @@ void			print_sidebar(t_corewar *c)
 	mvwprintw(c->win.score, 6, 3, "Cycle: %d", c->cycle);
 	mvwprintw(c->win.score, 8, 3, "%s", "Processes:");
 	c->win.score_row = print_players(c);
-	mvwprintw(c->win.score, c->win.score_row += 2, 3,
+	mvwprintw(c->win.score, c->win.score_row += 1, 3,
 		"CYCLE_TO_DIE : %d", c->cycle_to_die);
 	wattron(c->win.score, COLOR_PAIR(3));
-	mvwprintw(c->win.score, c->win.h - 32, 0, "%s%s",
+	mvwprintw(c->win.score, c->win.h - 37, 0, "%s%s",
 		"                                 LOG",
 		"                                  ");
 	wattroff(c->win.score, COLOR_PAIR(3));
@@ -36,7 +50,7 @@ void			print_sidebar(t_corewar *c)
 		"                                   ");
 	wattroff(c->win.score, COLOR_PAIR(3));
 	mvwprintw(c->win.score, c->win.h - 5, 3, "%s", "USE Q TO EXIT");
-	mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
+	mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO STOP     ");
 }
 
 void			print_visual_log(t_corewar *c)
@@ -46,12 +60,13 @@ void			print_visual_log(t_corewar *c)
 
 	i = 0;
 	tmp = c->log;
-	c->win.score_row = c->win.h - 31;
+	c->win.score_row = c->win.h - 36;
 	if (tmp != NULL)
 	{
-		while (tmp->next && i++ < 10)
+		while (tmp->next && i++ < 27)
 		{
-			mvwprintw(c->win.score, c->win.score_row += 2, 3, tmp->content);
+			clear_row(c->win.score, c->win.score_row += 1);
+			mvwprintw(c->win.score, c->win.score_row, 3, tmp->content);
 			tmp = tmp->next;
 		}
 	}
@@ -74,9 +89,9 @@ int				print_players(t_corewar *c)
 		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
 		mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
 		wattroff(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(c->win.score, row + 1, 4, "%s", "Last live:");
-		mvwprintw(c->win.score, row + 2, 4, "%s", "Lives in current period :");
-		row += 5;
+		mvwprintw(c->win.score, row + 1, 4, "%s", "Comment:", c->players[i]->comment);
+		mvwprintw(c->win.score, row + 2, 4, "%.63s", c->players[i]->comment);
+		row += 4;
 		i++;
 	}
 	return (row);
