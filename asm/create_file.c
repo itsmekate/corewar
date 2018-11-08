@@ -100,7 +100,7 @@ void		create_file(t_asm a, char *name)
 	tmp_sub = ft_strsub(name, 0, ft_strlen(name) - 2);
 	file_name = ft_strjoin(tmp_sub, ".cor");
 	free(tmp_sub);
-	fd = open(file_name, O_WRONLY | O_CREAT, 0777);
+	fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0666);
 	write_data(fd, a);
 	ft_printf("Writing output program to %s\n", file_name);
 	close(fd);
