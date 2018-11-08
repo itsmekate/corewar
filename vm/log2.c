@@ -27,29 +27,30 @@
 // 	}
 // }
 
-// void		log_func(int quantity, ...)
-// {
-// 	va_list	args;
-// 	char *buf;
-// 	char *res;
+void		log_func(t_corewar *corewar, ...)
+{
+	va_list	args;
+	char	*buf;
+	char	*res;
+	int		quantity;
 
-// 	if (corewar->verbal & L_FUNC && corewar->cycle >= corewar->start)
-// 	{
-// 		va_start(args, quantity);
-// 		res = ft_strdup(va_arg(args, char *));
-// 		while (quantity != 1)
-// 		{
-// 			buf = ft_strdup(va_arg(args, char *));
-// 			ft_mleak(&res, ft_strjoin(res, buf));
-// 			free(buf);
-// 			quantity--;
-// 		}
-// 		va_end(args);
-// 		if (corewar->visual_mode)
-// 			ft_lstadd(&corewar->log, ft_lstnew(res, ft_strlen(res) + 1));
-// 		else
-// 			ft_putendl_fd(res, 1);
-// 		free(buf);
-// 		free(res);
-// 	}
-// }
+	if (corewar->verbal & L_FUNC && corewar->cycle >= corewar->start)
+	{
+		va_start(args, corewar);
+		quantity = va_arg(args, int);
+		res = ft_strdup(va_arg(args, char *));
+		while (quantity != 1)
+		{
+			buf = ft_strdup(va_arg(args, char *));
+			ft_mleak(&res, ft_strjoin(res, buf));
+			free(buf);
+			quantity--;
+		}
+		va_end(args);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(res, ft_strlen(res) + 1));
+		else
+			ft_putendl_fd(res, 1);
+		free(res);
+	}
+}
