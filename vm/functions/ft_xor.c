@@ -61,7 +61,8 @@ void			ft_xor(t_corewar *corewar, t_process *process)
 	// log_func(2, "xor ", log_res);
 	// free(log_res);
 	//end log
-	
+
+	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 	//log_func(corewar, "ft_or", 1);
 }
