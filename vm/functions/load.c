@@ -100,7 +100,8 @@ void				load(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
-	// char			*log_res;
+	char			*log_res;
+	char			*log_reg;
 
 	// int i = -1;
 	// while (++i < 16)
@@ -127,9 +128,11 @@ void				load(t_corewar *corewar, t_process *process)
 	//printf(" made \n");
 
 	//log
-	// log_res = ft_itoa_base(arg[3], 8, 8);
-	// log_func(2, "load ", log_res);
-	// free(log_res);
+	log_res = ft_itoa_base(process->reg[arg[1] - 1], 10, 0);
+	log_reg = ft_itoa_base((int)arg[1], 10, 0);
+	log_func(corewar , 4, "ld result: ", log_res, " registry: ", log_reg);
+	free(log_res);
+	free(log_reg);
 	//end log
 
 	log_move(corewar, process, move);
@@ -143,4 +146,3 @@ void				load(t_corewar *corewar, t_process *process)
 	// }
 	// printf("\n\n");
 }
-

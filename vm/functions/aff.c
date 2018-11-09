@@ -29,8 +29,7 @@ void			aff(t_corewar *corewar, t_process *process)
 			str[0] = arg;
 			str[1] = '\0';
 			if (corewar->verbal)
-// log_func(2, "aff ", str);
-				ft_lstadd(&corewar->log, ft_lstnew(str, 2));
+				log_func(corewar, 2, "aff argument value: ", str);
 			else
 				ft_putstr_fd(str, 1);
 		}
