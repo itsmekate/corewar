@@ -29,9 +29,15 @@ void			clear_row(WINDOW *win, int y)
 void			print_sidebar(t_corewar *c)
 {
 	if (c->pause == 1)
+	{
 		mvwprintw(c->win.score, 1, 3, "%s", "** PAUSED  **");
+		mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
+	}
 	else
+	{
 		mvwprintw(c->win.score, 1, 3, "%s", "** RUNNING **");
+		mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO STOP       ");
+	}
 	mvwprintw(c->win.score, 4, 3, "%s", "Cycles/seconds limit:");
 	mvwprintw(c->win.score, 6, 3, "Cycle: %d", c->cycle);
 	mvwprintw(c->win.score, 8, 3, "%s", "Processes:");
@@ -39,7 +45,7 @@ void			print_sidebar(t_corewar *c)
 	mvwprintw(c->win.score, c->win.score_row += 1, 3,
 		"CYCLE_TO_DIE : %d", c->cycle_to_die);
 	wattron(c->win.score, COLOR_PAIR(3));
-	mvwprintw(c->win.score, c->win.h - 37, 0, "%s%s",
+	mvwprintw(c->win.score, c->win.score_row += 2, 0, "%s%s",
 		"                                 LOG",
 		"                                  ");
 	wattroff(c->win.score, COLOR_PAIR(3));
@@ -50,20 +56,23 @@ void			print_sidebar(t_corewar *c)
 		"                                   ");
 	wattroff(c->win.score, COLOR_PAIR(3));
 	mvwprintw(c->win.score, c->win.h - 5, 3, "%s", "USE Q TO EXIT");
-	mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO STOP     ");
+	mvwprintw(c->win.score, c->win.h - 4, 3, "%s", "USE D FOR DEBUG MODE");
+	// mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO STOP       ");
 }
 
 void			print_visual_log(t_corewar *c)
 {
 	int		i;
 	t_list	*tmp;
+	int 	n;
 
 	i = 0;
 	tmp = c->log;
-	c->win.score_row = c->win.h - 36;
+	n =  c->win.h - c->win.score_row - 7;
+	// c->win.score_row++;
 	if (tmp != NULL)
 	{
-		while (tmp->next && i++ < 27)
+		while (tmp->next && i++ < n)
 		{
 			clear_row(c->win.score, c->win.score_row += 1);
 			mvwprintw(c->win.score, c->win.score_row, 3, tmp->content);
