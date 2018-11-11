@@ -41,6 +41,7 @@ int			main(int argc, char **argv)
 		// print_log(corewar->log);
 		// dump_map(corewar);
 		// print_winner(get_winner(corewar));
+		del_visual(corewar->win);
 		clear_corewar(&corewar);
 		// while (42)
 		// {

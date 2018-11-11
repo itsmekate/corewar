@@ -25,7 +25,7 @@ static	void	draw_borders(t_window win)
 	init_pair(4, COLOR_BLACK, COLOR_BLACK);
 }
 
-void			del_all(t_window win)
+void			del_visual(t_window win)
 {
 	delwin(win.field);
 	delwin(win.score);
@@ -66,7 +66,7 @@ int				exit_visual(t_corewar *c)
 		c->pause = 0;
 	else if (i == 113)
 	{
-		del_all(c->win);
+		del_visual(c->win);
 		exit(0);
 	}
 	return (c->pause);

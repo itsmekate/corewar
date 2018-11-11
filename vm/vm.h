@@ -147,6 +147,7 @@ int					is_number(char *s);
 */
 int					visualize(t_corewar *c);
 void				create_win(t_window *win);
+void				del_visual(t_window win);
 
 /*
 **ncurses2.c
