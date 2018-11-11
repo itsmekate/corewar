@@ -44,6 +44,8 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
+	char			*log_res;
+	char			*log_reg;
 
 	//printf("lldi\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -60,6 +62,15 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
+
+	//log
+	log_res = ft_itoa_base(process->reg[arg[1] - 1], 10, 0);
+	log_reg = ft_itoa_base((int)arg[1], 10, 0);
+	log_func(corewar ,2, "lldi result:", log_res, " registry: ", log_reg);
+	free(log_res);
+	free(log_reg);	
+	//log end
+
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 // log_func(corewar, "long_load_index", 1);

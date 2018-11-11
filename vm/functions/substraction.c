@@ -41,6 +41,7 @@ void			substraction(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
+	char			*log_res;
 
 //printf("sub\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -54,7 +55,9 @@ void			substraction(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 	else
 		process->carry = 1;
+	log_res = ft_itoa_base((int)arg[2], 10, 0);
+	log_func(corewar, 2, "sub result: ", log_res);
+	free(log_res);
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
-// log_func(corewar, "substraction", 1);
 }

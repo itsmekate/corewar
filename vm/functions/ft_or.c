@@ -44,7 +44,7 @@ void			ft_or(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
-	//char			*log_res;
+	char			*log_res;
 
 	//printf("or\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -56,9 +56,9 @@ void			ft_or(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 
 	//log
-	// log_res = ft_itoa_base(arg[3], 8, 8);
-	// log_func(2, "or ", log_res);
-	// free(log_res);
+	log_res = ft_itoa_base(arg[2], 8, 8);
+	log_func(corewar, 2, "or result: ", log_res);
+	free(log_res);
 	//end log
 	
 	log_move(corewar, process, move);

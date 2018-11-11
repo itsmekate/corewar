@@ -18,7 +18,9 @@ void			store_index(t_corewar *corewar, t_process *process)
 	int				move;
 	// short 			index;
 	int 			status;
-	int buf;
+	int				buf;
+	char			*log_res;
+	char			*log_store;
 
 	// int i = -1;
 
@@ -35,7 +37,6 @@ void			store_index(t_corewar *corewar, t_process *process)
 		|| arg[1] > DIR_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
-//log_func(corewar, "store_index", 0);
 		return ;
 	}
 	buf = arg[2];
@@ -48,7 +49,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 	status = status & get_value(&arg[2], process, corewar, &move);
 	//printf("thd arg %i\n", arg[2]);
 	//printf("%i\n", status);
-	//if (status)
+	if (status)
 	{
 	//printf("thrd arg %hi\n", (short)arg[2]);
 	// if (error_arg(process, corewar, move))
@@ -77,6 +78,16 @@ void			store_index(t_corewar *corewar, t_process *process)
 			// printf("%08x\n", arg[0]);
 			// if (arg[0] == 0x64)
 			set_unsigned_int(arg[0], get_index(place), corewar, process->player);
+			
+			//log
+			log_res = ft_itoa_base((int)arg[0], 16, 8);
+			printf("place : %i\n", place - process->position);
+			log_store = ft_itoa_base(place - process->position, 10, 0);
+			log_func(corewar, 4, "some text ", log_res, " addr: ", log_store);
+			free(log_res);
+			free(log_store);
+			//log end
+
 	// if (arg2 == DIR_CODE && arg3 == DIR_CODE)
 	//  	reg_dir_dir(arg1, corewar, process);
 	 // else
@@ -86,6 +97,5 @@ void			store_index(t_corewar *corewar, t_process *process)
 	}
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
-// log_func(corewar, "store_index", 1);
 	//sleep(3);
 }

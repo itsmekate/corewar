@@ -15,6 +15,8 @@
 void			zjump(t_corewar *corewar, t_process *process)
 {
 	short		dir;
+	int			index;
+	char		*log_index;
 
 	
 	 //printf("zjump\n");
@@ -22,14 +24,17 @@ void			zjump(t_corewar *corewar, t_process *process)
 	if (!process->carry)
 	{
 		//printf("carry is absent\n");
+		log_func(corewar, 1, "zjump FAIL");
 		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
-// log_func(corewar, "zjump", 0);
 		return;
 	}
 	dir = get_arg(2, process->position + 1, corewar);
-	move_process(dir % IDX_MOD, process, corewar);
-// log_func(corewar, "zjump", 1);
+	index = dir % IDX_MOD;
+	move_process(index, process, corewar);
+	log_index = ft_itoa_base(index, 10, 0);
+	log_func(corewar, 2, "zjump ", log_index);
+	free(log_index);
 	//sleep(2);
 	//print_map(corewar);
 	//sleep(4);

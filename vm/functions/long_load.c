@@ -32,7 +32,6 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
-// log_func(corewar, "long_load", 0);
 		return (0);
 	}
 	if (arg[0] == IND_CODE)
@@ -44,7 +43,6 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	{
 		log_move(corewar, process, move);
 		move_process(move, process, corewar);
-// log_func(corewar, "long_load", 0);
 		return (0);
 	}
 	return (move);
@@ -54,6 +52,7 @@ void				long_load(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
+	char			*log_res;
 
 	//printf("lld\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -68,7 +67,12 @@ void				long_load(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
+
+	//log
+	log_res = ft_itoa_base(process->reg[arg[1] - 1], 10, 0);
+	log_func(corewar ,2, "lld result:", log_res, " registry: ", (int)arg[1]);
+	free(log_res);
+	//log end
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
-// log_func(corewar, "long_load", 1);
 }
