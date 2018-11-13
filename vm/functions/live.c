@@ -45,7 +45,7 @@ void			live(t_corewar *corewar, t_process *process)
 	player_alive(dir, corewar);
 
 	//log
-	log_player = ft_itoa_base((int)dir, 10, 0);
+	log_player = ft_itoa(dir);
 	log_process = ft_itoa_base(process->number, 10, 0);
 	log_func(corewar, 5, "live ", "player: ", log_player, " process: ", log_process);
 	free(log_player);

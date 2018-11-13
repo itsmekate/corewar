@@ -32,7 +32,7 @@ void			zjump(t_corewar *corewar, t_process *process)
 	dir = get_arg(2, process->position + 1, corewar);
 	index = dir % IDX_MOD;
 	move_process(index, process, corewar);
-	log_index = ft_itoa_base(index, 10, 0);
+	log_index = ft_itoa(index);
 	log_func(corewar, 2, "zjump ", log_index);
 	free(log_index);
 	//sleep(2);
