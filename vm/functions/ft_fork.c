@@ -49,8 +49,6 @@ void			ft_fork(t_corewar *corewar, t_process *process)
 {
 	short		arg1;
 	t_process	*res;
-	char		*log_res;
-	char		*log_process_num;
 
 	//printf("ft_fork\n");
 	//print_map(corewar);

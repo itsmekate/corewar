@@ -50,8 +50,6 @@ static void		log(t_corewar *corewar, int player, int process)
 void			live(t_corewar *corewar, t_process *process)
 {
 	unsigned int	dir;
-	char			*log_player;
-	char			*log_process;
 
 	//printf("live\n");
 	process->alive++;

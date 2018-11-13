@@ -18,7 +18,7 @@ static void		log(t_corewar *corewar, unsigned int res)
 
 	if (corewar->verbal & L_FUNC)
 	{
-		log_res = ft_itoa_base(arg[2], 8, 8);
+		log_res = ft_itoa_base(res, 8, 8);
 		log_func(corewar, 2, "ldi result: 0x", log_res);
 		free(log_res);
 	}

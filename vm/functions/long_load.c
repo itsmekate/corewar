@@ -83,7 +83,7 @@ void				long_load(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 
 	//log
-	log(corewar, rocess->reg[arg[1] - 1], (int)arg[1]);
+	log(corewar, process->reg[arg[1] - 1], (int)arg[1]);
 	//log end
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
