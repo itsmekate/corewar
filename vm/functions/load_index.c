@@ -12,21 +12,26 @@
 
 #include "../vm.h"
 
+static void		log(t_corewar *corewar, unsigned int res)
+{
+	char			*log_res;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_res = ft_itoa_base(arg[2], 8, 8);
+		log_func(corewar, 2, "ldi result: 0x", log_res);
+		free(log_res);
+	}
+}
+
 void			load_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
 	int 			status;
 	int				buf;
-	char			*log_res;
 
-	//printf("load_index\n");
-	// int i = -1;
 
-	// while (++i < 16)
-	// {
-	// 	printf("%08x\n", process->reg[i]);
-	// }
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
 	if (arg[0] > IND_CODE || arg[1] > DIR_CODE || arg[2] > REG_CODE ||
@@ -39,36 +44,17 @@ void			load_index(t_corewar *corewar, t_process *process)
 	move = 2;
 	status = get_value(&arg[0], process, corewar, &move);
 	status = !status ? 0 : get_value(&arg[1], process, corewar, &move);
-	//printf("arg1 %i\n", arg[1]);
 	if (status)
 	{
 		int index = (short)(arg[0] + arg[1]) % IDX_MOD;
 		if (buf == REG_CODE && (int)arg[1] > 0)
 			index = ((short)arg[0] + (int)arg[1]) % IDX_MOD;
-		//printf("index %i\n", index + process->position);
 		arg[0] = get_arg(4, process->position + index, corewar);
-
 		arg[2] = get_arg(1, process->position + move, corewar);
-	// 	if (process->number == 24)
-	// {
-	// 	//printf("%i\n", arg[2]);
-	// 	sleep (3);
-	// }
 		if (arg[2] <= REG_NUMBER && arg[2])
 			process->reg[arg[2] - 1] = arg[0];
-		// else
-		// 	printf("ni!\n");
-		log_res = ft_itoa_base(arg[2], 8, 8);
-		log_func(corewar, 2, "ldi result: ", log_res);
-		free(log_res);
+		log(corewar, arg[2]);
 	}
-	// i = -1;
-
-	// while (++i < 16)
-	// {
-	// 	printf("%08x\n", process->reg[i]);
-	// }
-	//printf("registry %i, value %08x\n", arg[2], arg[0]);
 	log_move(corewar, process, ++move);
 	move_process(move, process, corewar);
 }

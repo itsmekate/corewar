@@ -40,12 +40,25 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 	return (move);
 }
 
+static void		log(t_corewar *corewar, unsigned int res, int reg)
+{
+	char			*log_res;
+	char			*log_reg;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_res = ft_itoa_base(res, 16, 8);
+		log_reg = ft_itoa(10);
+		log_func(corewar ,2, "lldi result: 0x", log_res, " registry: ", log_reg);
+		free(log_res);
+		free(log_reg);
+	}
+}
+
 void			long_load_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
-	char			*log_res;
-	char			*log_reg;
 
 	//printf("lldi\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
@@ -64,11 +77,7 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 
 	//log
-	log_res = ft_itoa_base(process->reg[arg[1] - 1], 10, 0);
-	log_reg = ft_itoa_base((int)arg[1], 10, 0);
-	log_func(corewar ,2, "lldi result:", log_res, " registry: ", log_reg);
-	free(log_res);
-	free(log_reg);	
+	log(corewar, process->reg[arg[1] - 1], (int)arg[1]);
 	//log end
 
 	log_move(corewar, process, move);

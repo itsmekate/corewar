@@ -34,13 +34,29 @@ static int 		initialize(unsigned int *arg, t_corewar *corewar,
 	return (move);
 }
 
+static void		log(t_corewar *corewar, int code, unsigned int res, int reg)
+{
+	char			*log_res;
+	char			*log_store;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_res = ft_itoa_base(res, 16, 8);
+		log_store = ft_itoa(reg);
+		if (code == REG_CODE)
+			log_func(corewar, 4, "store result: 0x", log_res, " registry: ", log_store);
+		else if (code == IND_CODE)
+			log_func(corewar, 4, "store result: 0x", log_res, " place: ", log_store);
+		free(log_res);
+		free(log_store);
+	}
+}
+
 void			store(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
 	int 			status;
-	char			*log_res;
-	char			*log_store;
 
 	// int i = -1;
 	// while (++i < 16)
@@ -55,11 +71,7 @@ void			store(t_corewar *corewar, t_process *process)
 		if (get_value(&arg[1], process, corewar, &move) && status && arg[1])
 			process->reg[arg[1] - 1] = arg[0];
 		//log
-		log_res = ft_itoa_base(arg[0], 10, 0);
-		log_store = ft_itoa_base(arg[1], 10, 0);
-		log_func(corewar, 4, "store result: ", log_res, " registry: ", log_store);
-		free(log_res);
-		free(log_store);
+		log(corewar, REG_CODE, arg[0], arg[1]);
 		//log end
 	}
 	else if (arg[1] == IND_CODE)
@@ -76,11 +88,7 @@ void			store(t_corewar *corewar, t_process *process)
 			// 	sleep(3);
 			set_unsigned_int(arg[0], get_index(process->position + (short)arg[2] % IDX_MOD),
 				corewar, process->player);
-			log_res = ft_itoa_base((int)arg[0], 10, 0);
-			log_store = ft_itoa_base((int)arg[1], 10, 0);
-			log_func(corewar, 4, "st result: ", log_res, " registry: ", log_store);
-			free(log_res);
-			free(log_store);
+			log(corewar, IND_CODE, arg[0], (short)arg[2] % IDX_MOD);
 		}
 	}
 	log_move(corewar, process, move);

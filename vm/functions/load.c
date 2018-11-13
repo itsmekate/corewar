@@ -12,62 +12,7 @@
 
 #include "../vm.h"
 
-// static unsigned int		dir_load(t_corewar *corewar, t_process *process)
-// {
-// 	unsigned int	dir;
-// 	int				reg;
 
-// 	dir = get_arg(4, process->position + 2, corewar);
-// 	reg = get_arg(1, process->position + 6, corewar);
-// 	if (reg >= 0 && reg < REG_NUMBER)
-// 		process->reg[reg] = dir;
-// 	// printf("registry %i, value %08x\n", reg, dir);
-
-// 	log_move(corewar, process, 7);
-// 	move_process(7, process, corewar);
-// 	return (dir);
-// }
-
-// static unsigned int		ind_load(t_corewar *corewar, t_process *process)
-// {
-// 	unsigned int	dir;
-// 	short			ind;
-// 	int				reg;
-
-// 	ind = get_arg(2, process->position + 2, corewar);
-// 	dir = get_arg(4, process->position + ind % IDX_MOD, corewar);
-// 	reg = get_arg(1, process->position + 4, corewar);
-// 	if (reg >= 0 && reg < REG_NUMBER)
-// 		process->reg[reg] = dir;
-// 	// printf("registry %i, value %08x\n", reg, dir);
-// 	log_move(corewar, process, 5);
-// 	move_process(5, process, corewar);
-// 	return (dir);
-// }
-
-// void					load(t_corewar *corewar, t_process *process)
-// {
-// 	char			codage;
-// 	unsigned int	load;
-
-// 	// printf("load\n");
-// 	codage = get_arg(1, process->position + 1, corewar);
-// 	load = 0;
-// 	if (((codage & 0xff) >> 6) == DIR_CODE)
-// 		load = dir_load(corewar, process);
-// 	else if (((codage & 0xff) >> 6) == IND_CODE)
-// 		load = ind_load(corewar, process);
-// 	else
-// 	{
-// 		log_move(corewar, process, 2);
-// 		move_process(2, process, corewar);
-// 		return ;
-// 	}
-// 	if (!load)
-// 		process->carry = 1;
-// 	else
-// 		process->carry = 0;
-// }
 static int			initialize(unsigned int *arg, t_corewar *corewar,
 	t_process *process)
 {
@@ -96,12 +41,25 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	return (move);
 }
 
+static void		log(t_corewar *corewar, unsigned int res, int reg)
+{
+	char			*log_res;
+	char			*log_reg;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_res = ft_itoa_base(res, 16, 8);
+		log_reg = ft_itoa_base(reg, 10, 0);
+		log_func(corewar , 4, "ld result: 0x", log_res, " registry: ", log_reg);
+		free(log_res);
+		free(log_reg);
+	}
+}
+
 void				load(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int 			move;
-	char			*log_res;
-	char			*log_reg;
 
 	// int i = -1;
 	// while (++i < 16)
@@ -128,11 +86,7 @@ void				load(t_corewar *corewar, t_process *process)
 	//printf(" made \n");
 
 	//log
-	log_res = ft_itoa_base(process->reg[arg[1] - 1], 10, 0);
-	log_reg = ft_itoa_base((int)arg[1], 10, 0);
-	log_func(corewar , 4, "ld result: ", log_res, " registry: ", log_reg);
-	free(log_res);
-	free(log_reg);
+	log(corewar, process->reg[arg[1] - 1], arg[1]);
 	//end log
 
 	log_move(corewar, process, move);

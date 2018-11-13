@@ -12,11 +12,23 @@
 
 #include "../vm.h"
 
+
+static void		log(t_corewar *corewar, int index)
+{
+	char		*log_index;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_index = ft_itoa(index);
+		log_func(corewar, 2, "zjump ", log_index);
+		free(log_index);
+	}
+}
+
 void			zjump(t_corewar *corewar, t_process *process)
 {
 	short		dir;
 	int			index;
-	char		*log_index;
 
 	
 	 //printf("zjump\n");
@@ -32,9 +44,7 @@ void			zjump(t_corewar *corewar, t_process *process)
 	dir = get_arg(2, process->position + 1, corewar);
 	index = dir % IDX_MOD;
 	move_process(index, process, corewar);
-	log_index = ft_itoa(index);
-	log_func(corewar, 2, "zjump ", log_index);
-	free(log_index);
+	log(corewar, index);
 	//sleep(2);
 	//print_map(corewar);
 	//sleep(4);

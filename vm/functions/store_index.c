@@ -12,6 +12,15 @@
 
 #include "../vm.h"
 
+static void		log(t_corewar *corewar)
+{
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_func(corewar, 1, "sti");
+	}
+}
+
 void			store_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
@@ -80,7 +89,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 			set_unsigned_int(arg[0], get_index(place), corewar, process->player);
 			
 			//log
-			log_func(corewar, 1, "sti");
+			log(corewar);
 
 			// log_res = ft_itoa_base((int)arg[0], 16, 8);
 			// printf("log_res : %s\n", log_res);

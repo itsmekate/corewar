@@ -32,6 +32,21 @@ void			player_alive(unsigned int number, t_corewar *corewar)
 	}
 }
 
+static void		log(t_corewar *corewar, int player, int process)
+{
+	char			*log_player;
+	char			*log_process;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_player = ft_itoa(player);
+		log_process = ft_itoa_base(process, 10, 0);
+		log_func(corewar, 5, "live ", "player: ", log_player, " process: ", log_process);
+		free(log_player);
+		free(log_process);
+	}
+}
+
 void			live(t_corewar *corewar, t_process *process)
 {
 	unsigned int	dir;
@@ -45,11 +60,7 @@ void			live(t_corewar *corewar, t_process *process)
 	player_alive(dir, corewar);
 
 	//log
-	log_player = ft_itoa(dir);
-	log_process = ft_itoa_base(process->number, 10, 0);
-	log_func(corewar, 5, "live ", "player: ", log_player, " process: ", log_process);
-	free(log_player);
-	free(log_process);
+	log(corewar, dir, process->number);
 	//end log
 
 	log_move(corewar, process, 5);

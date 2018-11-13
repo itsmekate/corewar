@@ -12,11 +12,22 @@
 
 #include "../vm.h"
 
+static void		log(t_corewar *corewar, int pr)
+{
+	char			*log_process;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_process = ft_itoa_base(process->number, 10, 0);
+		log_func(corewar, 2, "lfork copied process: ", log_process);
+		free(log_process);
+	}
+}
+
 void			long_fork(t_corewar *corewar, t_process *process)
 {
 	short			arg1;
 	t_process		*res;
-	char			*log_process;
 
 		//printf("long fork\n");
 	arg1 = get_arg(2, process->position + 1, corewar);
@@ -24,9 +35,7 @@ void			long_fork(t_corewar *corewar, t_process *process)
 	ft_lstadd(&corewar->processes, obj_in_lst(res));
 	move_process(arg1, res, corewar);
 	//log
-	log_process = ft_itoa_base(process->number, 10, 0);
-	log_func(corewar, 2, "lfork copied process: ", log_process);
-	free(log_process);
+	log(corewar, res->number);
 	//end log
 	log_move(corewar, process, 3);
 	move_process(3, process, corewar);

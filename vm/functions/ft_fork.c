@@ -30,6 +30,21 @@ t_process		*copy_process(t_process *process)
 	return (res);
 }
 
+static void		log(t_corewar *corewar, short res, int pr_num)
+{
+	char		*log_res;
+	char		*log_process_num;
+
+	if (corewar->verbal & L_FUNC)
+	{
+		log_res = ft_itoa_base(res, 10, 0);
+		log_process_num = ft_itoa_base(pr_num, 10, 0);
+		log_func(corewar, 4, "fork ", log_res, " new procces: ", log_process_num);
+		free(log_res);
+		free(log_process_num);
+	}
+}
+
 void			ft_fork(t_corewar *corewar, t_process *process)
 {
 	short		arg1;
@@ -45,14 +60,7 @@ void			ft_fork(t_corewar *corewar, t_process *process)
 	ft_lstadd(&corewar->processes, obj_in_lst(res));
 	move_process(arg1 % IDX_MOD, res, corewar);
 
-	//log
-	log_res = ft_itoa_base(arg1 / IDX_MOD, 10, 0);
-	log_process_num = ft_itoa_base(res->number, 10, 0);
-	log_func(corewar, 4, "fork ", log_res, " new procces: ", log_process_num);
-	free(log_res);
-	free(log_process_num);
-	//end log
-
+	log(corewar, arg1 % IDX_MOD, res->number);
 	log_move(corewar, process, 3);
 	move_process(3, process, corewar);
 	//print_map(corewar);
