@@ -80,12 +80,14 @@ void			store_index(t_corewar *corewar, t_process *process)
 			set_unsigned_int(arg[0], get_index(place), corewar, process->player);
 			
 			//log
-			log_res = ft_itoa_base((int)arg[0], 16, 8);
-			printf("place : %i\n", place - process->position);
-			log_store = ft_itoa_base(place - process->position, 10, 0);
-			log_func(corewar, 4, "some text ", log_res, " addr: ", log_store);
-			free(log_res);
-			free(log_store);
+			if (corewar->verbal & L_FUNC)
+			{
+				log_res = ft_itoa_base((int)arg[0], 16, 8);
+				log_store = ft_itoa_base(place - process->position, 10, 0);
+				log_func(corewar, 4, "some text ", log_res, " addr: ", log_store);
+				free(log_res);
+				free(log_store);
+			}
 			//log end
 
 	// if (arg2 == DIR_CODE && arg3 == DIR_CODE)

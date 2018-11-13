@@ -1,10 +1,18 @@
 .name		"Illidan Stormrage"
 .comment	"I'm blind, not deaf"
 
-sti r1, %:alive, %1
-
 declare:
-	ld %70, r2
+	ld %68, r2
+	aff r2
+	ld %105, r2
+	aff r2
+	ld %101, r2
+	aff r2
+	ld %44, r2
+	aff r2
+	ld %32, r2
+	aff r2
+	ld %102, r2
 	aff r2
 	ld %111, r2
 	aff r2
@@ -12,12 +20,14 @@ declare:
 	aff r2
 	ld %108, r2
 	aff r2
+	ld %10, r2
+	aff r2
 
-alive:
-	live %42
-	lfork %:declare
+start:
+	sti r1, %:copy, %1
+	ld %128, r2
 
 copy:
-	ld :alive, r3
-	sti r3, r4, r5
-	add r4, r5, r4
+	live %42
+
+
