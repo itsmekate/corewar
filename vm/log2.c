@@ -31,51 +31,55 @@ void		log_func(t_corewar *corewar, ...)
 {
 	va_list	args;
 	char	*buf;
+	char	*buf1;
 	char	*res;
 	int		quantity;
 
 	if (corewar->verbal & L_FUNC && corewar->cycle >= corewar->start)
 	{
+		// va_start(args, corewar);
+		// // printf("after va_start\n");
+
+		// quantity = va_arg(args, int);
+		// // printf("quantity %i\n", quantity);
+		
+		// res = (char *)va_arg(args, char *);
+		// // printf("str: %s\n", res);
+		
+		// while (quantity != 1)
+		// {
+		// 	buf = (char *)va_arg(args, char *);
+		// 	// printf("buf in cycle: %s\n", buf);
+
+		// 	res = ft_strjoin(res, buf);
+		// 	// printf("res in cycle ft_strjoin: %s\n", res);
+
+		// 	quantity--;
+		// 	// printf("quantity-- in cycle %i\n", quantity);
+
+		// }
+		// va_end(args);
+		// printf("after va_end %i\n", quantity);
+
 		va_start(args, corewar);
-		// printf("after va_start\n");
-
 		quantity = va_arg(args, int);
-		// printf("quantity %i\n", quantity);
-		
-		res = (char *)va_arg(args, char *);
-		// printf("str: %s\n", res);
-
-		// int len = (int)ft_strlen(str);
-		// res = ft_strnew(len);
-		// printf("str after strnew %s\n", str);
-
-		// ft_strcpy(res, str);
-		// printf("res (ft_strcpy elem)%s\n", res);
-
-		// res = strdup(str);
-		// printf("res (ft_strdup elem via va_arg)%s\n", res);
-		
+		res = ft_strdup((char *)va_arg(args, char *));
 		while (quantity != 1)
 		{
 			buf = (char *)va_arg(args, char *);
-			// printf("buf in cycle: %s\n", buf);
-
-			res = ft_strjoin(res, buf);
-			// printf("res in cycle ft_strjoin: %s\n", res);
-
-			// free(buf);
+			buf1 = ft_strdup(res);
+			free(res);
+			res = ft_strjoin(buf1, buf);
+			free(buf1);
 			quantity--;
-			// printf("quantity-- in cycle %i\n", quantity);
-
 		}
 		va_end(args);
-		// printf("after va_end %i\n", quantity);
-
 		if (corewar->visual_mode)
 			ft_lstadd(&corewar->log, ft_lstnew(res, ft_strlen(res) + 1));
 		else
 			ft_putendl_fd(res, 1);
-		// free(res);
+		free(res);
+		
 		// printf("end of log_func\n");
 	}
 }
