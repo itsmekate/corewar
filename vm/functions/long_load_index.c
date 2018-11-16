@@ -60,7 +60,7 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 	unsigned int	arg[3];
 	int				move;
 
-	printf("lldi\n");
+	//printf("lldi\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	arg[0] = get_arg(4, process->position + (short)arg[0] +
@@ -77,9 +77,9 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 		process->carry = 0;
 
 	//log
-	printf("log?\n");
+	//printf("log?\n");
 	log(corewar, process->reg[arg[2] - 1], (int)arg[1]);
-	printf("log!\n");
+	//printf("log!\n");
 	//log end
 
 	log_move(corewar, process, move);

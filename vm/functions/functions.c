@@ -48,7 +48,6 @@ int				get_value(unsigned int *arg, t_process *process,
 	{
 		//printf("REG_CODE\n");
 		*arg = get_arg(1, process->position + *move, corewar);
-		//printf("%i\n", *arg);
 		//printf("r%i\n", *arg);
 		*move = *move + 1;
 		// if (!*arg && process->command == 0xb)
