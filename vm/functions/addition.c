@@ -37,13 +37,19 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 
 static void		log(t_corewar *corewar, unsigned int result)
 {
-	char			*log_res;
+	char		*log_res;
+	char		*msg;	
 
 	if (corewar->verbal & L_FUNC)
 	{
 		log_res = ft_itoa_base(result, 8, 8);
-		log_func(corewar, 2,  "add result: 0x", log_res);
+		msg = log_func(2,  "add result: 0x", log_res);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
 		free(log_res);
+		free(msg);
 	}
 }
 

@@ -36,12 +36,18 @@ static void		log(t_corewar *corewar, int player, int process)
 {
 	char			*log_player;
 	char			*log_process;
+	char			*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
 		log_player = ft_itoa(player);
 		log_process = ft_itoa_base(process, 10, 0);
-		log_func(corewar, 5, "live ", "player: ", log_player, " process: ", log_process);
+		msg = log_func(5, "live ", "player: ", log_player, " process: ", log_process);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
+		free(msg);
 		free(log_player);
 		free(log_process);
 	}

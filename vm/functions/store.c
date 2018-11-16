@@ -34,19 +34,34 @@ static int 		initialize(unsigned int *arg, t_corewar *corewar,
 	return (move);
 }
 
-static void		log(t_corewar *corewar, int code, unsigned int res, int reg)
+static void			log(t_corewar *corewar, int code, unsigned int res, int reg)
 {
 	char			*log_res;
 	char			*log_store;
+	char			*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
 		log_res = ft_itoa_base(res, 16, 8);
 		log_store = ft_itoa(reg);
 		if (code == REG_CODE)
-			log_func(corewar, 4, "store result: 0x", log_res, " registry: ", log_store);
+		{
+			msg = log_func(4, "store result: 0x", log_res, " registry: ", log_store);
+			if (corewar->visual_mode)
+				ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+			else
+				ft_putendl_fd(msg, 1);
+			free(msg);
+		}
 		else if (code == IND_CODE)
-			log_func(corewar, 4, "store result: 0x", log_res, " place: ", log_store);
+		{
+			msg = log_func(4, "store result: 0x", log_res, " place: ", log_store);
+			if (corewar->visual_mode)
+				ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+			else
+				ft_putendl_fd(msg, 1);
+			free(msg);
+		}
 		free(log_res);
 		free(log_store);
 	}

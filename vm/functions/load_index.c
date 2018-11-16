@@ -15,11 +15,17 @@
 static void		log(t_corewar *corewar, unsigned int res)
 {
 	char			*log_res;
+	char			*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
 		log_res = ft_itoa_base(res, 8, 8);
-		log_func(corewar, 2, "ldi result: 0x", log_res);
+		msg = log_func(2, "ldi result: 0x", log_res);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
+		free(msg);
 		free(log_res);
 	}
 }

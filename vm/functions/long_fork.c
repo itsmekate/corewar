@@ -12,14 +12,20 @@
 
 #include "../vm.h"
 
-static void		log(t_corewar *corewar, int pr)
+static void			log(t_corewar *corewar, int pr)
 {
 	char			*log_process;
+	char			*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
 		log_process = ft_itoa_base(pr, 10, 0);
-		log_func(corewar, 2, "lfork copied process: ", log_process);
+		msg = log_func(2, "lfork copied process: ", log_process);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
+		free(msg);
 		free(log_process);
 	}
 }
