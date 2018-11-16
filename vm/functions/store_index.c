@@ -12,18 +12,24 @@
 
 #include "../vm.h"
 
-static void		log(t_corewar *corewar)
+static void		log(t_corewar *corewar, uintmax_t value, int addr)
 {
+	char		*log_res;
+	char		*log_store;
 	char		*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
-		msg = log_func(1, "sti");
+		log_res = ft_itoa_base((uintmax_t)value, 16, 8);
+		log_store = ft_itoa(addr);
+		msg = log_func(4, "sti value: 0x", log_res, " addr: ", log_store);
 		if (corewar->visual_mode)
 			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
 		else
 			ft_putendl_fd(msg, 1);
 		free(msg);
+		free(log_res);
+		free(log_store);
 	}
 }
 
@@ -34,8 +40,6 @@ void			store_index(t_corewar *corewar, t_process *process)
 	// short 			index;
 	int 			status;
 	int				buf;
-	// char			*log_res;
-	// char			*log_store;
 
 	// int i = -1;
 
@@ -95,21 +99,14 @@ void			store_index(t_corewar *corewar, t_process *process)
 			set_unsigned_int(arg[0], get_index(place), corewar, process->player);
 			
 			//log
-			log(corewar);
-
-			// log_res = ft_itoa_base((int)arg[0], 16, 8);
-			// printf("log_res : %s\n", log_res);
-
-			// printf("place : %i\n", place - process->position);
-			
-			// log_store = my_itoa(place - process->position);
-			// printf("log_store : %s\n", log_store);
-
-			// log_func(corewar, 4, "store ", log_res, " addr: ", log_store);
-
-			// free(log_res);
-			// free(log_store);
-			
+			// printf("%#x\n", (int)arg[0]);
+			// printf("%i\n", place - process->position);
+			// char *a1 = ft_itoa_base((uintmax_t)arg[0], 16, 8); 
+			//if cast first argument in ft_itoa_base to int we have segv
+			// char *a2 = ft_itoa(place - process->position);
+			// printf("%s\n", a1);
+			// printf("%s\n", a2);
+			log(corewar, (uintmax_t)arg[0], place - process->position);
 			//log end
 
 	// if (arg2 == DIR_CODE && arg3 == DIR_CODE)
