@@ -190,7 +190,7 @@ void				cycle_to_die(t_corewar *corewar);
 **log2.c
 */
 void				log_lives(t_corewar *corewar, t_player *player);
-void				log_func(t_corewar *corewar, ...);
+char				*log_func(int quantity, ...);
 
 /*
 **functions

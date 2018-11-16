@@ -14,10 +14,16 @@
 
 static void		log(t_corewar *corewar)
 {
+	char		*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
-		log_func(corewar, 1, "sti");
+		msg = log_func(1, "sti");
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
+		free(msg);
 	}
 }
 

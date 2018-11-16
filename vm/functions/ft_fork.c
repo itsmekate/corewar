@@ -34,12 +34,18 @@ static void		log(t_corewar *corewar, short res, int pr_num)
 {
 	char		*log_res;
 	char		*log_process_num;
+	char		*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
-		log_res = ft_itoa_base(res, 10, 0);
-		log_process_num = ft_itoa_base(pr_num, 10, 0);
-		log_func(corewar, 4, "fork ", log_res, " new procces: ", log_process_num);
+		log_res = ft_itoa(res);
+		log_process_num = ft_itoa(pr_num);
+		msg = log_func(4, "fork ", log_res, " new procces: ", log_process_num);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
+		free(msg);
 		free(log_res);
 		free(log_process_num);
 	}

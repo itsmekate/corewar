@@ -48,16 +48,22 @@ static int			initialize(unsigned int *arg, t_corewar *corewar,
 	return (move);
 }
 
-static void		log(t_corewar *corewar, unsigned int res, int reg)
+static void			log(t_corewar *corewar, unsigned int res, int reg)
 {
 	char			*log_res;
 	char			*log_reg;
+	char			*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
 		log_res = ft_itoa_base(res, 16, 8);
 		log_reg = ft_itoa(reg);
-		log_func(corewar ,2, "lld result: 0x", log_res, " registry: ", log_reg);
+		msg = log_func(2, "lld result: 0x", log_res, " registry: ", log_reg);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
+		free(msg);
 		free(log_res);
 		free(log_reg);
 	}

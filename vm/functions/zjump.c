@@ -16,11 +16,17 @@
 static void		log(t_corewar *corewar, int index)
 {
 	char		*log_index;
+	char		*msg;
 
 	if (corewar->verbal & L_FUNC)
 	{
 		log_index = ft_itoa(index);
-		log_func(corewar, 2, "zjump ", log_index);
+		msg = log_func(2, "zjump ", log_index);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl_fd(msg, 1);
+		free(msg);
 		free(log_index);
 	}
 }
@@ -36,7 +42,8 @@ void			zjump(t_corewar *corewar, t_process *process)
 	if (!process->carry)
 	{
 		//printf("carry is absent\n");
-		log_func(corewar, 1, "zjump FAIL");
+		if (corewar->verbal & L_FUNC)
+			log_func(1, "zjump FAIL");
 		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
 		return;
