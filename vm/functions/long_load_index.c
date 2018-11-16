@@ -78,7 +78,7 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 
 	//log
 	printf("log?\n");
-	log(corewar, process->reg[arg[1] - 1], (int)arg[1]);
+	log(corewar, process->reg[arg[2] - 1], (int)arg[1]);
 	printf("log!\n");
 	//log end
 
