@@ -61,7 +61,12 @@ int				exit_visual(t_corewar *c)
 		c->pause = 1;
 	}
 	else if (i == 'd')
-		c->debug = 1;
+	{
+		if (c->debug)
+			c->debug = 0
+		else
+			c->debug = 1;
+	}
 	else if (i == 32 && c->pause == 1)
 		c->pause = 0;
 	else if (i == 113)
