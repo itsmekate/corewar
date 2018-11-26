@@ -27,7 +27,7 @@ int			main(int argc, char **argv)
 
 	if (argc < 2)
 		usage(argv[0]);
-	if ((corewar = create_corewar(++argv)))
+	if ((corewar = create_corewar(argv)) && corewar->players_num > 0)
 	{
 		// while (42)
 		// {
@@ -48,5 +48,7 @@ int			main(int argc, char **argv)
 		// 	;
 		// }
 	}
+	else
+		usage(argv[0]);
 	return 0;
 }

@@ -70,6 +70,8 @@ static void			get_starts(t_corewar *corewar)
 	int		step;
 	int		i;
 
+	if (!corewar->players_num)
+		return ;
 	step = MEM_SIZE / corewar->players_num;
 	i = 0;
 	while (i < corewar->players_num)
@@ -89,7 +91,7 @@ t_corewar			*create_corewar(char **agrv)
 	if ((res = new_corewar()))
 	{
 		num = 0;
-		while (*agrv)
+		while (*(++agrv))
 		{
 			if (num || !(flag = is_flag(*agrv)))
 			{
@@ -100,12 +102,11 @@ t_corewar			*create_corewar(char **agrv)
 				num = flag_value_handler(&agrv);
 			else
 				flag_handler(flag, &agrv, res);
-			agrv++;
 		}
+		get_starts(res);
+		init_commands(res);
+		if (res->visual_mode && res->players_num)
+			create_win(&res->win);
 	}
-	get_starts(res);
-	init_commands(res);
-	if (res->visual_mode)
-		create_win(&res->win);
 	return (res);
 }
