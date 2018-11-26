@@ -13,6 +13,11 @@ static void		process(t_corewar *corewar, t_process *process)
 	}
 	f = corewar->f[(process->command & 0xff) - 1];
 	f(corewar, process);
+	if (corewar->visual_mode && corewar->debug)
+		corewar->pause = 1;
+	if (corewar->start <= corewar->cycle && corewar->visual_mode)
+		visualize(corewar);
+
 
 }
 
@@ -26,10 +31,6 @@ static void		process_cycle(t_corewar *corewar)
 	{
 		pr = lst->content;
 		process(corewar, pr);
-		if (corewar->visual_mode && corewar->debug)
-			corewar->pause = 1;
-		if (corewar->start <= corewar->cycle && corewar->visual_mode)
-			visualize(corewar);
 		lst = lst->next;
 	}
 }

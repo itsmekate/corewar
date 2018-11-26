@@ -105,7 +105,7 @@ t_corewar			*create_corewar(char **agrv)
 		}
 		get_starts(res);
 		init_commands(res);
-		if (res->visual_mode)
+		if (res->visual_mode && res->players_num)
 			create_win(&res->win);
 	}
 	return (res);
