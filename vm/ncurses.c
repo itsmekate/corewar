@@ -63,7 +63,7 @@ int				exit_visual(t_corewar *c)
 	else if (i == 'd')
 	{
 		if (c->debug)
-			c->debug = 0
+			c->debug = 0;
 		else
 			c->debug = 1;
 	}

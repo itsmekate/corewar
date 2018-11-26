@@ -1,25 +1,5 @@
 #include "vm.h"
 
-// static int		process_lives(t_corewar *corewar, t_player *player)
-// {
-// 	int 	res;
-// 	t_list	*lst;
-// 	t_process *process;
-
-// 	//printf("lives = %i\n", player->lives);
-// 	//player->lives = 0;
-// 	res = 0;
-// 	lst = corewar->processes;
-// 	while(lst)
-// 	{
-// 		process = lst->content;
-// 		if (process->player == player)
-// 			res += process->alive;
-// 		lst = lst->next;
-// 	}
-// 	printf("%i\n", res);
-// 	return (res);
-// }
 
 static void 	players_lives(t_corewar *corewar)
 {
@@ -66,6 +46,8 @@ void			cycle_to_die(t_corewar *corewar)
 		{
 			//printf("kill\n");
 			kill_process(corewar, pr);
+			if (corewar->start <= corewar->cycle && corewar->visual_mode)
+				visualize(corewar);
 			lst = corewar->processes;
 		}
 		else
