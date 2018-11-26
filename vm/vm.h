@@ -148,6 +148,7 @@ int					is_number(char *s);
 int					visualize(t_corewar *c);
 void				create_win(t_window *win);
 void				del_visual(t_window win);
+int					exit_visual(t_corewar *c);
 
 /*
 **ncurses2.c
@@ -160,6 +161,12 @@ void				print_field(t_corewar *c);
 void				print_visual_log(t_corewar *c);
 void				print_sidebar(t_corewar *c);
 int					print_players(t_corewar *c);
+
+/*
+**ncurses4.c
+*/
+void				print_winner_visual(t_player *winner, t_corewar *c);
+void				clear_field(t_corewar *c);
 
 /*
 **info.c

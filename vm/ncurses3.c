@@ -69,7 +69,6 @@ void			print_visual_log(t_corewar *c)
 	i = 0;
 	tmp = c->log;
 	n =  c->win.h - c->win.score_row - 7;
-	// c->win.score_row++;
 	if (tmp != NULL)
 	{
 		while (tmp->next && i++ < n)
