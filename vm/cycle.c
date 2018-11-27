@@ -53,7 +53,8 @@ void			grand_cycle(t_corewar *corewar)
 	ctd = 0;
 	while (42)
 	{
-		if (corewar->cycle_to_die <= 0 || !corewar->processes || corewar->cycle < 0)
+		if (corewar->cycle_to_die <= 0 || !corewar->processes ||
+			corewar->cycle < 0)
 		{
 			game_over(corewar);
 			return;

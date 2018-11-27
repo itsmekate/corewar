@@ -73,46 +73,25 @@ void			store(t_corewar *corewar, t_process *process)
 	int				move;
 	int 			status;
 
-	// int i = -1;
-	// while (++i < 16)
-	//printf("store\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
-	// printf("reg %i\n", get_arg(1, process->position + move, corewar));
 	status = get_value(&arg[0], process, corewar, &move);
 	if (arg[1] == REG_CODE)
 	{
-		//printf("REG_CODE\n");
 		arg[1] = get_arg(1, process->position + move, corewar);
-		move = move + 1;
 		if (status && arg[1] && arg[1] <= REG_NUMBER)
-		{
-			//printf("%i\n", arg[1]);
 			process->reg[arg[1] - 1] = arg[0];
-		}
-		//log
-		//printf("log\n");
 		log(corewar, REG_CODE, arg[0], arg[1]);
-		//log end
 	}
 	else if (arg[1] == IND_CODE)
 	{
-		//printf("IND_CODE\n");
-		// printf("%08x\n", arg[0]);
-		arg[2] = get_arg(2, process->position + move, corewar);
-		move += 2;
-		// printf("%hi\n", (short)arg[2]);
+		arg[2] = get_arg(2, process->position + move++, corewar);
 		if (status)
-		{
-			// printf("%08x\n", arg[0]);
-			// if (arg[0] == 0x64)
-			// 	sleep(3);
-			set_unsigned_int(arg[0], get_index(process->position + (short)arg[2] % IDX_MOD),
-				corewar, process->player);
-			//printf("log\n");
-			log(corewar, IND_CODE, arg[0], (short)arg[2] % IDX_MOD);
-		}
+			set_unsigned_int(arg[0], get_index(process->position +
+				(short)arg[2] % IDX_MOD), corewar, process->player);
+		//status!!!!!!
+		log(corewar, IND_CODE, arg[0], (short)arg[2] % IDX_MOD);
 	}
-	log_move(corewar, process, move);
+	log_move(corewar, process, ++move);
 	move_process(move, process, corewar);
 }
