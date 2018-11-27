@@ -35,6 +35,17 @@ static void		process_cycle(t_corewar *corewar)
 	}
 }
 
+static void		game_over(t_corewar corewar)
+{
+	if (corewar->visual_mode)
+	{
+		corewar->pause = 2;
+		visualize(corewar);
+	}
+	else
+		print_winner(get_winner(corewar));
+}
+
 void			grand_cycle(t_corewar *corewar)
 {
 	int			ctd;
@@ -44,14 +55,8 @@ void			grand_cycle(t_corewar *corewar)
 	{
 		if (corewar->cycle_to_die <= 0 || !corewar->processes || corewar->cycle < 0)
 		{
-			if (corewar->visual_mode)
-			{
-				corewar->pause = 2;
-				visualize(corewar);
-			}
-			else
-				print_winner(get_winner(corewar));
-			return ;
+			game_over(corewar);
+			return;
 		}
 		if (corewar->cycle++ == corewar->dump)
 		{
