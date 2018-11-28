@@ -165,7 +165,7 @@ int					print_players(t_corewar *c);
 /*
 **ncurses4.c
 */
-void				print_winner_visual(t_player *winner, t_corewar *c);
+int					print_winner_visual(t_player *winner, t_corewar *c);
 void				clear_field(t_corewar *c);
 
 /*

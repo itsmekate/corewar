@@ -57,7 +57,6 @@ void			print_sidebar(t_corewar *c)
 	wattroff(c->win.score, COLOR_PAIR(3));
 	mvwprintw(c->win.score, c->win.h - 5, 3, "%s", "USE Q TO EXIT");
 	mvwprintw(c->win.score, c->win.h - 4, 3, "%s", "USE D FOR DEBUG MODE");
-	// mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO STOP       ");
 }
 
 void			print_visual_log(t_corewar *c)
@@ -65,16 +64,18 @@ void			print_visual_log(t_corewar *c)
 	int		i;
 	t_list	*tmp;
 	int 	n;
+	int		row;
 
 	i = 0;
 	tmp = c->log;
-	n =  c->win.h - c->win.score_row - 7;
+	n =  c->win.h - c->win.score_row - 8;
+	row = c->win.h - 7;
 	if (tmp != NULL)
 	{
 		while (tmp->next && i++ < n)
 		{
-			clear_row(c->win.score, c->win.score_row += 1);
-			mvwprintw(c->win.score, c->win.score_row, 3, tmp->content);
+			clear_row(c->win.score, row -= 1);
+			mvwprintw(c->win.score, row, 3, tmp->content);
 			tmp = tmp->next;
 		}
 	}

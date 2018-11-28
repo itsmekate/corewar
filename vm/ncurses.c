@@ -85,9 +85,13 @@ int				visualize(t_corewar *c)
 	wrefresh(c->win.field);
 	wrefresh(c->win.score);
 	c->pause = exit_visual(c);
-	while (c->pause)
+	while (c->pause == 1)
 	{
 		c->pause = exit_visual(c);
+	}
+	while (c->pause == 2)
+	{
+		c->pause = print_winner_visual(0, c);
 	}
 	return (1);
 }

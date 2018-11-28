@@ -35,7 +35,7 @@ static void		process_cycle(t_corewar *corewar)
 	}
 }
 
-static void		game_over(t_corewar corewar)
+static void		game_over(t_corewar *corewar)
 {
 	if (corewar->visual_mode)
 	{

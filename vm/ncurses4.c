@@ -32,15 +32,24 @@ void			clear_field(t_corewar *c)
 	wattroff(c->win.field, 4);
 }
 
-void			print_winner_visual(t_player *winner, t_corewar *c)
+int			print_winner_visual(t_player *winner, t_corewar *c)
 {
-	if (winner)
+	int i;
+
+	i = wgetch(c->win.field);
+	if (i == 'q')
 	{
-		clear_field(c);
-		mvwprintw(c->win.field, 2, 5, "Contestant  %d, %s,", winner->number, winner->name);
-		while (1)
-		{
-			
-		}
+		c->pause = 0;
 	}
+	// if (winner)
+	// {
+		clear_field(c);
+		mvwprintw(c->win.field, 2, 5, "Contestant"/*, winner->number, winner->name*/);
+		mvwprintw(c->win.field, 25, 50, " ______     ______     __    __     ______        ______     __   __   ______     ______    ");
+		mvwprintw(c->win.field, 26, 50, "/\\  ___\\   /\\  __ \\   /\\ \"-./  \\   /\\  ___\\      /\\  __ \\   /\\ \\ / /  /\\  ___\\   /\\  == \\   ");
+		mvwprintw(c->win.field, 27, 50, "\\ \\ \\__ \\  \\ \\  __ \\  \\ \\ \\-./\\ \\  \\ \\  __\\      \\ \\ \\/\\ \\  \\ \\ \'/   \\ \\  __\\   \\ \\  __<   ");
+		mvwprintw(c->win.field, 28, 50, " \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_\\ \\ \\_\\  \\ \\_____\\     \\ \\_____\\  \\ \\__|    \\ \\_____\\  \\ \\_\\ \\_\\ ");
+		mvwprintw(c->win.field, 29, 50, "  \\/_____/   \\/_/\\/_/   \\/_/  \\/_/   \\/_____/      \\/_____/   \\/_/      \\/_____/   \\/_/ /_/ ");
+	// }
+	return (c->pause);
 }
