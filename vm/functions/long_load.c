@@ -74,7 +74,7 @@ void				long_load(t_corewar *corewar, t_process *process)
 	unsigned int	arg[3];
 	int 			move;
 
-	//printf("lld\n");
+	printf("lld\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	// if (process->number == 24)

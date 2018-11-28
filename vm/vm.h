@@ -14,6 +14,7 @@
 # define L_FUNC			4
 # define L_DEATH		8
 # define L_MOVE			16
+# define L_AFF			32
 
 typedef struct		s_player
 {

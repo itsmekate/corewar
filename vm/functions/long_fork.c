@@ -35,7 +35,7 @@ void			long_fork(t_corewar *corewar, t_process *process)
 	short			arg1;
 	t_process		*res;
 
-		//printf("long fork\n");
+printf("long fork\n");
 	arg1 = get_arg(2, process->position + 1, corewar);
 	res = copy_process(process);
 	ft_lstadd(&corewar->processes, obj_in_lst(res));

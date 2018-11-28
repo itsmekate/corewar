@@ -37,7 +37,7 @@ void			zjump(t_corewar *corewar, t_process *process)
 	int			index;
 
 	
-	 //printf("zjump\n");
+	printf("zjump\n");
 					
 	if (!process->carry)
 	{

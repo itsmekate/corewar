@@ -60,7 +60,7 @@ void			substraction(t_corewar *corewar, t_process *process)
 	unsigned int	arg[3];
 	int 			move;
 
-//printf("sub\n");
+printf("sub\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	arg[0] = process->reg[arg[0] - 1];

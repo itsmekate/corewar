@@ -28,15 +28,44 @@ static void 	players_lives(t_corewar *corewar)
 	}
 }
 
+static void		log(t_corewar *corewar, t_process *pr)
+{
+	char *msg;
+	char *pr_num;
+
+	if (corewar->verbal & L_DEATH)
+	{
+		pr_num = ft_itoa(pr->number);
+		msg = ft_strjoin("kill process ", pr_num);
+		free(pr_num);
+		if (corewar->visual_mode)
+			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+		else
+			ft_putendl(msg);
+		free(msg);
+	}
+}
+
+static void		clear_alives(t_corewar *corewar)
+{
+	t_list		*lst;
+	t_process	*pr;
+
+	lst = corewar->processes;
+	while (lst)
+	{
+		pr = lst->content;
+		pr->alive = 0;
+		lst = lst->next;
+	}
+}
+
 void			cycle_to_die(t_corewar *corewar)
 {
 	t_list		*lst;
 	t_process	*pr;
 
-
 	players_lives(corewar);
-	//printf("ok = %i; all = %i; ctd = %i\n", corewar->lives_ok, corewar->lives_all, corewar->cycle_to_die);
-	//corewar->lives_ok = 0;
 	corewar->lives_all = 0;
 	lst = corewar->processes;
 	while (lst)
@@ -44,7 +73,7 @@ void			cycle_to_die(t_corewar *corewar)
 		pr = lst->content;
 		if (!pr->alive)
 		{
-			//printf("kill\n");
+			log(corewar, pr);
 			kill_process(corewar, pr);
 			if (corewar->start <= corewar->cycle && corewar->visual_mode)
 				visualize(corewar);
@@ -53,11 +82,5 @@ void			cycle_to_die(t_corewar *corewar)
 		else
 			lst = lst->next;
 	}
-	lst = corewar->processes;
-	while (lst)
-	{
-		pr = lst->content;
-		pr->alive = 0;
-		lst = lst->next;
-	}
+	clear_alives(corewar);
 }
