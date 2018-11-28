@@ -41,6 +41,7 @@ int			print_winner_visual(t_player *winner, t_corewar *c)
 	{
 		c->pause = 0;
 	}
+	(void)winner;
 	// if (winner)
 	// {
 		clear_field(c);

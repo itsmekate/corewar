@@ -29,12 +29,13 @@ SRC = 	main.c \
 VISUAL_FLAG = -lncurses
 VISUAL_SRC =  ncurses.c ncurses2.c ncurses3.c ncurses4.c
 OBJ = $(SRC:.c=.o)
+VISUAL_OBJ = $(VISUAL_SRC:.c=.o)
 LIB = ../libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ)
-	$(CC) $(OBJ) $(LIB) $(VISUAL_FLAG) $(VISUAL_SRC) -o $(NAME) 
+$(NAME): $(LIB) $(OBJ) $(VISUAL_OBJ)
+	$(CC) $(OBJ) $(LIB) $(VISUAL_FLAG) $(VISUAL_OBJ) -o $(NAME) 
 
 %.o: %.c $(INCL)
 	$(CC) -c $(CFLAG) $< -o $@

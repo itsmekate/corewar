@@ -43,7 +43,7 @@ void			print_sidebar(t_corewar *c)
 	mvwprintw(c->win.score, 8, 3, "%s", "Processes:");
 	c->win.score_row = print_players(c);
 	mvwprintw(c->win.score, c->win.score_row += 1, 3,
-		"CYCLE_TO_DIE : %d", c->cycle_to_die);
+		"CYCLE_TO_DIE : %d      ", c->cycle_to_die);
 	wattron(c->win.score, COLOR_PAIR(3));
 	mvwprintw(c->win.score, c->win.score_row += 2, 0, "%s%s",
 		"                                 LOG",

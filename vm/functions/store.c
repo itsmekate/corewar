@@ -34,6 +34,18 @@ static int 		initialize(unsigned int *arg, t_corewar *corewar,
 	return (move);
 }
 
+static void			log_2(t_corewar *corewar, char *log_res, char *log_store)
+{
+	char *msg;
+
+	msg = log_func(4, "st result: 0x", log_res, " place: ", log_store);
+	if (corewar->visual_mode)
+		ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
+	else
+		ft_putendl_fd(msg, 1);
+	free(msg);
+}
+
 static void			log(t_corewar *corewar, int code, unsigned int res, int reg)
 {
 	char			*log_res;
@@ -46,7 +58,7 @@ static void			log(t_corewar *corewar, int code, unsigned int res, int reg)
 		log_store = ft_itoa(reg);
 		if (code == REG_CODE)
 		{
-			msg = log_func(4, "store result: 0x", log_res, " registry: ", log_store);
+			msg = log_func(4, "st result: 0x", log_res, " registry: ", log_store);
 			if (corewar->visual_mode)
 				ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
 			else
@@ -54,14 +66,7 @@ static void			log(t_corewar *corewar, int code, unsigned int res, int reg)
 			free(msg);
 		}
 		else if (code == IND_CODE)
-		{
-			msg = log_func(4, "store result: 0x", log_res, " place: ", log_store);
-			if (corewar->visual_mode)
-				ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
-			else
-				ft_putendl_fd(msg, 1);
-			free(msg);
-		}
+			log_2(corewar, log_res, log_store);
 		free(log_res);
 		free(log_store);
 	}

@@ -57,7 +57,7 @@ void			live(t_corewar *corewar, t_process *process)
 {
 	unsigned int	dir;
 
-	printf("live\n");
+	// printf("live\n");
 	process->alive++;
 	corewar->lives_all++;
 	dir = get_arg(4, process->position + 1, corewar);

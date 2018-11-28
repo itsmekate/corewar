@@ -33,6 +33,8 @@ static void		process_cycle(t_corewar *corewar)
 		process(corewar, pr);
 		lst = lst->next;
 	}
+	if (corewar->start == corewar->cycle && corewar->visual_mode)
+		visualize(corewar);
 }
 
 static void		game_over(t_corewar *corewar)
@@ -59,7 +61,7 @@ void			grand_cycle(t_corewar *corewar)
 			game_over(corewar);
 			return;
 		}
-		if (corewar->cycle++ == corewar->dump)
+		if (corewar->cycle++ == corewar->dump && !corewar->visual_mode)
 		{
 			dump_map(corewar);
 			return ;
