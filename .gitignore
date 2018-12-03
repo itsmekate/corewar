@@ -53,6 +53,7 @@ dkms.conf
 
 #custom
 corewar
+asm
 my
 or
 obj
