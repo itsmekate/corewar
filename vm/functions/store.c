@@ -72,6 +72,14 @@ static void			log(t_corewar *corewar, int code, unsigned int res, int reg)
 	}
 }
 
+static void 	store_ind(t_corewar *corewar, t_process *process,
+	unsigned int arg2, unsigned int arg0)
+{
+	set_unsigned_int(arg0, get_index(process->position +
+				(short)arg2 % IDX_MOD), corewar, process->player);
+	log(corewar, IND_CODE, arg0, (short)arg2 % IDX_MOD);
+}
+
 void			store(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
@@ -85,17 +93,16 @@ void			store(t_corewar *corewar, t_process *process)
 	{
 		arg[1] = get_arg(1, process->position + move, corewar);
 		if (status && arg[1] && arg[1] <= REG_NUMBER)
+		{
 			process->reg[arg[1] - 1] = arg[0];
-		log(corewar, REG_CODE, arg[0], arg[1]);
+			log(corewar, REG_CODE, arg[0], arg[1]);
+		}
 	}
 	else if (arg[1] == IND_CODE)
 	{
 		arg[2] = get_arg(2, process->position + move++, corewar);
 		if (status)
-			set_unsigned_int(arg[0], get_index(process->position +
-				(short)arg[2] % IDX_MOD), corewar, process->player);
-		//status!!!!!!
-		log(corewar, IND_CODE, arg[0], (short)arg[2] % IDX_MOD);
+			store_ind(corewar, process, arg[2], arg[0]);
 	}
 	log_move(corewar, process, ++move);
 	move_process(move, process, corewar);

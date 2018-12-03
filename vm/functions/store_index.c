@@ -38,7 +38,7 @@ void			store_index(t_corewar *corewar, t_process *process)
 	unsigned int	arg[3];
 	int				move;
 	int 			status;
-	int				buf;
+	int 			place;
 
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
@@ -48,16 +48,13 @@ void			store_index(t_corewar *corewar, t_process *process)
 		error_codage(&arg[0], process, corewar);
 		return ;
 	}
-	buf = arg[2];
 	move = 2;
 	status = get_value(&arg[0], process, corewar, &move);
 	status = status & get_value(&arg[1], process, corewar, &move);
 	status = status & get_value(&arg[2], process, corewar, &move);
 	if (status)
 	{
-			int place = process->position + (short)arg[1] % IDX_MOD + (short)arg[2] % IDX_MOD;
-			if (buf == REG_CODE && (int)arg[2] > 0)
-				place = process->position + ((short)arg[1] + (int)arg[2]) % IDX_MOD;
+			place = process->position + ((short)arg[1] + (short)arg[2]) % IDX_MOD;
 			set_unsigned_int(arg[0], get_index(place), corewar, process->player);
 			log(corewar, (uintmax_t)arg[0], place - process->position);
 	}

@@ -1,5 +1,5 @@
 .name		"Illidan Stormrage"
-.comment	"I'm blind, not deaf"
+.comment	"Remember when wings, hoowes, and horn were strange in Warcraft? Ah, the good old days"
 
 start:
 	sti r1, %:load_row, %1

@@ -11,7 +11,6 @@
 # **************************************************************************** #
 
 NAME = asm
-
 SRCS = main.c \
 		get_name_comment.c \
 		find_name_comment.c \
