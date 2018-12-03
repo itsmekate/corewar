@@ -50,6 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#custom
 corewar
 my
 or
+obj
+*.cor

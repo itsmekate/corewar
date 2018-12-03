@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = asm
+NAME = ../../asmb
 SRCS = main.c \
 		get_name_comment.c \
 		find_name_comment.c \
@@ -25,23 +25,26 @@ SRCS = main.c \
 		additional1.c \
 		a_bonus.c \
 
-LIB = -L ../libft/ -lft
-OBJ = $(SRCS:.c=.o)
-
+OBJ_DIR = ../../obj/
+OBJ_ASM = $(OBJ_DIR)asm/
+LIB = $(OBJ_DIR)libft/libft.a
+OBJ = $(addprefix $(OBJ_ASM), $(SRCS:.c=.o))
+INCL = op.h asm.h
 CFLAGS = -Wall -Wextra -Werror -g
 # -fsanitize=address -g
 
 all: $(NAME)
 
-libft: 
-	make -C ../libft
+$(NAME): $(LIB) $(OBJ_ASM) $(OBJ)
+	gcc $(CFLAGS) $(OBJ) -o  $(NAME) $(LIB)
 
-$(NAME): libft $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o  $(NAME) $(LIB) -I ../
+$(LIB): 
+	make -C ../libft
 
 clean:
 	/bin/rm -f $(OBJ)
 	make -C ../libft clean
+	rm -rf $(OBJ_ASM)
 
 fclean: clean
 	/bin/rm -f $(NAME)
@@ -49,8 +52,14 @@ fclean: clean
 
 re: fclean all
 
-%.o: %.c
-	 gcc $(CFLAGS) -c -o  $@ $< -I ../libft
+$(OBJ_DIR):
+	mkdir $(OBJ_DIR)
+
+$(OBJ_ASM): $(OBJ_DIR)
+	mkdir $(OBJ_ASM)
+
+$(OBJ_ASM)%.o: %.c $(INCL)
+	 gcc $(CFLAGS) -c -o $@ $<
 
 .PHONY: all clean fclean re libft
 

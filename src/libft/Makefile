@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+
 SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
 ft_strcat.c ft_strncat.c ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strstr.c \
@@ -36,24 +36,32 @@ ft_list_size.c ft_list_reverse.c ft_list_last.c ft_list_clear.c ft_swap.c get_ne
 		check_line.c \
 		ft_itoa_base.c \
 		ft_mleak.c
-
-
+OBJ_DIR = ../../obj/
+OBJ_LIB = $(OBJ_DIR)libft/
+NAME = $(OBJ_LIB)libft.a
 FLAGS = -Wall -Wextra -Werror
-OBJ = $(SRC:.c=.o)
+OBJ = $(addprefix $(OBJ_LIB), $(SRC:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_LIB) $(OBJ)
 	ar rc  $(NAME) $(OBJ)
 	ranlib $(NAME)
 
 clean:
 	rm -f $(OBJ)
+	rm -rf $(OBJ_LIB)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-%.o: %.c
+$(OBJ_DIR):
+	mkdir $(OBJ_DIR)
+
+$(OBJ_LIB): $(OBJ_DIR)
+	mkdir $(OBJ_LIB)
+
+$(OBJ_LIB)%.o: %.c
 	gcc $(FLAGS) -c -o $@ $<

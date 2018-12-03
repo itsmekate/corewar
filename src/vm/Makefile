@@ -1,6 +1,6 @@
 CC = gcc
 CFLAG = -Wall -Wextra -Werror
-NAME = ../corewar
+NAME = ../../corewar
 INCL = vm.h op.h
 SRC = 	main.c \
 		memory.c \
@@ -25,28 +25,38 @@ SRC = 	main.c \
 		functions/substraction.c functions/zjump.c \
 		functions/functions.c \
 		output.c
-		##op.c
+OBJ_DIR = ../../obj/
+OBJ_VM = $(OBJ_DIR)vm/
 VISUAL_FLAG = -lncurses
 VISUAL_SRC =  ncurses.c ncurses2.c ncurses3.c ncurses4.c
-OBJ = $(SRC:.c=.o)
-VISUAL_OBJ = $(VISUAL_SRC:.c=.o)
-LIB = ../libft/libft.a
+OBJ = $(addprefix $(OBJ_VM), $(SRC:.c=.o))
+VISUAL_OBJ = $(addprefix $(OBJ_VM), $(VISUAL_SRC:.c=.o))
+LIB = $(OBJ_DIR)libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ) $(VISUAL_OBJ)
+$(NAME): $(LIB) $(OBJ_VM) $(OBJ) $(VISUAL_OBJ)
 	$(CC) $(OBJ) $(LIB) $(VISUAL_FLAG) $(VISUAL_OBJ) -o $(NAME) 
 
-%.o: %.c $(INCL)
+$(OBJ_VM)%.o: %.c $(INCL)
 	$(CC) -c $(CFLAG) $< -o $@
 
 clean:
 	make -C ../libft/ clean
 	rm -rf $(OBJ)
+	rm -rf $(VISUAL_OBJ)
+	rm -rf $(OBJ_VM)
 
 fclean: clean
 	make -C ../libft/ fclean
 	rm -rf $(NAME)
+
+$(OBJ_DIR):
+	mkdir $(OBJ_DIR)
+
+$(OBJ_VM): $(OBJ_DIR)
+	mkdir $(OBJ_VM)
+	mkdir $(OBJ_VM)functions
 
 $(LIB):
 	make -C ../libft
