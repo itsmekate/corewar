@@ -49,7 +49,7 @@ char		*add_value(char *str, t_corewar *corewar, t_process *process, int move)
 	char	*buf1;
 	char	*buf2;
 	char	*number;
-	int 	i;
+	int		i;
 
 	i = -1;
 	buf2 = str;

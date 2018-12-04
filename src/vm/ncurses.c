@@ -91,7 +91,7 @@ int				visualize(t_corewar *c)
 	}
 	while (c->pause == 2)
 	{
-		c->pause = print_winner_visual(0, c);
+		c->pause = print_winner_visual(c);
 	}
 	return (1);
 }

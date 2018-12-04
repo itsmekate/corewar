@@ -1,25 +1,17 @@
 #include "vm.h"
 
-
-static void 	players_lives(t_corewar *corewar)
+static void		players_lives(t_corewar *corewar)
 {
-	//int res;
-	//int i;
 	static int	n = 0;
 
-	//i = -1;
 	n++;
-	//while (++i < corewar->players_num)
-	//{
-		//res = process_lives(corewar, corewar->players[i]);
-		if (corewar->lives_all >= NBR_LIVE)
-		{	
-			n = 0;
-			corewar->cycle_to_die -= CYCLE_DELTA;
-			log_cycle_to_die(corewar);
-			return ;
-		}
-	//}
+	if (corewar->lives_all >= NBR_LIVE)
+	{
+		n = 0;
+		corewar->cycle_to_die -= CYCLE_DELTA;
+		log_cycle_to_die(corewar);
+		return ;
+	}
 	if (n >= MAX_CHECKS)
 	{
 		corewar->cycle_to_die -= CYCLE_DELTA;

@@ -69,7 +69,7 @@ void			print_field(t_corewar *c)
 			&& c->map[i].process == NULL)
 		{
 			print_new(c, i, f);
-			c->map[i].is_new--; // for 10 lastprints
+			c->map[i].is_new--;
 		}
 		else if (c->map[i].player != NULL && c->map[i].process != NULL)
 			print_carriage(c, i, f);
@@ -78,7 +78,8 @@ void			print_field(t_corewar *c)
 		else if (c->map[i].player != NULL)
 			print_old(c, i, f);
 		else
-			mvwprintw(c->win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
+			mvwprintw(c->win.field, f.row, f.col,
+				"%02x ", c->map[i].value & 0xff);
 		i++;
 		f.col += 3;
 	}

@@ -17,7 +17,7 @@ void			clear_row(WINDOW *win, int y)
 	int x;
 
 	x = 1;
-	while(x < 60)
+	while (x < 60)
 	{
 		wattron(win, 4);
 		mvwprintw(win, y, x, " ");
@@ -36,7 +36,8 @@ void			print_sidebar(t_corewar *c)
 	else
 	{
 		mvwprintw(c->win.score, 1, 3, "%s", "** RUNNING **");
-		mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO STOP       ");
+		mvwprintw(c->win.score, c->win.h - 3, 3,
+			"%s", "USE SPACE TO STOP       ");
 	}
 	mvwprintw(c->win.score, 4, 3, "%s", "Cycles/seconds limit:");
 	mvwprintw(c->win.score, 6, 3, "Cycle: %d", c->cycle);
@@ -63,19 +64,22 @@ void			print_visual_log(t_corewar *c)
 {
 	int		i;
 	t_list	*tmp;
-	int 	n;
+	int		n;
 	int		row;
 
 	i = 0;
 	tmp = c->log;
-	n =  c->win.h - c->win.score_row - 8;
+	n = c->win.h - c->win.score_row - 8;
 	row = c->win.h - 7;
 	if (tmp != NULL)
 	{
-		while (tmp->next && i++ < n)
+		while (tmp && i++ < n)
 		{
 			clear_row(c->win.score, row -= 1);
-			mvwprintw(c->win.score, row, 3, tmp->content);
+			if (ft_strcmp(tmp->content, "\n") != 0)
+				mvwprintw(c->win.score, row, 3, tmp->content);
+			else
+				mvwprintw(c->win.score, row, 3, "");
 			tmp = tmp->next;
 		}
 	}
@@ -98,7 +102,8 @@ int				print_players(t_corewar *c)
 		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
 		mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
 		wattroff(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(c->win.score, row + 1, 4, "%s", "Comment:", c->players[i]->comment);
+		mvwprintw(c->win.score, row + 1, 4,
+			"%s", "Comment:", c->players[i]->comment);
 		mvwprintw(c->win.score, row + 2, 4, "%.63s", c->players[i]->comment);
 		row += 4;
 		i++;

@@ -1,4 +1,4 @@
-# include "vm.h"
+#include "vm.h"
 
 static void	usage(char *program_name)
 {
@@ -29,26 +29,15 @@ int			main(int argc, char **argv)
 		usage(argv[0]);
 	if ((corewar = create_corewar(argv)) && corewar->players_num > 0)
 	{
-		// while (42)
-		// {
-			
-		// }
 		if (corewar->players_num > 0)
 		{
 			print_contestants(corewar);
 			grand_cycle(corewar);
 		}
-		// print_log(corewar->log);
-		// dump_map(corewar);
-		// print_winner(get_winner(corewar));
 		del_visual(corewar->win);
 		clear_corewar(&corewar);
-		// while (42)
-		// {
-		// 	;
-		// }
 	}
 	else
 		usage(argv[0]);
-	return 0;
+	return (0);
 }

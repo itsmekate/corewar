@@ -17,8 +17,6 @@ static void		process(t_corewar *corewar, t_process *process)
 		corewar->pause = 1;
 	if (corewar->start <= corewar->cycle && corewar->visual_mode)
 		visualize(corewar);
-
-
 }
 
 static void		process_cycle(t_corewar *corewar)
@@ -59,7 +57,7 @@ void			grand_cycle(t_corewar *corewar)
 			corewar->cycle < 0)
 		{
 			game_over(corewar);
-			return;
+			return ;
 		}
 		if (corewar->cycle++ == corewar->dump && !corewar->visual_mode)
 		{
