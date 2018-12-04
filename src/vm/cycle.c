@@ -24,6 +24,8 @@ static void		process_cycle(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
+	if (corewar->start <= corewar->cycle && corewar->visual_mode && !corewar->cycle)
+		visualize(corewar);
 	lst = corewar->processes;
 	while (lst)
 	{
@@ -59,13 +61,14 @@ void			grand_cycle(t_corewar *corewar)
 			game_over(corewar);
 			return ;
 		}
-		if (corewar->cycle++ == corewar->dump && !corewar->visual_mode)
+		corewar->cycle++;
+		log_cycle(corewar);
+		process_cycle(corewar);
+		if (corewar->cycle == corewar->dump && !corewar->visual_mode)
 		{
 			dump_map(corewar);
 			return ;
 		}
-		log_cycle(corewar);
-		process_cycle(corewar);
 		if (++ctd >= corewar->cycle_to_die)
 		{
 			cycle_to_die(corewar);
