@@ -1,16 +1,26 @@
-NAME = Corewar
+BASM = asm
+BVM = corewar
+BLIB = libft
 SRC = src/
 OBJ = obj/
 ASM = $(SRC)asm
 VM = $(SRC)vm
 LIB = $(SRC)libft
 
-all: $(NAME)
+all: $(BLIB) assembl vm
 
-$(NAME):
+$(BLIB):
 	make -C $(LIB)
+
+assembl:
 	make -C $(ASM)
+
+vm:
 	make -C $(VM)
+
+$(BVM): vm
+
+$(BASM): assembl
 
 clean:
 	make -C $(ASM) clean
@@ -21,8 +31,8 @@ fclean:
 	make -C $(ASM) fclean
 	make -C $(VM) fclean
 	rm -rf $(OBJ)
-	find . -name "*.cor" > cor
-	rm -f `cat cor`
-	rm -f cor
+	@find . -name "*.cor" > cor
+	@rm -f `cat cor`
+	@rm -f cor
 
 re: fclean all

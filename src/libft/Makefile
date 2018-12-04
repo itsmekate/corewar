@@ -37,8 +37,9 @@ ft_list_size.c ft_list_reverse.c ft_list_last.c ft_list_clear.c ft_swap.c get_ne
 		ft_itoa_base.c \
 		ft_mleak.c
 OBJ_DIR = ../../obj/
+
 OBJ_LIB = $(OBJ_DIR)libft/
-NAME = $(OBJ_LIB)libft.a
+NAME = libft.a
 FLAGS = -Wall -Wextra -Werror
 OBJ = $(addprefix $(OBJ_LIB), $(SRC:.c=.o))
 
@@ -47,6 +48,15 @@ all: $(NAME)
 $(NAME): $(OBJ_LIB) $(OBJ)
 	ar rc  $(NAME) $(OBJ)
 	ranlib $(NAME)
+
+$(OBJ_LIB): $(OBJ_DIR)
+	mkdir -p $(OBJ_LIB)
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_LIB)%.o: %.c
+	gcc $(FLAGS) -c -o $@ $<
 
 clean:
 	rm -f $(OBJ)
@@ -57,11 +67,6 @@ fclean: clean
 
 re: fclean all
 
-$(OBJ_DIR):
-	mkdir $(OBJ_DIR)
+.PHONY: all clean fclean re
 
-$(OBJ_LIB): $(OBJ_DIR)
-	mkdir $(OBJ_LIB)
-
-$(OBJ_LIB)%.o: %.c
-	gcc $(FLAGS) -c -o $@ $<
+.NOTPARALLEL: all clean fclean re

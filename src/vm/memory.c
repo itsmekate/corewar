@@ -43,6 +43,8 @@ t_player		*new_player(char *file)
 		res->exec = NULL;
 		res->process_num = 0;
 		//res->lives = 0;
+
+
 	}
 	return (res);
 }

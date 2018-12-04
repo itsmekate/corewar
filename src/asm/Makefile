@@ -27,7 +27,8 @@ SRCS = main.c \
 
 OBJ_DIR = ../../obj/
 OBJ_ASM = $(OBJ_DIR)asm/
-LIB = $(OBJ_DIR)libft/libft.a
+LIB = -L ../libft/ -lft
+LIBFT = ../libft/libft.a
 OBJ = $(addprefix $(OBJ_ASM), $(SRCS:.c=.o))
 INCL = op.h asm.h
 CFLAGS = -Wall -Wextra -Werror -g
@@ -35,10 +36,10 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ_ASM) $(OBJ)
+$(NAME): $(LIBFT) $(OBJ_ASM) $(OBJ)
 	gcc $(CFLAGS) $(OBJ) -o  $(NAME) $(LIB)
 
-$(LIB): 
+$(LIBFT): 
 	make -C ../libft
 
 clean:
@@ -53,14 +54,14 @@ fclean: clean
 re: fclean all
 
 $(OBJ_DIR):
-	mkdir $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)
 
 $(OBJ_ASM): $(OBJ_DIR)
-	mkdir $(OBJ_ASM)
+	mkdir -p $(OBJ_ASM)
 
 $(OBJ_ASM)%.o: %.c $(INCL)
 	 gcc $(CFLAGS) -c -o $@ $<
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re
 
-.NOTPARALLEL: all clean fclean re libft
+.NOTPARALLEL: all clean fclean re

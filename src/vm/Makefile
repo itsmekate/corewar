@@ -31,12 +31,15 @@ VISUAL_FLAG = -lncurses
 VISUAL_SRC =  ncurses.c ncurses2.c ncurses3.c ncurses4.c
 OBJ = $(addprefix $(OBJ_VM), $(SRC:.c=.o))
 VISUAL_OBJ = $(addprefix $(OBJ_VM), $(VISUAL_SRC:.c=.o))
-LIB = $(OBJ_DIR)libft/libft.a
+LIB = ../libft/libft.a
 
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ_VM) $(OBJ) $(VISUAL_OBJ)
 	$(CC) $(OBJ) $(LIB) $(VISUAL_FLAG) $(VISUAL_OBJ) -o $(NAME) 
+
+$(LIB):
+	make -C ../libft
 
 $(OBJ_VM)%.o: %.c $(INCL)
 	$(CC) -c $(CFLAG) $< -o $@
@@ -51,14 +54,12 @@ fclean: clean
 	make -C ../libft/ fclean
 	rm -rf $(NAME)
 
-$(OBJ_DIR):
-	mkdir $(OBJ_DIR)
-
 $(OBJ_VM): $(OBJ_DIR)
-	mkdir $(OBJ_VM)
-	mkdir $(OBJ_VM)functions
+	mkdir -p $(OBJ_VM)
+	mkdir -p $(OBJ_VM)functions
 
-$(LIB):
-	make -C ../libft
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
 
 re: fclean all
