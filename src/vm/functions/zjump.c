@@ -12,7 +12,6 @@
 
 #include "../vm.h"
 
-
 static void		log(t_corewar *corewar, int index)
 {
 	char		*log_index;
@@ -36,24 +35,16 @@ void			zjump(t_corewar *corewar, t_process *process)
 	short		dir;
 	int			index;
 
-	
-	// printf("zjump\n");
-					
 	if (!process->carry)
 	{
-		//printf("carry is absent\n");
 		if (corewar->verbal & L_FUNC)
 			log_func(1, "zjump FAIL");
 		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
-		return;
+		return ;
 	}
 	dir = get_arg(2, process->position + 1, corewar);
 	index = dir % IDX_MOD;
 	move_process(index, process, corewar);
 	log(corewar, index);
-	//sleep(2);
-	//print_map(corewar);
-	//sleep(4);
-
 }

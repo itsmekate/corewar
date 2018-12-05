@@ -15,7 +15,7 @@
 static int		initialize(unsigned int *arg, t_corewar *corewar,
 	t_process *process)
 {
-	int 		move;
+	int			move;
 
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
@@ -26,7 +26,7 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 		return (0);
 	}
 	move = 2;
-	if (!get_value(&arg[0], process, corewar, &move) || 
+	if (!get_value(&arg[0], process, corewar, &move) ||
 		!get_value(&arg[1], process, corewar, &move) ||
 		(arg[2] = get_arg(1, process->position + move++, corewar)) > REG_NUMBER
 		|| !arg[2])
@@ -68,23 +68,12 @@ void			long_load_index(t_corewar *corewar, t_process *process)
 		return ;
 	arg[0] = get_arg(4, process->position + (short)arg[0] +
 		(short)arg[1], corewar);
-	// if (process->number == 24)
-	// {
-	// 	printf("%i\n", arg[2]);
-	// 	sleep (3);
-	// }
 	process->reg[arg[2] - 1] = arg[0];
-		if (!process->reg[arg[2] - 1])
+	if (!process->reg[arg[2] - 1])
 		process->carry = 1;
 	else
 		process->carry = 0;
-
-	//log
-
-
 	log(corewar, process->reg[arg[2] - 1], (int)arg[1]);
-	//log end
-
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 }

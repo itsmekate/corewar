@@ -34,9 +34,9 @@ void			load_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
-	int 			status;
+	int				status;
 	int				buf;
-
+	int				index;
 
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
@@ -52,7 +52,7 @@ void			load_index(t_corewar *corewar, t_process *process)
 	status = !status ? 0 : get_value(&arg[1], process, corewar, &move);
 	if (status)
 	{
-		int index = (short)(arg[0] + arg[1]) % IDX_MOD;
+		index = (short)(arg[0] + arg[1]) % IDX_MOD;
 		if (buf == REG_CODE && (int)arg[1] > 0)
 			index = ((short)arg[0] + (int)arg[1]) % IDX_MOD;
 		arg[0] = get_arg(4, process->position + index, corewar);

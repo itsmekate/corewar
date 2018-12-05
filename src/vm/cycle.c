@@ -24,7 +24,8 @@ static void		process_cycle(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
-	if (corewar->start <= corewar->cycle && corewar->visual_mode && !corewar->cycle)
+	if (corewar->start <= corewar->cycle &&
+		corewar->visual_mode && !corewar->cycle)
 		visualize(corewar);
 	lst = corewar->processes;
 	while (lst)

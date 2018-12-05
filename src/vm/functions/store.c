@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static int 		initialize(unsigned int *arg, t_corewar *corewar,
+static int			initialize(unsigned int *arg, t_corewar *corewar,
 	t_process *process)
 {
 	int move;
@@ -20,7 +20,8 @@ static int 		initialize(unsigned int *arg, t_corewar *corewar,
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(&arg[0], process, corewar);
 	move = 2;
-	if (arg[0] != REG_CODE || !arg[1] || arg[1] > IND_CODE || arg[1] == DIR_CODE || arg[2])
+	if (arg[0] != REG_CODE || !arg[1] ||
+		arg[1] > IND_CODE || arg[1] == DIR_CODE || arg[2])
 	{
 		if (!arg[0])
 		{
@@ -58,7 +59,8 @@ static void			log(t_corewar *corewar, int code, unsigned int res, int reg)
 		log_store = ft_itoa(reg);
 		if (code == REG_CODE)
 		{
-			msg = log_func(4, "st result: 0x", log_res, " registry: ", log_store);
+			msg = log_func(4, "st result: 0x",
+				log_res, " registry: ", log_store);
 			if (corewar->visual_mode)
 				ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
 			else
@@ -72,7 +74,7 @@ static void			log(t_corewar *corewar, int code, unsigned int res, int reg)
 	}
 }
 
-static void 	store_ind(t_corewar *corewar, t_process *process,
+static void			store_ind(t_corewar *corewar, t_process *process,
 	unsigned int arg2, unsigned int arg0)
 {
 	set_unsigned_int(arg0, get_index(process->position +
@@ -80,11 +82,11 @@ static void 	store_ind(t_corewar *corewar, t_process *process,
 	log(corewar, IND_CODE, arg0, (short)arg2 % IDX_MOD);
 }
 
-void			store(t_corewar *corewar, t_process *process)
+void				store(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
-	int 			status;
+	int				status;
 
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;

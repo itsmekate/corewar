@@ -72,25 +72,16 @@ static void			log(t_corewar *corewar, unsigned int res, int reg)
 void				long_load(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
-	int 			move;
+	int				move;
 
-	// printf("lld\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
-	// if (process->number == 24)
-	// {
-	// 	printf("%i\n", arg[2]);
-	// 	sleep (3);
-	// }
 	process->reg[arg[1] - 1] = arg[0];
 	if (!arg[0])
 		process->carry = 1;
 	else
 		process->carry = 0;
-
-	//log
 	log(corewar, process->reg[arg[1] - 1], (int)arg[1]);
-	//log end
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
 }

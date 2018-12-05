@@ -1,5 +1,5 @@
-#ifndef COREWAR_H
-# define COREWAR_H
+#ifndef VM_H
+# define VM_H
 
 # include "../libft/libft.h"
 # include "op.h"
@@ -26,12 +26,11 @@ typedef struct		s_player
 	char			comment[COMMENT_LENGTH + 1];
 	char			*exec;
 	int				process_num;
-	//int 			lives;
 }					t_player;
 
-typedef struct 		s_process
+typedef struct		s_process
 {
-	int 			number;
+	int				number;
 	int				position;
 	int				carry;
 	t_player		*player;
@@ -57,7 +56,7 @@ typedef struct		s_window
 	int				score_row;
 }					t_window;
 
-typedef struct 		s_corewar
+typedef struct		s_corewar
 {
 	int				visual_mode;
 	int				debug;
@@ -74,8 +73,7 @@ typedef struct 		s_corewar
 	void			(*f[16]) (struct s_corewar *, t_process *);
 	t_list			*log;
 	int				last_alive;
-	//int 			lives_ok;
-	int 			lives_all;
+	int				lives_all;
 	t_window		win;
 }					t_corewar;
 
@@ -97,19 +95,19 @@ t_player			*new_player(char *file);
 void				clear_player(t_player **player);
 void				clear_corewar(t_corewar **corewar);
 t_list				*obj_in_lst(void *obj);
-//
 void				print_corewar(t_corewar *corewar);
-
 
 /*
 ** memory2.c
 */
 void				kill_process(t_corewar *corewar, t_process *process);
 t_process			*new_procces(void);
-void				clear_process(t_process **process, size_t size);
-void				move_process(int index, t_process *process, t_corewar *corewar);
-t_process			*create_process(int position, t_player *player, t_corewar *corewar);
-
+void				clear_process(t_process **process,
+	size_t size);
+void				move_process(int index, t_process *process,
+	t_corewar *corewar);
+t_process			*create_process(int position,
+	t_player *player, t_corewar *corewar);
 
 /*
 ** init.c
@@ -218,22 +216,25 @@ void				ft_fork(t_corewar *corewar, t_process *process);
 void				long_load(t_corewar *corewar, t_process *process);
 void				long_load_index(t_corewar *corewar, t_process *process);
 void				long_fork(t_corewar *corewar, t_process *process);
-void				aff(t_corewar *corewar, t_process *process);
+void				aff(t_corewar *corewar,
+	t_process *process);
 unsigned int		get_arg(int size, int start_index, t_corewar *corewar);
-void				set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar, t_player *player);
-int					get_value(unsigned int *arg, t_process *process, t_corewar *corewar, int *move);
-int					get_types(unsigned int *arg, t_process *process, t_corewar *corewar);
-void				error_codage(unsigned int *arg, t_process *process, t_corewar *corewar);
+void				set_unsigned_int(unsigned int value,
+	int start_index, t_corewar *corewar, t_player *player);
+int					get_value(unsigned int *arg,
+	t_process *process, t_corewar *corewar, int *move);
+int					get_types(unsigned int *arg,
+	t_process *process, t_corewar *corewar);
+void				error_codage(unsigned int *arg,
+	t_process *process, t_corewar *corewar);
 t_process			*copy_process(t_process *process);
 int					error_arg(t_process *process, t_corewar *corewar, int move);
-
-
-void 				print_map(t_corewar *corewar);
+void				print_map(t_corewar *corewar);
 
 /*
 ** output.c
 */
-void 				dump_map(t_corewar *corewar);
+void				dump_map(t_corewar *corewar);
 void				print_contestants(t_corewar *corewar);
 void				print_winner(t_player *winner);
 t_player			*get_winner(t_corewar *corewar);

@@ -19,19 +19,16 @@ static int		initialize(unsigned int *arg, t_corewar *corewar, t_process *process
 	if (arg[0] != REG_CODE || arg[1] != REG_CODE || arg[2] != REG_CODE)
 	{
 		error_codage(&arg[0], process, corewar);
-		//log_func(corewar, "substraction", 0);
 		return (0);
 	}
 	arg[0] = get_arg(1, process->position + 2, corewar);
 	arg[1] = get_arg(1, process->position + 3, corewar);
 	arg[2] = get_arg(1, process->position + 4, corewar);
-	//printf("%i, %i, %i\n", arg[0], arg[1], arg[2]);
 	if (arg[0] > REG_NUMBER || arg[1] > REG_NUMBER || arg[2] > REG_NUMBER
-		 || !arg[0]  || !arg[1]  || !arg[2])
+			|| !arg[0] || !arg[1] || !arg[2])
 	{
 		log_move(corewar, process, 5);
 		move_process(5, process, corewar);
-// log_func(corewar, "substraction", 0);
 		return (0);
 	}
 	return (5);
@@ -45,7 +42,7 @@ static void		log(t_corewar *corewar, unsigned int result)
 	if (corewar->verbal & L_FUNC)
 	{
 		log_res = ft_itoa_base(result, 8, 8);
-		msg = log_func(2,  "sub result: 0x", log_res);
+		msg = log_func(2, "sub result: 0x", log_res);
 		if (corewar->visual_mode)
 			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
 		else
@@ -58,16 +55,13 @@ static void		log(t_corewar *corewar, unsigned int result)
 void			substraction(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
-	int 			move;
+	int				move;
 
-// printf("sub\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	arg[0] = process->reg[arg[0] - 1];
 	arg[1] = process->reg[arg[1] - 1];
-	//printf("%08x - %08x\n", arg[0], arg[1]);
 	process->reg[arg[2] - 1] = arg[0] - arg[1];
-
 	if (process->reg[arg[2] - 1])
 		process->carry = 0;
 	else

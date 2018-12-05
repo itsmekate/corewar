@@ -12,15 +12,15 @@
 
 #include "vm.h"
 
-static int	new_line(void)
+static int		new_line(void)
 {
 	ft_putstr("\n");
 	return (0);
 }
 
-static int 	print_row_num(int x)
+static int		print_row_num(int x)
 {
-	char 	*str;
+	char	*str;
 
 	str = ft_itoa_base(x, 16, 4);
 	ft_putstr("0x");
@@ -30,7 +30,7 @@ static int 	print_row_num(int x)
 	return (64);
 }
 
-void 		dump_map(t_corewar *corewar)
+void			dump_map(t_corewar *corewar)
 {
 	int		i;
 	int		n;
@@ -107,23 +107,3 @@ t_player		*get_winner(t_corewar *corewar)
 	}
 	return (NULL);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

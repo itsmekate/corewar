@@ -31,7 +31,6 @@ void			set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar,
 	int i;
 
 	i = 0;
-
 	while (i < 4)
 	{
 		set_point(&corewar->map[get_index(start_index)], value >> 24, player);
@@ -46,32 +45,22 @@ int				get_value(unsigned int *arg, t_process *process,
 {
 	if (*arg == REG_CODE)
 	{
-		//printf("REG_CODE\n");
 		*arg = get_arg(1, process->position + *move, corewar);
-		//printf("r%i\n", *arg);
 		*move = *move + 1;
-		// if (!*arg && process->command == 0xb)
-		// {
-		// 	//printf("error\n");
-		// 	return (0);
-		// }
 		if (*arg <= REG_NUMBER && *arg)
 		{
 			*arg = process->reg[*arg - 1];
-			//printf("%08x\n", *arg);
 		}
 		else
 			return (0);
 	}
 	else if (*arg == DIR_CODE)
 	{
-		//printf("DIR_CODE\n");
 		*arg = get_arg(get_label(process->command), process->position + *move, corewar);
 		*move = *move + get_label(process->command);
 	}
 	else if (*arg == IND_CODE)
 	{
-		//printf("IND_CODE\n");
 		*arg = get_arg(2, process->position + *move, corewar);
 		*move = *move + 2;
 		*arg = get_arg(4, process->position + (short)*arg % IDX_MOD, corewar);
@@ -85,21 +74,21 @@ void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
 	int		i;
 
 	move = 2;
-		i = -1;
-		while (++i < 3)
-		{
-			if (arg[i] == REG_CODE)
-				move++;
-			else if (arg[i] == IND_CODE)
-				move += 2;
-			else if (arg[i] == DIR_CODE)
-				move += get_label(process->command);
-		}
-		log_move(corewar, process, move);
-		move_process(move, process, corewar);
+	i = -1;
+	while (++i < 3)
+	{
+		if (arg[i] == REG_CODE)
+			move++;
+		else if (arg[i] == IND_CODE)
+			move += 2;
+		else if (arg[i] == DIR_CODE)
+			move += get_label(process->command);
+	}
+	log_move(corewar, process, move);
+	move_process(move, process, corewar);
 }
 
-int			get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
+int				get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
 {
 	char			codage;
 

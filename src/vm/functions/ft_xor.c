@@ -27,7 +27,6 @@ static int		initialize(unsigned int *arg, t_corewar *corewar,
 		return (0);
 	}
 	move = 2;
-
 	status = get_value(&arg[0], process, corewar, &move);
 	status = status & get_value(&arg[1], process, corewar, &move);
 	arg[2] = get_arg(1, process->position + move, corewar);
@@ -49,7 +48,7 @@ static void		log(t_corewar *corewar, unsigned int result)
 	if (corewar->verbal & L_FUNC)
 	{
 		log_res = ft_itoa_base(result, 8, 8);
-		msg = log_func(2,  "xor result: 0x", log_res);
+		msg = log_func(2, "xor result: 0x", log_res);
 		if (corewar->visual_mode)
 			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
 		else
@@ -64,7 +63,6 @@ void			ft_xor(t_corewar *corewar, t_process *process)
 	unsigned int	arg[3];
 	int				move;
 
-// printf("xor\n");
 	if (!(move = initialize(&arg[0], corewar, process)))
 		return ;
 	process->reg[arg[2] - 1] = arg[0] ^ arg[1];
@@ -72,12 +70,7 @@ void			ft_xor(t_corewar *corewar, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
-
-	// log
 	log(corewar, process->reg[arg[2] - 1]);
-	//end log
-
 	log_move(corewar, process, move);
 	move_process(move, process, corewar);
-	//log_func(corewar, "ft_or", 1);
 }
