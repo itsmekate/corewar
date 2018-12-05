@@ -17,7 +17,7 @@ void			clear_row(WINDOW *win, int y)
 	int x;
 
 	x = 1;
-	while (x < 60)
+	while (x < 66)
 	{
 		wattron(win, 4);
 		mvwprintw(win, y, x, " ");
@@ -28,13 +28,15 @@ void			clear_row(WINDOW *win, int y)
 
 void			print_sidebar(t_corewar *c)
 {
+	if (c->debug == 1)
+		mvwprintw(c->win.score, 1, 15, "%s", "  DEBUG MODE IS ON");
+	else
+		mvwprintw(c->win.score, 1, 15, "%s", "                  ");
 	if (c->pause == 1)
 	{
 		mvwprintw(c->win.score, 1, 3, "%s", "** PAUSED  **");
 		mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
 	}
-	else if (c->debug == 1)
-		mvwprintw(c->win.score, 1, 15, "%s", "  DEBUG MODE IS ON");
 	else
 	{
 		mvwprintw(c->win.score, 1, 3, "%s", "** RUNNING **");
@@ -78,7 +80,7 @@ void			print_visual_log(t_corewar *c)
 		{
 			clear_row(c->win.score, row -= 1);
 			if (ft_strcmp(tmp->content, "\n") != 0)
-				mvwprintw(c->win.score, row, 3, tmp->content);
+				mvwprintw(c->win.score, row, 3, "%.65s", tmp->content);
 			else
 				mvwprintw(c->win.score, row, 3, "");
 			tmp = tmp->next;
