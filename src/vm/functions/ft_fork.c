@@ -36,7 +36,7 @@ static void		log(t_corewar *corewar, short res, int pr_num)
 	char		*log_process_num;
 	char		*msg;
 
-	if (corewar->verbal & L_FUNC)
+	if (corewar->verbal & L_FUNC && corewar->start < corewar->cycle)
 	{
 		log_res = ft_itoa(res);
 		log_process_num = ft_itoa(pr_num);

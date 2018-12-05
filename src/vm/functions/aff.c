@@ -20,14 +20,14 @@ static void		do_aff(t_corewar *corewar, unsigned int arg, t_process *process)
 	arg = process->reg[arg - 1] % 256;
 	str[0] = arg;
 	str[1] = '\0';
-	if (corewar->verbal & L_FUNC)
+	if (corewar->verbal & L_FUNC && corewar->start < corewar->cycle)
 	{
 		msg = log_func(2, "aff: ", str);
 		ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
 		free(msg);
 	}
-	else if (corewar->visual_mode && (corewar->verbal & L_AFF
-		|| !corewar->verbal))
+	else if (corewar->visual_mode && (corewar->verbal & L_AFF ||
+		!corewar->verbal) && corewar->start < corewar->cycle)
 		ft_lstadd(&corewar->log, ft_lstnew(str, 2));
 	else if (corewar->verbal & L_AFF)
 		ft_putstr_fd(str, 1);

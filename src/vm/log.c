@@ -25,7 +25,7 @@ void		log_cycle_to_die(t_corewar *corewar)
 	char	*buf;
 	char	*number;
 
-	if (corewar->verbal & L_CYCLE && corewar->cycle >= corewar->start)
+	if (corewar->verbal & L_CYCLE && corewar->cycle > corewar->start)
 	{
 		number = ft_itoa(corewar->cycle_to_die);
 		buf = ft_strjoin("Cycle to die is now ", number);
@@ -43,7 +43,7 @@ void		log_cycle(t_corewar *corewar)
 	char	*buf;
 	char	*number;
 
-	if (corewar->verbal & L_CYCLE && corewar->cycle >= corewar->start)
+	if (corewar->verbal & L_CYCLE && corewar->cycle > corewar->start)
 	{
 		number = ft_itoa(corewar->cycle);
 		buf = ft_strjoin("It is now cycle ", number);

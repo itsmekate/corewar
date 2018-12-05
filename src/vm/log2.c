@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   log2.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzabrots <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 17:32:26 by dzabrots          #+#    #+#             */
+/*   Updated: 2018/12/05 17:32:28 by dzabrots         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
-char		*log_func(int quantity, ...)
+char			*log_func(int quantity, ...)
 {
-	va_list	args;
-	char	*arg;
-	char	*str;
+	va_list		args;
+	char		*arg;
+	char		*str;
 
 	va_start(args, quantity);
 	str = ft_strdup((char *)va_arg(args, char *));
@@ -23,6 +35,11 @@ void			print_contestants(t_corewar *corewar)
 	int			i;
 	t_player	*player;
 
+	if (corewar->visual_mode)
+	{
+		ft_putstr("Loading...");
+		return ;
+	}
 	ft_putstr("Introducing contestants...\n");
 	i = 0;
 	while (i < corewar->players_num)

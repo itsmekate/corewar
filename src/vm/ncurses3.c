@@ -33,15 +33,16 @@ void			print_sidebar(t_corewar *c)
 		mvwprintw(c->win.score, 1, 3, "%s", "** PAUSED  **");
 		mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
 	}
+	else if (c->debug == 1)
+		mvwprintw(c->win.score, 1, 15, "%s", "  DEBUG MODE IS ON");
 	else
 	{
 		mvwprintw(c->win.score, 1, 3, "%s", "** RUNNING **");
 		mvwprintw(c->win.score, c->win.h - 3, 3,
 			"%s", "USE SPACE TO STOP       ");
 	}
-	mvwprintw(c->win.score, 4, 3, "%s", "Cycles/seconds limit:");
-	mvwprintw(c->win.score, 6, 3, "Cycle: %d", c->cycle);
-	mvwprintw(c->win.score, 8, 3, "%s", "Processes:");
+	mvwprintw(c->win.score, 3, 3, "Cycle: %d", c->cycle);
+	mvwprintw(c->win.score, 5, 3, "%s", "Processes:");
 	c->win.score_row = print_players(c);
 	mvwprintw(c->win.score, c->win.score_row += 1, 3,
 		"CYCLE_TO_DIE : %d      ", c->cycle_to_die);
@@ -93,18 +94,18 @@ int				print_players(t_corewar *c)
 	int row;
 
 	i = 0;
-	row = 10;
+	row = 7;
 	while (i < c->players_num)
 	{
 		init_pair(c->players[i]->number + 10,
 			get_color(c->players[i]->number), COLOR_BLACK);
 		mvwprintw(c->win.score, row, 3, "Player -%d :", c->players[i]->number);
 		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
+		// mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
+		row = print_name(c, row, i);
 		wattroff(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		mvwprintw(c->win.score, row + 1, 4,
-			"%s", "Comment:", c->players[i]->comment);
-		mvwprintw(c->win.score, row + 2, 4, "%.63s", c->players[i]->comment);
+		// mvwprintw(c->win.score, row + 1, 4,
+		// 	"%s", c->players[i]->comment);
 		row += 4;
 		i++;
 	}
