@@ -19,7 +19,7 @@ int				is_number(char *s)
 	if (!s)
 		return (0);
 	len = ft_strlen(s);
-	if ((len == 10 && *s != '2') || len > 10)
+	if ((len == 3 && *s > '1' && !ft_strequ("200", s)) || len > 3)
 		return (0);
 	while (*s)
 	{
