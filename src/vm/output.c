@@ -62,6 +62,11 @@ void			print_contestants(t_corewar *corewar)
 	int			i;
 	t_player	*player;
 
+	if (corewar->visual_mode)
+	{
+		ft_putstr("Loading...");
+		return ;
+	}
 	ft_putstr("Introducing contestants...\n");
 	i = 0;
 	while (i < corewar->players_num)
