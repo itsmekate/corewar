@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   log.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzabrots <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 17:21:13 by dzabrots          #+#    #+#             */
+/*   Updated: 2018/12/05 17:21:16 by dzabrots         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 void		print_log(t_list *log)
@@ -44,7 +56,8 @@ void		log_cycle(t_corewar *corewar)
 	}
 }
 
-char		*add_value(char *str, t_corewar *corewar, t_process *process, int move)
+char		*add_value(char *str, t_corewar *corewar, t_process *process,
+	int move)
 {
 	char	*buf1;
 	char	*buf2;
@@ -55,7 +68,8 @@ char		*add_value(char *str, t_corewar *corewar, t_process *process, int move)
 	buf2 = str;
 	while (++i < move)
 	{
-		number = ft_itoa_base(corewar->map[get_index(process->position + i)].value & 0xff, 16, 2);
+		number = ft_itoa_base(corewar->map[
+			get_index(process->position + i)].value & 0xff, 16, 2);
 		buf1 = ft_strjoin(buf2, number);
 		free(buf2);
 		buf2 = ft_strjoin(buf1, " ");

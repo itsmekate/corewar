@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vm.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dzabrots <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 17:14:06 by dzabrots          #+#    #+#             */
+/*   Updated: 2018/12/05 17:14:09 by dzabrots         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VM_H
 # define VM_H
 
@@ -197,6 +209,7 @@ void				cycle_to_die(t_corewar *corewar);
 */
 void				log_lives(t_corewar *corewar, t_player *player);
 char				*log_func(int quantity, ...);
+void				print_contestants(t_corewar *corewar);
 
 /*
 **functions
@@ -235,7 +248,6 @@ void				print_map(t_corewar *corewar);
 ** output.c
 */
 void				dump_map(t_corewar *corewar);
-void				print_contestants(t_corewar *corewar);
 void				print_winner(t_player *winner);
 t_player			*get_winner(t_corewar *corewar);
 #endif

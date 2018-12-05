@@ -57,29 +57,6 @@ void			dump_map(t_corewar *corewar)
 	ft_putstr("\n");
 }
 
-void			print_contestants(t_corewar *corewar)
-{
-	int			i;
-	t_player	*player;
-
-	ft_putstr("Introducing contestants...\n");
-	i = 0;
-	while (i < corewar->players_num)
-	{
-		player = corewar->players[i];
-		ft_putstr("* Player ");
-		ft_putnbr(player->number);
-		ft_putstr(", weighing ");
-		ft_putnbr(player->size);
-		ft_putstr(" bytes, \"");
-		ft_putstr(player->name);
-		ft_putstr("\" (\"");
-		ft_putstr(player->comment);
-		ft_putstr("\") !\n");
-		i++;
-	}
-}
-
 void			print_winner(t_player *winner)
 {
 	if (winner)
