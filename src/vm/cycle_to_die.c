@@ -25,7 +25,7 @@ static void		log(t_corewar *corewar, t_process *pr)
 	char *msg;
 	char *pr_num;
 
-	if (corewar->verbal & L_DEATH)
+	if (corewar->verbal & L_DEATH && corewar->cycle > corewar->start)
 	{
 		pr_num = ft_itoa(pr->number);
 		msg = ft_strjoin("kill process ", pr_num);

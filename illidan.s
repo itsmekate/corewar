@@ -1,5 +1,5 @@
 .name		"Illidan Stormrage"
-.comment	"Remember when wings, hoowes, and horn were strange in Warcraft? Ah, the good old days"
+.comment	"Remember when wings, hooves and horns were strange in Warcraft? Ah, the good old days"
 
 start:
 	sti r1, %:load_row, %1
