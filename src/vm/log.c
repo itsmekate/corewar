@@ -12,14 +12,6 @@
 
 #include "vm.h"
 
-void		print_log(t_list *log)
-{
-	if (!log)
-		return ;
-	print_log(log->next);
-	ft_putendl_fd(log->content, 1);
-}
-
 void		log_cycle_to_die(t_corewar *corewar)
 {
 	char	*buf;
@@ -56,7 +48,7 @@ void		log_cycle(t_corewar *corewar)
 	}
 }
 
-char		*add_value(char *str, t_corewar *corewar, t_process *process,
+static char		*add_value(char *str, t_corewar *corewar, t_process *process,
 	int move)
 {
 	char	*buf1;
@@ -79,7 +71,15 @@ char		*add_value(char *str, t_corewar *corewar, t_process *process,
 	return (buf2);
 }
 
-void		log_move(t_corewar *corewar, t_process *process, int move)
+static void 	log_log_move(t_corewar *corewar, char *str)
+{
+	if (corewar->visual_mode)
+		ft_lstadd(&corewar->log, ft_lstnew(str, ft_strlen(str) + 1));
+	else
+		ft_putendl_fd(str, 1);
+}
+
+void			log_move(t_corewar *corewar, t_process *process, int move)
 {
 	char	*buf[3];
 
@@ -103,10 +103,7 @@ void		log_move(t_corewar *corewar, t_process *process, int move)
 		buf[2] = ft_strjoin(buf[1], ") ");
 		free(buf[1]);
 		buf[1] = add_value(buf[2], corewar, process, move);
-		if (corewar->visual_mode)
-			ft_lstadd(&corewar->log, ft_lstnew(buf[1], ft_strlen(buf[1]) + 1));
-		else
-			ft_putendl_fd(buf[1], 1);
+		log_log_move(corewar, buf[1]);
 		free(buf[1]);
 	}
 }
