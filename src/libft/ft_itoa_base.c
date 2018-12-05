@@ -29,7 +29,7 @@ static size_t	a_len(uintmax_t n, int base)
 
 static void		put_a(uintmax_t n, char *str, int len, int base)
 {
-	char	*map;
+	static char	*map;
 
 	map = "0123456789abcdefghijklmnopqrstuvwxyz";
 	str[len] = '\0';

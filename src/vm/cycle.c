@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cycle.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achepurn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/12/05 18:21:31 by achepurn          #+#    #+#             */
+/*   Updated: 2018/12/05 18:21:33 by achepurn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static void		process(t_corewar *corewar, t_process *process)
@@ -24,9 +36,10 @@ static void		process_cycle(t_corewar *corewar)
 	t_list		*lst;
 	t_process	*pr;
 
-	if (corewar->start <= corewar->cycle &&
-		corewar->visual_mode && !corewar->cycle)
+	if (corewar->start == corewar->cycle &&
+		corewar->visual_mode)
 		visualize(corewar);
+	corewar->cycle++;
 	lst = corewar->processes;
 	while (lst)
 	{
@@ -34,8 +47,6 @@ static void		process_cycle(t_corewar *corewar)
 		process(corewar, pr);
 		lst = lst->next;
 	}
-	if (corewar->start == corewar->cycle && corewar->visual_mode)
-		visualize(corewar);
 }
 
 static void		game_over(t_corewar *corewar)
@@ -62,7 +73,6 @@ void			grand_cycle(t_corewar *corewar)
 			game_over(corewar);
 			return ;
 		}
-		corewar->cycle++;
 		log_cycle(corewar);
 		process_cycle(corewar);
 		if (corewar->cycle == corewar->dump && !corewar->visual_mode)
