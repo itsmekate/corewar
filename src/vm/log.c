@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void		log_cycle_to_die(t_corewar *corewar)
+void			log_cycle_to_die(t_corewar *corewar)
 {
 	char	*buf;
 	char	*number;
@@ -30,7 +30,7 @@ void		log_cycle_to_die(t_corewar *corewar)
 	}
 }
 
-void		log_cycle(t_corewar *corewar)
+void			log_cycle(t_corewar *corewar)
 {
 	char	*buf;
 	char	*number;
@@ -71,7 +71,7 @@ static char		*add_value(char *str, t_corewar *corewar, t_process *process,
 	return (buf2);
 }
 
-static void 	log_log_move(t_corewar *corewar, char *str)
+static void		log_log_move(t_corewar *corewar, char *str)
 {
 	if (corewar->visual_mode)
 		ft_lstadd(&corewar->log, ft_lstnew(str, ft_strlen(str) + 1));
