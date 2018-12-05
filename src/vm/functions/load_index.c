@@ -30,12 +30,21 @@ static void		log(t_corewar *corewar, unsigned int res)
 	}
 }
 
+static void 	load_i(t_corewar *corewar, t_process *process,
+	unsigned int arg2, unsigned int arg0)
+{
+	if (arg2 <= REG_NUMBER && arg2)
+	{
+		process->reg[arg2 - 1] = arg0;
+		log(corewar, arg0);
+	}
+}
+
 void			load_index(t_corewar *corewar, t_process *process)
 {
 	unsigned int	arg[3];
 	int				move;
 	int				status;
-	int				buf;
 	int				index;
 
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
@@ -46,20 +55,15 @@ void			load_index(t_corewar *corewar, t_process *process)
 		error_codage(&arg[0], process, corewar);
 		return ;
 	}
-	buf = arg[1];
 	move = 2;
 	status = get_value(&arg[0], process, corewar, &move);
 	status = !status ? 0 : get_value(&arg[1], process, corewar, &move);
 	if (status)
 	{
-		index = (short)(arg[0] + arg[1]) % IDX_MOD;
-		if (buf == REG_CODE && (int)arg[1] > 0)
-			index = ((short)arg[0] + (int)arg[1]) % IDX_MOD;
+		index = ((short)arg[0] + (short)arg[1]) % IDX_MOD;
 		arg[0] = get_arg(4, process->position + index, corewar);
 		arg[2] = get_arg(1, process->position + move, corewar);
-		if (arg[2] <= REG_NUMBER && arg[2])
-			process->reg[arg[2] - 1] = arg[0];
-		log(corewar, arg[2]);
+		load_i(corewar, process, arg[2], arg[0]);
 	}
 	log_move(corewar, process, ++move);
 	move_process(move, process, corewar);

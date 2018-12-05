@@ -4,6 +4,8 @@ static void		process(t_corewar *corewar, t_process *process)
 {
 	void			(*f) (t_corewar *, t_process *);
 
+	if (corewar->start <= corewar->cycle && corewar->visual_mode)
+		visualize(corewar);
 	if (--process->cycle)
 		return ;
 	if (process->command < 1 || process->command > 16)
@@ -15,8 +17,6 @@ static void		process(t_corewar *corewar, t_process *process)
 	f(corewar, process);
 	if (corewar->visual_mode && corewar->debug)
 		corewar->pause = 1;
-	if (corewar->start <= corewar->cycle && corewar->visual_mode)
-		visualize(corewar);
 }
 
 static void		process_cycle(t_corewar *corewar)
