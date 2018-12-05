@@ -12,15 +12,16 @@
 
 #include "../vm.h"
 
-static void 	log_alive(t_corewar *corewar, t_player *player)
+static void		log_alive(t_corewar *corewar, t_player *player)
 {
 	char	*number;
-	char 	*msg;
+	char	*msg;
 
 	if (corewar->verbal & L_LIVE && corewar->cycle > corewar->start)
 	{
 		number = ft_itoa(player->number);
-		msg = log_func(5, "Player ", number, " (", player->name, ") is said to be alive");
+		msg = log_func(5, "Player ", number, " (", player->name,
+			") is said to be alive");
 		if (corewar->visual_mode)
 			ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));
 		else
@@ -69,7 +70,7 @@ static void		log(t_corewar *corewar, int player, int process)
 	}
 }
 
-void			live(t_corewar *corewar, t_process *process)
+void		live(t_corewar *corewar, t_process *process)
 {
 	unsigned int	dir;
 
