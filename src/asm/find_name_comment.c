@@ -65,14 +65,12 @@ char		*copy_n(char *dst, const char *src, int len, int arg)
 		dst = copy_n(dst, src, len, arg);
 		return (dst);
 	}
-	if (arg == 1 && (len > PROG_NAME_LENGTH || i > PROG_NAME_LENGTH ||
-		i + len > PROG_NAME_LENGTH))
+	if (arg == 1 && (i + len > PROG_NAME_LENGTH))
 	{
 		ft_putendl("Champion name too long (Max length 128)");
 		exit(0);
 	}
-	if (arg == 2 && (len > COMMENT_LENGTH || i > COMMENT_LENGTH ||
-		i + len > COMMENT_LENGTH))
+	if (arg == 2 && (i + len > COMMENT_LENGTH))
 	{
 		ft_putendl("Champion comment too long (Max length 2048)");
 		exit(0);
