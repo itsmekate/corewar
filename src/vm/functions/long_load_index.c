@@ -44,7 +44,7 @@ static void		log(t_corewar *corewar, unsigned int res, int reg)
 	char			*log_reg;
 	char			*msg;
 
-	if (corewar->verbal & L_FUNC)
+	if (corewar->verbal & L_FUNC && corewar->start < corewar->cycle)
 	{
 		log_res = ft_itoa_base(res, 16, 8);
 		log_reg = ft_itoa(reg);

@@ -18,7 +18,7 @@ static void		log(t_corewar *corewar, uintmax_t value, int addr)
 	char		*log_store;
 	char		*msg;
 
-	if (corewar->verbal & L_FUNC)
+	if (corewar->verbal & L_FUNC && corewar->start < corewar->cycle)
 	{
 		log_res = ft_itoa_base((uintmax_t)value, 16, 8);
 		log_store = ft_itoa(addr);

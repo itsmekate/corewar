@@ -17,7 +17,7 @@ static void			log(t_corewar *corewar, int pr)
 	char			*log_process;
 	char			*msg;
 
-	if (corewar->verbal & L_FUNC)
+	if (corewar->verbal & L_FUNC && corewar->start < corewar->cycle)
 	{
 		log_process = ft_itoa_base(pr, 10, 0);
 		msg = log_func(2, "lfork copied process: ", log_process);

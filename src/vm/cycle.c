@@ -4,10 +4,10 @@ static void		process(t_corewar *corewar, t_process *process)
 {
 	void			(*f) (t_corewar *, t_process *);
 
-	if (corewar->start <= corewar->cycle && corewar->visual_mode)
-		visualize(corewar);
 	if (--process->cycle)
 		return ;
+	if (corewar->start <= corewar->cycle && corewar->visual_mode)
+		visualize(corewar);
 	if (process->command < 1 || process->command > 16)
 	{
 		move_process(1, process, corewar);
