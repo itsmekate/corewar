@@ -12,7 +12,8 @@
 
 #include "../vm.h"
 
-static int		initialize(unsigned int *arg, t_corewar *corewar, t_process *process)
+static int		initialize(unsigned int *arg, t_corewar *corewar,
+	t_process *process)
 {
 	ft_memset(arg, '\0', sizeof(unsigned int) * 3);
 	get_types(arg, process, corewar);
