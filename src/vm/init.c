@@ -104,7 +104,7 @@ t_corewar			*create_corewar(char **agrv)
 			}
 			else if (flag == 1)
 				num = handle_player_number(&agrv);
-			else 
+			else
 				flag_handler(flag, &agrv, res);
 		}
 		get_starts(res);
