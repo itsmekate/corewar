@@ -16,23 +16,23 @@ void		usage(char *program_name)
 {
 	ft_putstr("\nUsage: ");
 	ft_putstr(program_name);
-	ft_putendl(" [-d N -s N -v N | -visual] <champion1.cor> <...>");
-	ft_putendl(" ");
-	ft_putendl(" -- TEXT OUTPUT MODE ---------------------------------------");
-	ft_putendl(" ");
-	ft_putendl("    -d N      : Dumps memory after N cycles then exits");
-	ft_putendl("    -s N      : Visual mod after N cycles");
-	ft_putendl("    -v N      : Verbosity. Levels (N): ");
-	ft_putendl("                - 1 : Show lives");
-	ft_putendl("                - 2 : Show cycles");
-	ft_putendl("                - 4 : Show operations");
-	ft_putendl("                - 8 : Show deaths");
-	ft_putendl("                - 16 : Show PC movements (Except for jumps)");
-	ft_putendl(" ");
-	ft_putendl(" -- NCURSES OUTPUT MODE -------------------------------------");
-	ft_putendl(" ");
-	ft_putendl("    -visual   : Ncurses output mode");
-	ft_putendl(" ");
+	ft_putstr(" [-v N -s N -d N -visual -debug] [-n N] champion.cor ..");
+	ft_putstr("\n    -v N\t\tverbosity mod\n\n\tN: ");
+	ft_putstr("(verbosity lvls can be added together to enable several)\n");
+	ft_putstr("\t0   show only essentials\n");
+	ft_putstr("\t1   show lives\n");
+	ft_putstr("\t2   show cycles\n");
+	ft_putstr("\t4   show operations\n");
+	ft_putstr("\t8   show deathes\n");
+	ft_putstr("\t16  show process carrige movements\n");
+	ft_putstr("\t32  show aff result (ignore with -v 4)\n");
+	ft_putstr("\n    -n [1 - 200]\tset player number ");
+	ft_putstr("(numbers can`t duplicate)\n");
+	ft_putstr("    -s N\t\truns N cycles, dumps memory, pauses, then repeats");
+	ft_putstr("\n    -d N\t\tdumps memory after N cycles then exits");
+	ft_putstr("\n    -visual\t\tturn on ncurses visual mod");
+	ft_putstr("\n    -debug\t\tturn on debug mod");
+	ft_putstr("\n\n    Can handle from 1 to 4 champions\n\n");
 	exit(0);
 }
 
