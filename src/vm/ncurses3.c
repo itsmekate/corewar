@@ -75,6 +75,7 @@ void			print_visual_log(t_corewar *c)
 	row = c->win.h - 7;
 	if (tmp != NULL)
 	{
+		clear_row(c->win.score, c->win.score_row += 2);
 		while (tmp && i++ < n)
 		{
 			clear_row(c->win.score, row -= 1);
@@ -98,7 +99,7 @@ int				print_players(t_corewar *c)
 	{
 		init_pair(c->players[i]->number + 10,
 			get_color(c->players[i]->number), COLOR_BLACK);
-		mvwprintw(c->win.score, row, 3, "Player -%d :", c->players[i]->number);
+		mvwprintw(c->win.score, row, 3, "Player -%d ", c->players[i]->number);
 		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
 		len = ft_strlen(c->players[i]->name);
 		row = print_max(c, row, c->players[i]->name, len);
