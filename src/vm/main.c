@@ -29,7 +29,7 @@ static void	usage(char *program_name)
 	ft_putendl("                - 8 : Show deaths");
 	ft_putendl("                - 16 : Show PC movements (Except for jumps)");
 	ft_putendl(" ");
-	ft_putendl(" -- NCURSES OUTPUT MODE ---------------------------------------");
+	ft_putendl(" -- NCURSES OUTPUT MODE -------------------------------------");
 	ft_putendl(" ");
 	ft_putendl("    -visual   : Ncurses output mode");
 	ft_putendl(" ");

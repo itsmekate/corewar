@@ -21,12 +21,14 @@ unsigned int	get_arg(int size, int start_index, t_corewar *corewar)
 	ft_memset(res, '\0', 4);
 	i = -1;
 	while (++i < size)
-		res[size - 1 - i] = corewar->map[get_index(start_index + i)].value & 0xff;
+		res[size - 1 - i] = corewar->map[
+			get_index(start_index + i)].value & 0xff;
 	arg = *(unsigned int *)res;
 	return (arg);
 }
 
-void			set_unsigned_int(unsigned int value, int start_index, t_corewar *corewar, t_player *player)
+void			set_unsigned_int(unsigned int value, int start_index,
+	t_corewar *corewar, t_player *player)
 {
 	int i;
 
@@ -56,7 +58,8 @@ int				get_value(unsigned int *arg, t_process *process,
 	}
 	else if (*arg == DIR_CODE)
 	{
-		*arg = get_arg(get_label(process->command), process->position + *move, corewar);
+		*arg = get_arg(get_label(
+			process->command), process->position + *move, corewar);
 		*move = *move + get_label(process->command);
 	}
 	else if (*arg == IND_CODE)
@@ -68,7 +71,8 @@ int				get_value(unsigned int *arg, t_process *process,
 	return (1);
 }
 
-void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
+void			error_codage(unsigned int *arg, t_process *process,
+	t_corewar *corewar)
 {
 	int		move;
 	int		i;
@@ -88,7 +92,8 @@ void			error_codage(unsigned int *arg, t_process *process, t_corewar *corewar)
 	move_process(move, process, corewar);
 }
 
-int				get_types(unsigned int *arg, t_process *process, t_corewar *corewar)
+int				get_types(unsigned int *arg, t_process *process,
+	t_corewar *corewar)
 {
 	char			codage;
 

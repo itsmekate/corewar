@@ -30,7 +30,7 @@ static void		log(t_corewar *corewar, unsigned int res)
 	}
 }
 
-static void 	load_i(t_corewar *corewar, t_process *process,
+static void		load_i(t_corewar *corewar, t_process *process,
 	unsigned int arg2, unsigned int arg0)
 {
 	if (arg2 <= REG_NUMBER && arg2)

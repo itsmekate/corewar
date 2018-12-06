@@ -12,10 +12,10 @@
 
 #include "../vm.h"
 
-static void		log_alive(t_corewar *corewar, t_player *player)
+static void			log_alive(t_corewar *corewar, t_player *player)
 {
-	char	*number;
-	char	*msg;
+	char			*number;
+	char			*msg;
 
 	if (corewar->verbal & L_LIVE && corewar->cycle > corewar->start)
 	{
@@ -31,9 +31,9 @@ static void		log_alive(t_corewar *corewar, t_player *player)
 	}
 }
 
-static void		player_alive(unsigned int number, t_corewar *corewar)
+static void			player_alive(unsigned int number, t_corewar *corewar)
 {
-	int		i;
+	int				i;
 
 	i = -1;
 	while (++i < corewar->players_num)
@@ -48,7 +48,7 @@ static void		player_alive(unsigned int number, t_corewar *corewar)
 	}
 }
 
-static void		log(t_corewar *corewar, int player, int process)
+static void			log(t_corewar *corewar, int player, int process)
 {
 	char			*log_player;
 	char			*log_process;
@@ -70,7 +70,7 @@ static void		log(t_corewar *corewar, int player, int process)
 	}
 }
 
-void		live(t_corewar *corewar, t_process *process)
+void				live(t_corewar *corewar, t_process *process)
 {
 	unsigned int	dir;
 
