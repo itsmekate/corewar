@@ -22,7 +22,7 @@ t_corewar		*new_corewar(void)
 		res->visual_mode = 0;
 		res->debug = 0;
 		res->pause = 1;
-		res->dump = -1;
+		res->dump = 0;
 		res->start = 0;
 		res->verbal = 0;
 		res->cycle_to_die = CYCLE_TO_DIE;

@@ -75,7 +75,8 @@ void			grand_cycle(t_corewar *corewar)
 		}
 		log_cycle(corewar);
 		process_cycle(corewar);
-		if (corewar->cycle == corewar->dump && !corewar->visual_mode)
+		if (corewar->cycle == corewar->dump && corewar->dump &&
+			!corewar->visual_mode)
 		{
 			dump_map(corewar);
 			return ;

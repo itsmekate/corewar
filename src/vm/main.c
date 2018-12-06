@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-static void	usage(char *program_name)
+void		usage(char *program_name)
 {
 	ft_putstr("\nUsage: ");
 	ft_putstr(program_name);

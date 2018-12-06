@@ -21,15 +21,15 @@ int				flag_value_handler(char ***argv)
 	if (is_number(*(buf + 1)))
 	{
 		res = ft_atoi(*(buf + 1));
-		if (res > 0)
+		if (res >= 0)
 		{
 			*argv = *argv + 1;
 			return (res);
 		}
 		else
-			return (0);
+			return (-1);
 	}
-	return (0);
+	return (-1);
 }
 
 void			flag_handler(int flag, char ***agrv, t_corewar *res)
@@ -44,4 +44,10 @@ void			flag_handler(int flag, char ***agrv, t_corewar *res)
 		res->visual_mode = 1;
 	else if (flag == 6)
 		res->debug = 1;
+	if (res->dump < 0 || res->verbal < 0 || res->start < 0)
+	{
+		ft_putstr_fd("ERROR: Wrong flag value\n", 2);
+		clear_corewar(&res);
+		exit(0);
+	}
 }
