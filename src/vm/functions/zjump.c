@@ -38,7 +38,12 @@ void			zjump(t_corewar *corewar, t_process *process)
 	if (!process->carry)
 	{
 		if (corewar->verbal & L_FUNC)
-			log_func(1, "zjump FAIL");
+		{
+			if (corewar->visual_mode)
+				ft_lstadd(&corewar->log, ft_lstnew("zjump FAILED", 13));
+			else
+				ft_putendl_fd("zjump FAILED", 1);
+		}
 		log_move(corewar, process, 3);
 		move_process(3, process, corewar);
 		return ;
