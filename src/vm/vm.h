@@ -179,6 +179,7 @@ int					print_players(t_corewar *c);
 int					print_winner_visual(t_corewar *c);
 void				clear_field(t_corewar *c);
 int					print_name(t_corewar *c, int row, int i);
+void				print_log_row(t_corewar *c, char *str, int row);
 
 /*
 **info.c
