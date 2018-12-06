@@ -20,7 +20,7 @@ static void		do_aff(t_corewar *corewar, unsigned int arg, t_process *process)
 	arg = process->reg[arg - 1] % 256;
 	str[0] = arg;
 	str[1] = '\0';
-	if (corewar->verbal & L_FUNC && corewar->start < corewar->cycle)
+	if (corewar->verbal & L_FUNC && corewar->start <= corewar->cycle)
 	{
 		msg = log_func(2, "aff: ", str);
 		ft_lstadd(&corewar->log, ft_lstnew(msg, ft_strlen(msg) + 1));

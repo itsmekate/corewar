@@ -40,6 +40,7 @@ static void		process_cycle(t_corewar *corewar)
 		corewar->visual_mode)
 		visualize(corewar);
 	corewar->cycle++;
+	log_cycle(corewar);
 	lst = corewar->processes;
 	while (lst)
 	{
@@ -73,7 +74,6 @@ void			grand_cycle(t_corewar *corewar)
 			game_over(corewar);
 			return ;
 		}
-		log_cycle(corewar);
 		process_cycle(corewar);
 		if (corewar->cycle == corewar->dump && corewar->dump &&
 			!corewar->visual_mode)

@@ -17,7 +17,7 @@ static void		log(t_corewar *corewar, int index)
 	char		*log_index;
 	char		*msg;
 
-	if (corewar->verbal & L_FUNC && corewar->start < corewar->cycle)
+	if (corewar->verbal & L_FUNC && corewar->start <= corewar->cycle)
 	{
 		log_index = ft_itoa(index);
 		msg = log_func(2, "zjump ", log_index);
