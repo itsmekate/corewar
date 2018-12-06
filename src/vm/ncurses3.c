@@ -100,12 +100,11 @@ int				print_players(t_corewar *c)
 			get_color(c->players[i]->number), COLOR_BLACK);
 		mvwprintw(c->win.score, row, 3, "Player -%d :", c->players[i]->number);
 		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		// mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
-		row = print_name(c, row, i);
+		row = print_max(c, row, c->players[i]->name);
 		wattroff(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		// mvwprintw(c->win.score, row + 1, 4,
-		// 	"%s", c->players[i]->comment);
-		row += 4;
+		row++;
+		row = print_max(c, row, c->players[i]->comment);
+		row += 2;
 		i++;
 	}
 	return (row);

@@ -16,7 +16,7 @@ int			print_winner_visual(t_corewar *c)
 {
 	int			i;
 	t_player	*winner;
-	WINDOW 		*popup;
+	WINDOW		*popup;
 
 	popup = newwin(10, 152, 20, 25);
 	nodelay(popup, true);
@@ -38,28 +38,57 @@ int			print_winner_visual(t_corewar *c)
 	return (c->pause);
 }
 
-int	print_name(t_corewar *c, int row, int i)
+int		print_x_chars(t_corewar *c, char *str, int row, t_field f)
+{
+	int col;
+	int start;
+	int to;
+
+	col = 15;
+	to = f.row;
+	start = f.col;
+	if (!str)
+		return (0);
+	while (str[start] && start <= to)
+	{
+		mvwprintw(c->win.score, row, col, "%c", str[start]);
+		col++;
+		start++;
+	}
+	return (start);
+}
+
+int			print_max(t_corewar *c, int row, char *str)
 {
 	int len;
+	t_field	f;
 
-	len = ft_strlen(c->players[i]->name);
-	if ( len > 57 && len < 71)
+	f.col = 0;
+	f.row = 52;
+	len = ft_strlen(str);
+	if (len > 52 && len < 104)
 	{
-		mvwprintw(c->win.score, row, 15, "%.40s", c->players[i]->name);
-		mvwprintw(c->win.score, row+=1, 15, "%.40s", c->players[i]->name);
-		}
-	else if (len >= 71)
+		f.col = print_x_chars(c, str, row, f);
+		row++;
+		f.row = 104;
+		print_x_chars(c, str, row, f);
+	}
+	else if (len >= 104)
 	{
-		mvwprintw(c->win.score, row, 15, "%.57s", c->players[i]->name);
-		mvwprintw(c->win.score, row+=1, 16, "%.68s", c->players[i]->name);
-		mvwprintw(c->win.score, row+=1, 17, "%.3s", c->players[i]->name);
+		f.col = print_x_chars(c, str, row, f);
+		row++;
+		f.row = 105;
+		f.col = print_x_chars(c, str, row, f);
+		row++;
+		f.row = 128;
+		print_x_chars(c, str, row, f);
 	}
 	else
-		mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
+		mvwprintw(c->win.score, row, 15, "%s", str);
 	return (row);
 }
 
-void	print_log_row(t_corewar *c, char *str, int row)
+void		print_log_row(t_corewar *c, char *str, int row)
 {
 	int col;
 	int j;
@@ -77,5 +106,4 @@ void	print_log_row(t_corewar *c, char *str, int row)
 		col++;
 		j++;
 	}
-
 }
