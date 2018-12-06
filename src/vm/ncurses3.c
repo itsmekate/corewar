@@ -44,7 +44,6 @@ void			print_sidebar(t_corewar *c)
 			"%s", "USE SPACE TO STOP       ");
 	}
 	mvwprintw(c->win.score, 3, 3, "Cycle: %d", c->cycle);
-	mvwprintw(c->win.score, 5, 3, "%s", "Processes:");
 	c->win.score_row = print_players(c);
 	mvwprintw(c->win.score, c->win.score_row += 1, 3,
 		"CYCLE_TO_DIE : %d      ", c->cycle_to_die);
@@ -76,6 +75,7 @@ void			print_visual_log(t_corewar *c)
 	row = c->win.h - 7;
 	if (tmp != NULL)
 	{
+		clear_row(c->win.score, c->win.score_row += 2);
 		while (tmp && i++ < n)
 		{
 			clear_row(c->win.score, row -= 1);
@@ -91,19 +91,22 @@ int				print_players(t_corewar *c)
 {
 	int i;
 	int row;
+	int len;
 
 	i = 0;
-	row = 7;
+	row = 5;
 	while (i < c->players_num)
 	{
 		init_pair(c->players[i]->number + 10,
 			get_color(c->players[i]->number), COLOR_BLACK);
-		mvwprintw(c->win.score, row, 3, "Player -%d :", c->players[i]->number);
+		mvwprintw(c->win.score, row, 3, "Player -%d ", c->players[i]->number);
 		wattron(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
-		row = print_max(c, row, c->players[i]->name);
+		len = ft_strlen(c->players[i]->name);
+		row = print_max(c, row, c->players[i]->name, len);
 		wattroff(c->win.score, COLOR_PAIR(c->players[i]->number + 10));
 		row++;
-		row = print_max(c, row, c->players[i]->comment);
+		len = ft_strlen(c->players[i]->comment);
+		row = print_max(c, row, c->players[i]->comment, len);
 		row += 2;
 		i++;
 	}

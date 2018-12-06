@@ -52,7 +52,7 @@ load_row2:
 load_live:
 	live %42
 	sub r3, r7, r3
-	ld %16777216, r4
+	ld %33554431, r4
 	fork %:copy
 
 load_live2:
