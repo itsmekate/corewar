@@ -2,13 +2,14 @@
 .comment	"Remember when wings, hooves and horns were strange in Warcraft? Ah, the good old days"
 
 start:
+
 	sti r1, %:load_row, %1
 	sti r1, %:load_fork, %1
 	sti r1, %:load_live, %1
 	sti r1, %:copy, %1
 	ld %128, r3
 	ld %2, r6
-	ld %10, r7
+	ld %5, r7
 	ld %0, r16
 
 declare:
@@ -51,6 +52,7 @@ load_row2:
 
 load_live:
 	live %42
+	sub r3, r6, r3
 	sub r3, r7, r3
 	ld %33554431, r4
 	fork %:copy
@@ -64,7 +66,6 @@ load_live2:
 copy:
 	live %42
 	sti r4, r3, %64
-	sti r4, r3, %128
 	sti r4, r3, %256
 	sti r4, r3, %500
 	xor %11, r16, r16
