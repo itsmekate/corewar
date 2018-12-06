@@ -73,8 +73,11 @@ int				get_number(t_corewar *corewar, int num)
 		else
 		{
 			ret = corewar->players[corewar->players_num - 1]->number + 1;
-			while (ret <= 0 || is_exist(corewar, ret))
+			while (ret <= 0 || ret > 200 || is_exist(corewar, ret))
+			{
+				ret = ret > 200 ? 0 : ret;
 				ret++;
+			}
 		}
 		return (ret);
 	}
