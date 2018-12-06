@@ -12,26 +12,6 @@
 
 #include "vm.h"
 
-// void		clear_field(t_corewar *c)
-// {
-// 	t_field f;
-
-// 	f.col = 1;
-// 	f.row = 1;
-// 	wattron(c->win.field, 4);
-// 	while (f.row <= MEM_SIZE / 64)
-// 	{
-// 		f.col = 1;
-// 		while (f.col < 193)
-// 		{
-// 			mvwprintw(c->win.field, f.row, f.col, " ");
-// 			f.col++;
-// 		}
-// 		f.row++;
-// 	}
-// 	wattroff(c->win.field, 4);
-// }
-
 int			print_winner_visual(t_corewar *c)
 {
 	int			i;
@@ -77,4 +57,25 @@ int	print_name(t_corewar *c, int row, int i)
 	else
 		mvwprintw(c->win.score, row, 15, "%s", c->players[i]->name);
 	return (row);
+}
+
+void	print_log_row(t_corewar *c, char *str, int row)
+{
+	int col;
+	int j;
+
+	col = 3;
+	j = 0;
+	if (!str)
+		return ;
+	while (str[j] && j <= 64)
+	{
+		if (str[j] != '\n')
+			mvwprintw(c->win.score, row, col, "%c", str[j]);
+		else
+			mvwprintw(c->win.score, row, col, "%c", "");
+		col++;
+		j++;
+	}
+
 }
