@@ -58,14 +58,12 @@ int		print_x_chars(t_corewar *c, char *str, int row, t_field f)
 	return (start);
 }
 
-int			print_max(t_corewar *c, int row, char *str)
+int			print_max(t_corewar *c, int row, char *str, int len)
 {
-	int len;
 	t_field	f;
 
 	f.col = 0;
 	f.row = 52;
-	len = ft_strlen(str);
 	if (len > 52 && len < 104)
 	{
 		f.col = print_x_chars(c, str, row, f);
