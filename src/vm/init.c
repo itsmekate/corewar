@@ -71,7 +71,11 @@ static void			get_starts(t_corewar *corewar)
 	int		i;
 
 	if (!corewar->players_num)
-		return ;
+	{
+		usage("corewar");
+		clear_corewar(&corewar);
+		exit(0);
+	}
 	step = MEM_SIZE / corewar->players_num;
 	i = 0;
 	while (i < corewar->players_num)
@@ -99,8 +103,8 @@ t_corewar			*create_corewar(char **agrv)
 				num = 0;
 			}
 			else if (flag == 1)
-				num = flag_value_handler(&agrv);
-			else
+				num = handle_player_number(&agrv);
+			else 
 				flag_handler(flag, &agrv, res);
 		}
 		get_starts(res);

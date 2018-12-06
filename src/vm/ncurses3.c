@@ -79,10 +79,7 @@ void			print_visual_log(t_corewar *c)
 		while (tmp && i++ < n)
 		{
 			clear_row(c->win.score, row -= 1);
-			if (ft_strcmp(tmp->content, "\n") != 0)
-				mvwprintw(c->win.score, row, 3, "%.65s", tmp->content);
-			else
-				mvwprintw(c->win.score, row, 3, "");
+			print_log_row(c, tmp->content, row);
 			tmp = tmp->next;
 		}
 	}

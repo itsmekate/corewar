@@ -44,6 +44,24 @@ static int		is_exist(t_corewar *corewar, int num)
 	return (0);
 }
 
+static void		wrong_champ_number(t_corewar *corewar, int num)
+{
+	num = num == -1 ? 0 : num;
+	ft_putstr_fd("ERROR: Wrong champion number: ", 2);
+	ft_putnbr_fd(num, 2);
+	ft_putstr_fd("\n", 2);
+	clear_corewar(&corewar);
+	exit(0);
+}
+
+int				handle_player_number(char ***argv)
+{
+	int res;
+
+	res = flag_value_handler(argv);
+	return (res ? res : -1);
+}
+
 int				get_number(t_corewar *corewar, int num)
 {
 	int ret;
@@ -61,13 +79,7 @@ int				get_number(t_corewar *corewar, int num)
 		return (ret);
 	}
 	ret = num;
-	if (is_exist(corewar, ret))
-	{
-		ft_putstr_fd("ERROR: Wrong champion number: ", 2);
-		ft_putnbr_fd(num, 2);
-		ft_putstr_fd("\n", 2);
-		clear_corewar(&corewar);
-		exit(0);
-	}
+	if (is_exist(corewar, ret) || num < 0 || num > 200)
+		wrong_champ_number(corewar, num);
 	return (ret);
 }
