@@ -17,7 +17,7 @@ static void			log_alive(t_corewar *corewar, t_player *player)
 	char			*number;
 	char			*msg;
 
-	if (corewar->verbal & L_LIVE && corewar->cycle > corewar->start)
+	if (corewar->verbal & L_LIVE && corewar->cycle >= corewar->start)
 	{
 		number = ft_itoa(player->number);
 		msg = log_func(5, "Player ", number, " (", player->name,
@@ -54,7 +54,7 @@ static void			log(t_corewar *corewar, int player, int process)
 	char			*log_process;
 	char			*msg;
 
-	if (corewar->verbal & L_FUNC && corewar->cycle > corewar->start)
+	if (corewar->verbal & L_FUNC && corewar->cycle >= corewar->start)
 	{
 		log_player = ft_itoa(player);
 		log_process = ft_itoa_base(process, 10, 0);
