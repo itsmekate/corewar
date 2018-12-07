@@ -53,13 +53,11 @@ void		get_asm(t_lst **list, t_asm *a)
 {
 	if (!name_comment(list, a, 0, 0))
 	{
-		// system("leaks asm");
 		exit(0);
 	}
 	get_t_op(a);
 	if (!validation_commands(list, a))
 	{
-		// system("leaks asm");
 		exit(0);
 	}
 }
@@ -87,6 +85,5 @@ int			main(int argc, char **argv)
 	list = ft_read(argv[arg], list, 1);
 	get_asm(&list, &a);
 	(k == 1) ? a_bonus(a) : create_file(a, argv[arg]);
-	// system("leaks asm");
 	return (0);
 }
