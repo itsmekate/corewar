@@ -28,7 +28,7 @@ SRC = 	main.c \
 OBJ_DIR = ../../obj/
 OBJ_VM = $(OBJ_DIR)vm/
 VISUAL_FLAG = -lncurses
-VISUAL_SRC =  ncurses.c ncurses2.c ncurses3.c ncurses4.c
+VISUAL_SRC =  ncurses.c ncurses2.c ncurses3.c ncurses4.c ncurses_exit.c
 OBJ = $(addprefix $(OBJ_VM), $(SRC:.c=.o))
 VISUAL_OBJ = $(addprefix $(OBJ_VM), $(VISUAL_SRC:.c=.o))
 LIB = ../libft/libft.a

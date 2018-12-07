@@ -12,18 +12,27 @@
 
 #include "vm.h"
 
-void			clear_row(WINDOW *win, int y)
+void			print_new(t_corewar *c, int i, t_field f)
 {
-	int x;
+	init_pair(c->map[i].player->number + 10,
+		get_color(c->map[i].player->number), COLOR_BLACK);
+	wattron(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
+	wattron(c->win.field, A_BOLD);
+	mvwprintw(c->win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
+	wattroff(c->win.field, A_BOLD);
+	wattroff(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
+}
 
-	x = 1;
-	while (x < 66)
-	{
-		wattron(win, 4);
-		mvwprintw(win, y, x, " ");
-		wattroff(win, 4);
-		x++;
-	}
+void			print_sidebar2(t_corewar *c)
+{
+	print_visual_log(c);
+	wattron(c->win.score, COLOR_PAIR(3));
+	mvwprintw(c->win.score, c->win.h - 7, 0, "%s%s",
+		"                                   ",
+		"                                   ");
+	wattroff(c->win.score, COLOR_PAIR(3));
+	mvwprintw(c->win.score, c->win.h - 5, 3, "%s", "USE Q TO EXIT");
+	mvwprintw(c->win.score, c->win.h - 4, 3, "%s", "USE D FOR DEBUG MODE");
 }
 
 void			print_sidebar(t_corewar *c)
@@ -52,14 +61,7 @@ void			print_sidebar(t_corewar *c)
 		"                                 LOG",
 		"                                  ");
 	wattroff(c->win.score, COLOR_PAIR(3));
-	print_visual_log(c);
-	wattron(c->win.score, COLOR_PAIR(3));
-	mvwprintw(c->win.score, c->win.h - 7, 0, "%s%s",
-		"                                   ",
-		"                                   ");
-	wattroff(c->win.score, COLOR_PAIR(3));
-	mvwprintw(c->win.score, c->win.h - 5, 3, "%s", "USE Q TO EXIT");
-	mvwprintw(c->win.score, c->win.h - 4, 3, "%s", "USE D FOR DEBUG MODE");
+	print_sidebar2(c);
 }
 
 void			print_visual_log(t_corewar *c)

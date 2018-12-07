@@ -25,13 +25,6 @@ static	void	draw_borders(t_window win)
 	init_pair(4, COLOR_BLACK, COLOR_BLACK);
 }
 
-void			del_visual(t_window win)
-{
-	delwin(win.field);
-	delwin(win.score);
-	endwin();
-}
-
 void			create_win(t_window *win)
 {
 	int score_size;
@@ -44,43 +37,10 @@ void			create_win(t_window *win)
 	win->h = (MEM_SIZE / 64) + 2;
 	win->field = newwin(win->h, 195, 0, 0);
 	win->score = newwin(win->h, score_size, 0, 196);
+	win->popup = newwin(10, 152, 20, 25);
+	nodelay(win->popup, true);
 	nodelay(win->field, true);
 	nodelay(win->score, true);
-}
-
-int				exit_visual(t_corewar *c)
-{
-	int i;
-
-	i = wgetch(c->win.field);
-	if (i == 32 && c->pause == 0)
-	{
-		mvwprintw(c->win.score, 1, 3, "%s", "** PAUSED  **");
-		mvwprintw(c->win.score, c->win.h - 3, 3, "%s", "USE SPACE TO CONTINUE");
-		wrefresh(c->win.score);
-		c->pause = 1;
-	}
-	else if (i == 'd')
-	{
-		if (c->debug)
-		{
-			c->debug = 0;
-			visualize(c);
-		}
-		else
-		{
-			c->debug = 1;
-			visualize(c);
-		}
-	}
-	else if (i == 32 && c->pause)
-		c->pause = 0;
-	else if (i == 113)
-	{
-		del_visual(c->win);
-		exit(0);
-	}
-	return (c->pause);
 }
 
 int				visualize(t_corewar *c)

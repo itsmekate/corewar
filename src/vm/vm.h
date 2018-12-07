@@ -64,6 +64,7 @@ typedef struct		s_window
 {
 	WINDOW			*field;
 	WINDOW			*score;
+	WINDOW			*popup;
 	int				h;
 	int				score_row;
 }					t_window;
@@ -158,8 +159,6 @@ int					is_number(char *s);
 */
 int					visualize(t_corewar *c);
 void				create_win(t_window *win);
-void				del_visual(t_window win);
-int					exit_visual(t_corewar *c);
 
 /*
 **ncurses2.c
@@ -172,14 +171,21 @@ void				print_field(t_corewar *c);
 void				print_visual_log(t_corewar *c);
 void				print_sidebar(t_corewar *c);
 int					print_players(t_corewar *c);
+void				print_new(t_corewar *c, int i, t_field f);
 
 /*
 **ncurses4.c
 */
 int					print_winner_visual(t_corewar *c);
-void				clear_field(t_corewar *c);
 int					print_max(t_corewar *c, int row, char *str, int len);
 void				print_log_row(t_corewar *c, char *str, int row);
+
+/*
+**ncurses_exit.c
+*/
+void				clear_row(WINDOW *win, int y);
+void				del_visual(t_window win);
+int					exit_visual(t_corewar *c);
 
 /*
 **info.c

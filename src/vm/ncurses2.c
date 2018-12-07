@@ -12,17 +12,6 @@
 
 #include "vm.h"
 
-static	void	print_new(t_corewar *c, int i, t_field f)
-{
-	init_pair(c->map[i].player->number + 10,
-		get_color(c->map[i].player->number), COLOR_BLACK);
-	wattron(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
-	wattron(c->win.field, A_BOLD);
-	mvwprintw(c->win.field, f.row, f.col, "%02x ", c->map[i].value & 0xff);
-	wattroff(c->win.field, A_BOLD);
-	wattroff(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
-}
-
 static	void	print_carriage(t_corewar *c, int i, t_field f)
 {
 	init_pair(c->map[i].player->number + 16, COLOR_BLACK,
@@ -50,9 +39,34 @@ static	void	print_old(t_corewar *c, int i, t_field f)
 	wattroff(c->win.field, COLOR_PAIR(c->map[i].player->number + 10));
 }
 
+t_field			print_field2(t_corewar *c, t_field f, int i)
+{
+	if (i % 64 == 0)
+	{
+		f.row++;
+		f.col = 2;
+	}
+	if (c->map[i].player != NULL && c->map[i].is_new != 0
+		&& c->map[i].process == NULL)
+	{
+		print_new(c, i, f);
+		c->map[i].is_new--;
+	}
+	else if (c->map[i].player != NULL && c->map[i].process != NULL)
+		print_carriage(c, i, f);
+	else if (c->map[i].player == NULL && c->map[i].process != NULL)
+		print_carriage_empty(c, i, f);
+	else if (c->map[i].player != NULL)
+		print_old(c, i, f);
+	else
+		mvwprintw(c->win.field, f.row, f.col,
+			"%02x ", c->map[i].value & 0xff);
+	return (f);
+}
+
 void			print_field(t_corewar *c)
 {
-	t_field f;
+	t_field	f;
 	int		i;
 
 	i = 0;
@@ -60,26 +74,7 @@ void			print_field(t_corewar *c)
 	f.row = 0;
 	while (i < MEM_SIZE)
 	{
-		if (i % 64 == 0)
-		{
-			f.row++;
-			f.col = 2;
-		}
-		if (c->map[i].player != NULL && c->map[i].is_new != 0
-			&& c->map[i].process == NULL)
-		{
-			print_new(c, i, f);
-			c->map[i].is_new--;
-		}
-		else if (c->map[i].player != NULL && c->map[i].process != NULL)
-			print_carriage(c, i, f);
-		else if (c->map[i].player == NULL && c->map[i].process != NULL)
-			print_carriage_empty(c, i, f);
-		else if (c->map[i].player != NULL)
-			print_old(c, i, f);
-		else
-			mvwprintw(c->win.field, f.row, f.col,
-				"%02x ", c->map[i].value & 0xff);
+		f = print_field2(c, f, i);
 		i++;
 		f.col += 3;
 	}
