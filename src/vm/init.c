@@ -65,14 +65,17 @@ static void			set_exec(t_corewar *corewar, t_player *player)
 		create_process(player->start, player, corewar)));
 }
 
-static void			get_starts(t_corewar *corewar)
+static void			get_starts(t_corewar *corewar, int num)
 {
 	int		step;
 	int		i;
 
-	if (!corewar->players_num)
+	if (!corewar->players_num || num)
 	{
-		usage("corewar");
+		if (num)
+			ft_putendl_fd("ERROR: flag -n N may precede player", 2);
+		else
+			usage("corewar");
 		clear_corewar(&corewar);
 		exit(0);
 	}
@@ -107,7 +110,7 @@ t_corewar			*create_corewar(char **agrv)
 			else
 				flag_handler(flag, &agrv, res);
 		}
-		get_starts(res);
+		get_starts(res, num);
 		init_commands(res);
 		if (res->visual_mode && res->players_num)
 			create_win(&res->win);
