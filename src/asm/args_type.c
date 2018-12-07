@@ -41,7 +41,7 @@ void		arg_reg(t_args *t, int j, int *i, t_lst *l)
 		(*i)++;
 		if (t->arg_arr[j].value < 0 || t->arg_arr[j].value > 99)
 		{
-			ft_printf("T_REG arg should be from 0 to 99: line %d", l->n_str);
+			ft_printf("T_REG arg should be from 0 to 99: line %d\n", l->n_str);
 			exit(0);
 		}
 	}

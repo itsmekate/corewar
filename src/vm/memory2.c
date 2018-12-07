@@ -79,7 +79,6 @@ void		kill_process(t_corewar *corewar, t_process *process)
 			corewar->map[get_index(pr->position)].process = NULL;
 			clear_process(&pr, sizeof(t_process));
 			free(lst);
-			lst = NULL;
 			return ;
 		}
 		lst0 = lst;
